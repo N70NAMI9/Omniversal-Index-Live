@@ -1,25 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N7 OMNIVERSAL MATRIX | KALYUG NODE</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@100;400;700&display=swap');
+        
+        body {
+            background-color: #030303;
+            color: #d1d1d1;
+            font-family: 'JetBrains Mono', monospace;
+            margin: 0; padding: 0;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 50% 0%, #1a1f24 0%, #030303 70%),
+                linear-gradient(rgba(0, 255, 204, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 204, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 30px 30px, 30px 30px;
+        }
+        .hud-container {
+            width: 90%; max-width: 1200px;
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 50px; position: relative;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+        }
+        .hud-container::before {
+            content: ''; position: absolute; top: -2px; left: -2px; width: 20px; height: 20px;
+            border-top: 2px solid #00ffcc; border-left: 2px solid #00ffcc;
+        }
+        .hud-container::after {
+            content: ''; position: absolute; bottom: -2px; right: -2px; width: 20px; height: 20px;
+            border-bottom: 2px solid #00ffcc; border-right: 2px solid #00ffcc;
+        }
+        .header {
+            font-family: 'Syncopate', sans-serif; font-size: 0.8rem; letter-spacing: 5px;
+            color: #777; display: flex; justify-content: space-between;
+            border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; margin-bottom: 40px;
+        }
+        .blink-status { color: #00ffcc; animation: blink 2s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        
+        .grid-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        
+        .visual-box {
+            border: 1px solid #333; position: relative; overflow: hidden;
+            background: #000; display: flex; align-items: center; justify-content: center;
+        }
+        .visual-box img {
+            width: 100%; height: auto; display: block;
+            filter: contrast(115%) grayscale(20%); transition: all 0.5s ease;
+        }
+        .visual-box img:hover { filter: contrast(125%) grayscale(0%); transform: scale(1.02); }
+        .visual-overlay {
+            position: absolute; top: 10px; left: 10px; color: #00ffcc;
+            font-size: 0.6rem; letter-spacing: 2px; background: rgba(0,0,0,0.7); padding: 5px 10px;
+        }
 
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Omniversal Index</title>
-        <style>
-            body { background-color: #0a0a0a; color: #00ffcc; font-family: 'Courier New', monospace; padding: 40px; }
-            h1 { color: #ffffff; border-bottom: 2px solid #00ffcc; padding-bottom: 10px; }
-            .data-box { border: 1px solid #333; padding: 20px; background-color: #111; margin-top: 20px; }
-            .timestamp { color: #ff0055; font-size: 0.9em; }
-        </style>
-    </head>
-    <body>
-        <h1>OMNIVERSAL INDEX: LIVE MATRIX</h1>
-        <p class="timestamp">LAST SYNC: 2026-05-08 08:46:48 | NODE: Kalyug_Omni_Node</p>
-        <div class="data-box">
-            <h2>TARGET LOGISTICS DETECTED:</h2>
-            <p style="color: #fff;">KALYUG NODE ERROR: AI API OFFLINE</p>
-            <br>
-            <a href="https://en.wikipedia.org/wiki/Animal_rescue" style="color: #00ffcc;">[View Source Radar]</a>
+        .data-box { display: flex; flex-direction: column; justify-content: center; }
+        h1 { font-family: 'Syncopate', sans-serif; font-size: 2.2rem; color: #fff; margin: 0 0 20px 0; letter-spacing: 2px; }
+        p { font-size: 1rem; line-height: 1.8; color: #aaa; margin-bottom: 30px; font-weight: 300; }
+        
+        .meta-tags { display: flex; gap: 15px; margin-bottom: 40px; }
+        .tag { border: 1px solid #333; padding: 5px 10px; font-size: 0.7rem; color: #888; }
+        
+        .btn {
+            display: inline-block; padding: 15px 30px; border: 1px solid #00ffcc;
+            color: #00ffcc; text-decoration: none; font-size: 0.8rem; letter-spacing: 3px;
+            text-transform: uppercase; transition: all 0.3s; width: fit-content;
+        }
+        .btn:hover { background: #00ffcc; color: #000; box-shadow: 0 0 15px rgba(0,255,204,0.4); }
+
+        #loading { text-align: center; color: #00ffcc; letter-spacing: 5px; font-size: 1.5rem; }
+    </style>
+</head>
+<body>
+
+    <div id="loading">CONNECTING TO N7 MAINFRAME...</div>
+
+    <div class="hud-container" id="matrix-hud" style="display: none;">
+        <div class="header">
+            <span>NODE: N7_KALYUG_PHASE_ONE</span>
+            <span class="blink-status" id="sync-time">● AWAITING SYNC</span>
         </div>
-    </body>
-    </html>
-    
+
+        <div class="grid-layout">
+            <div class="visual-box">
+                <div class="visual-overlay">REC // 16-BIT RAW</div>
+                <img id="kalyug-image" src="" alt="N7 Rendered Asset">
+            </div>
+
+            <div class="data-box">
+                <h1>TACTICAL LOGISTICS</h1>
+                <div class="meta-tags">
+                    <span class="tag">OPTICS: HASSELBLAD/PHASE ONE</span>
+                    <span class="tag">ENVIRONMENT: EXTREME REALISM</span>
+                </div>
+                <p id="kalyug-text">Injecting data payload...</p>
+                
+                <a href="#" id="source-link" class="btn" target="_blank">INITIATE RADAR LINK</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        fetch('matrix_data.json')
+            .then(response => {
+                if (!response.ok) throw new Error("Matrix Data Offline");
+                return response.json();
+            })
+            .then(data => {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('matrix-hud').style.display = 'block';
+                
+                document.getElementById('sync-time').innerText = "● SYNC: " + data.sync_time;
+                document.getElementById('kalyug-text').innerText = data.logistics_data;
+                document.getElementById('kalyug-image').src = data.visual_asset;
+                document.getElementById('source-link').href = data.source_radar;
+            })
+            .catch(error => {
+                document.getElementById('loading').innerText = "ERROR 404: N7 ENGINE OFFLINE. AWAITING DATA INJECTION.";
+                document.getElementById('loading').style.color = "red";
+            });
+    </script>
+</body>
+</html>
