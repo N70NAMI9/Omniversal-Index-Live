@@ -3,171 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>N7 // KALYUG_MAINFRAME</title>
+    <title>N7 // 0x00A1</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Share+Tech+Mono&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
         
         body {
-            background-color: #010101;
-            color: #00ffcc;
+            background-color: #000; color: #00ffcc;
             font-family: 'Share Tech Mono', monospace;
-            margin: 0; padding: 0;
-            display: flex; justify-content: center; align-items: center;
-            min-height: 100vh;
-            background-image: 
-                radial-gradient(circle at 50% 50%, #050a0a 0%, #000000 90%),
-                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 255, 204, 0.02) 2px, rgba(0, 255, 204, 0.02) 4px);
-            overflow: hidden;
-        }
-        
-        .glitch-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 999;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
-            background-size: 100% 4px; opacity: 0.3;
+            margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh;
+            background-image: repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0, 255, 204, 0.05) 1px, transparent 2px);
+            background-size: 100% 3px;
         }
 
-        .hud-container {
-            width: 95%; max-width: 1300px;
-            border: 1px solid rgba(0, 255, 204, 0.1);
-            background: rgba(2, 2, 2, 0.9);
-            padding: 60px; position: relative;
-            box-shadow: inset 0 0 50px rgba(0, 0, 0, 1);
+        .matrix-container {
+            width: 90%; max-width: 1100px;
+            border: 1px solid #111; padding: 40px; background: rgba(5, 5, 5, 0.95);
+            position: relative; box-shadow: 0 0 40px #000;
         }
 
-        .hud-container::before {
-            content: '[ N7_CORE ]'; position: absolute; top: -10px; left: 20px;
-            background: #010101; padding: 0 10px; font-size: 0.7rem; letter-spacing: 4px; color: #555;
+        /* Top Bar - Encrypted Identity */
+        .top-bar {
+            font-size: 0.6rem; letter-spacing: 5px; color: #333;
+            border-bottom: 1px solid #111; padding-bottom: 10px; margin-bottom: 30px;
+            display: flex; justify-content: space-between;
         }
 
-        .header {
-            font-family: 'Syncopate', sans-serif; font-size: 0.7rem; letter-spacing: 6px;
-            color: #444; display: flex; justify-content: space-between;
-            border-bottom: 1px dashed rgba(0,255,204,0.2); padding-bottom: 20px; margin-bottom: 50px;
+        .main-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+
+        /* Visual Frame */
+        .visual-frame {
+            border: 1px solid #111; background: #020202; position: relative;
+            min-height: 300px; display: flex; align-items: center; justify-content: center;
         }
+        .visual-frame img { width: 100%; height: auto; opacity: 0.8; filter: grayscale(1) contrast(1.2); }
+        .corner-tag { position: absolute; top: 10px; left: 10px; font-size: 0.5rem; color: #00ffcc; background: #000; padding: 2px 8px; }
+
+        /* Data Stream */
+        .data-stream { display: flex; flex-direction: column; justify-content: space-between; }
         
-        .blink-status { color: #ff003c; animation: pulse 1.5s infinite; text-shadow: 0 0 10px rgba(255,0,60,0.5); }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        /* THE SECRET CODES (Stealth Labels) */
+        .hex-header { font-size: 1.5rem; color: #fff; margin: 0; letter-spacing: 3px; }
+        .status-bits { font-size: 0.65rem; color: #444; margin-bottom: 20px; }
         
-        .grid-layout { display: grid; grid-template-columns: 1.2fr 1fr; gap: 50px; }
-        
-        .visual-box {
-            border: 1px solid #111; position: relative; overflow: hidden;
-            background: #050505; min-height: 350px; display: flex; align-items: center; justify-content: center;
-        }
-        
-        .visual-box img {
-            width: 100%; height: auto; display: block;
-            filter: contrast(130%) brightness(0.8) grayscale(30%);
-        }
-        
-        /* Fallback for broken image */
-        .visual-box img[src=""], .visual-box img:not([src]) { opacity: 0; }
-        .visual-box::after {
-            content: 'NO OPTICAL DATA // AWAITING 16-BIT RENDER';
-            position: absolute; color: #333; font-size: 0.8rem; letter-spacing: 4px; z-index: -1;
+        .payload-text { 
+            font-size: 0.9rem; line-height: 1.8; color: #888; 
+            padding: 15px; border-left: 2px solid #222; background: rgba(255,255,255,0.02);
         }
 
-        .visual-overlay {
-            position: absolute; top: 15px; left: 15px; color: #00ffcc;
-            font-size: 0.55rem; letter-spacing: 3px; background: rgba(0,0,0,0.8); padding: 5px 15px;
-            border-left: 2px solid #00ffcc;
+        .btn-stealth {
+            display: inline-block; margin-top: 30px; padding: 12px 25px;
+            border: 1px solid #222; color: #555; text-decoration: none;
+            font-size: 0.65rem; letter-spacing: 4px; transition: 0.3s;
         }
+        .btn-stealth:hover { border-color: #00ffcc; color: #00ffcc; background: rgba(0,255,204,0.05); }
 
-        .data-box { display: flex; flex-direction: column; justify-content: center; }
-        
-        h1 { 
-            font-family: 'Syncopate', sans-serif; font-size: 1.8rem; color: #fff; 
-            margin: 0 0 15px 0; letter-spacing: 4px; text-transform: uppercase;
-            text-shadow: 2px 2px 0px rgba(0,255,204,0.2);
-        }
-        
-        .meta-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 40px; }
-        .tag { background: #0a0a0a; border: 1px solid #222; padding: 6px 12px; font-size: 0.65rem; color: #666; letter-spacing: 2px; }
-        
-        p { font-size: 0.95rem; line-height: 2; color: #999; margin-bottom: 40px; letter-spacing: 1px; }
-        
-        .error-text { color: #ff003c; text-shadow: 0 0 5px rgba(255,0,60,0.4); }
-
-        .btn {
-            display: inline-block; padding: 15px 40px; border: 1px solid rgba(0,255,204,0.3);
-            color: #00ffcc; text-decoration: none; font-size: 0.7rem; letter-spacing: 5px;
-            text-transform: uppercase; transition: all 0.2s; width: fit-content;
-            background: rgba(0, 255, 204, 0.02);
-        }
-        .btn:hover { background: rgba(0, 255, 204, 0.1); border-color: #00ffcc; text-shadow: 0 0 8px #00ffcc; }
-
-        #loading { text-align: center; color: #00ffcc; letter-spacing: 8px; font-size: 1.2rem; }
+        #loading { font-size: 0.8rem; letter-spacing: 10px; color: #00ffcc; }
     </style>
 </head>
 <body>
 
-    <div class="glitch-overlay"></div>
-    <div id="loading">INITIALIZING KALYUG NEURAL PROTOCOL...</div>
+    <div id="loading">RUNNING_N7_BOOT_SEQUENCE...</div>
 
-    <div class="hud-container" id="matrix-hud" style="display: none;">
-        <div class="header">
-            <span>IDENT: NODE_7 // OMNI_GRID</span>
-            <span class="blink-status" id="sync-time">TEMPORAL ANCHOR: PENDING</span>
+    <div class="matrix-container" id="main-ui" style="display: none;">
+        <div class="top-bar">
+            <span>ID: 0xN7_OMNI</span>
+            <span id="ts">ANCHOR: --:--:--</span>
         </div>
 
-        <div class="grid-layout">
-            <div class="visual-box">
-                <div class="visual-overlay">SYS_OPTIC // CALIBRATING</div>
-                <img id="kalyug-image" src="" alt="" onerror="this.style.display='none'">
+        <div class="main-grid">
+            <div class="visual-frame">
+                <div class="corner-tag">S_OPTIC_v.1.0</div>
+                <img id="m-img" src="" alt="">
             </div>
 
-            <div class="data-box">
-                <h1>BIOMECHANIC MICRO-MAP</h1>
-                <div class="meta-tags">
-                    <span class="tag">[ ENCRYPTION: KALYUG-01 ]</span>
-                    <span class="tag">[ RENDER: OPTICOLOR+ ]</span>
-                    <span class="tag">[ TEMPORAL: 0.5s SYNC ]</span>
+            <div class="data-stream">
+                <div>
+                    <h2 class="hex-header">0x7F_KLYG</h2>
+                    <div class="status-bits">STATUS: [ 1011001 ] // ACTIVE_NODE: 0x01</div>
+                    
+                    <div class="payload-text" id="m-text">DECRYPTING_STREAM...</div>
                 </div>
                 
-                <p id="kalyug-text">Injecting encrypted payload...</p>
-                
-                <a href="#" id="source-link" class="btn" target="_blank">>> DECRYPT_RAW_TELEMETRY <<</a>
+                <a href="#" id="m-link" class="btn-stealth">>> EXEC_0x_LINK <<</a>
             </div>
         </div>
     </div>
 
     <script>
-        function fetchMatrixData() {
+        function syncMatrix() {
             fetch('matrix_data.json?' + new Date().getTime())
-                .then(response => {
-                    if (!response.ok) throw new Error("Matrix Data Offline");
-                    return response.json();
-                })
-                .then(data => {
+                .then(r => r.json())
+                .then(d => {
                     document.getElementById('loading').style.display = 'none';
-                    document.getElementById('matrix-hud').style.display = 'block';
+                    document.getElementById('main-ui').style.display = 'block';
                     
-                    // Modify Time Display
-                    document.getElementById('sync-time').innerText = "TEMPORAL ANCHOR // " + data.sync_time;
+                    document.getElementById('ts').innerText = "0x_T: " + d.sync_time;
                     
-                    // GOD-LEVEL ERROR MASKING (Hiding the Secret API Error)
-                    let rawText = data.logistics_data;
-                    if (rawText.includes("API KEY MISSING") || rawText.includes("INVALID") || rawText.includes("404")) {
-                        document.getElementById('kalyug-text').innerHTML = "<span class='error-text'>ERROR 404: [ KALYUG NEURAL NODE UNREACHABLE. AWAITING CORE REBOOT. ]</span>";
+                    // STEALTH ERROR MASKING
+                    let content = d.logistics_data;
+                    if (content.includes("ERROR") || content.includes("OFFLINE") || content.includes("404")) {
+                        document.getElementById('m-text').innerHTML = "<span style='color:#500;'>CRITICAL_ERR: 0x00404 <br> SIGNAL_LOST_IN_TRANSMISSION</span>";
                     } else {
-                        document.getElementById('kalyug-text').innerText = rawText;
+                        document.getElementById('m-text').innerText = content;
                     }
 
-                    // Handle Image
-                    if (data.visual_asset && data.visual_asset !== "N/A") {
-                        document.getElementById('kalyug-image').src = data.visual_asset;
+                    if (d.visual_asset && d.visual_asset !== "N/A") {
+                        document.getElementById('m-img').src = d.visual_asset;
                     }
-                    
-                    // Radar Link
-                    document.getElementById('source-link').href = data.source_radar;
+                    document.getElementById('m-link').href = d.source_radar;
                 })
-                .catch(error => {
-                    document.getElementById('loading').innerHTML = "<span class='error-text'>CRITICAL FAILURE: OMNIVERSAL ENGINE OFFLINE.</span>";
+                .catch(e => {
+                    document.getElementById('loading').innerText = "CONNECTION_REFUSED_BY_HOST";
                 });
         }
-
-        fetchMatrixData();
+        syncMatrix();
     </script>
 </body>
 </html>
