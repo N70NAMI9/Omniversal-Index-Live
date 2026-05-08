@@ -3,107 +3,322 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>N7 // OMNIVERSAL ARCHIVE</title>
+    <title>N7 MATRIX :: CLASSIFIED OMNIVERSAL INDEX</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
-        
+        /* ==========================================================================
+           CSS VARIABLES & GLOBAL RESET
+           ========================================================================== */
+        :root {
+            --bg-color: #050505;
+            --card-bg: #0a0a0a;
+            --neon-green: #00ffcc;
+            --muted-green: rgba(0, 255, 204, 0.2);
+            --font-mono: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ==========================================================================
+           BRUTALIST BODY & SYNTHESIZED DOT GRID
+           ========================================================================== */
         body {
-            background-color: #030303; color: #00ffcc;
-            font-family: 'Share Tech Mono', monospace;
-            margin: 0; padding: 40px;
-            background-image: radial-gradient(rgba(0, 255, 204, 0.05) 1.5px, transparent 1.5px);
-            background-size: 25px 25px;
+            background-color: var(--bg-color);
+            color: var(--neon-green);
+            font-family: var(--font-mono);
+            line-height: 1.6;
+            padding: 40px 20px;
+            
+            /* Synthesized Cartesian Dot Grid via GPU rendering */
+            background-image: radial-gradient(var(--neon-green) 1px, transparent 1px);
+            background-size: 30px 30px;
+            background-position: 0 0;
         }
-        
-        .header {
-            border-bottom: 2px solid #00ffcc; padding-bottom: 20px; margin-bottom: 40px;
-            text-transform: uppercase; text-shadow: 0 0 10px rgba(0,255,204,0.4);
+
+        /* ==========================================================================
+           HEADER TOPOLOGY & STATUS INDICATORS
+           ========================================================================== */
+        header {
+            max-width: 1600px;
+            margin: 0 auto 40px auto;
+            border-bottom: 2px solid var(--neon-green);
+            padding-bottom: 20px;
+            text-transform: uppercase;
         }
-        
-        /* The Math-driven Grid */
-        .grid-container {
+
+        h1 {
+            font-size: 2.5rem;
+            letter-spacing: -1px;
+            font-weight: 700;
+        }
+
+       .sys-status {
+            font-size: 0.9rem;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+       .status-light {
+            width: 12px;
+            height: 12px;
+            background-color: var(--neon-green);
+            box-shadow: 0 0 10px var(--neon-green);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+
+        /* ==========================================================================
+           DYNAMIC GRID ARCHITECTURE
+           ========================================================================== */
+        main {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+       .matrix-grid {
             display: grid;
+            /* Algorithmic tessellation based on viewport width */
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
             gap: 30px;
         }
-        
-        .data-card {
-            background: #060606; border: 1px solid #111;
-            border-left: 3px solid #00ffcc; padding: 25px;
-            box-shadow: inset 0 0 20px rgba(0,0,0,1);
+
+        /* ==========================================================================
+           DATA CARD AESTHETICS (CLASSIFIED DOSSIER)
+           ========================================================================== */
+       .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--neon-green);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 4px 4px 0px var(--muted-green);
+            transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
         }
-        
-        .card-meta { font-size: 0.75rem; color: #555; margin-bottom: 15px; border-bottom: 1px dashed #222; padding-bottom: 10px;}
-        .card-title { font-size: 1.3rem; margin-bottom: 20px; color: #fff; letter-spacing: 2px;}
-        
-        .card-content {
-            font-size: 0.9rem; color: #888; line-height: 1.8;
-            height: 250px; overflow-y: auto; margin-bottom: 20px;
-            white-space: pre-wrap; padding-right: 10px;
+
+       .card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px var(--neon-green);
         }
-        
-        /* Custom Scrollbar for Content Box */
-        .card-content::-webkit-scrollbar { width: 5px; }
-        .card-content::-webkit-scrollbar-thumb { background: #00ffcc; }
-        
-        .btn {
-            display: inline-block; border: 1px solid rgba(0,255,204,0.3);
-            color: #00ffcc; text-decoration: none; font-size: 0.7rem; letter-spacing: 3px;
-            padding: 10px 20px; text-transform: uppercase; background: transparent;
+
+       .card-img-container {
+            width: 100%;
+            height: 220px;
+            border: 1px solid var(--neon-green);
+            overflow: hidden;
+            position: relative;
         }
-        .btn:hover { background: rgba(0,255,204,0.1); }
-        
-        #loading { font-size: 1.5rem; letter-spacing: 5px; animation: blink 1.5s infinite; }
-        @keyframes blink { 50% { opacity: 0.3; } }
+
+       .card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) contrast(1.2);
+            transition: filter 0.3s ease;
+        }
+
+       .card:hover.card-img {
+            filter: grayscale(0%) contrast(1.1);
+        }
+
+       .card-meta {
+            font-size: 0.75rem;
+            border-bottom: 1px dashed var(--muted-green);
+            padding-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+       .card-title {
+            font-size: 1.25rem;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+       .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+       .tag {
+            font-size: 0.7rem;
+            background-color: var(--neon-green);
+            color: var(--bg-color);
+            padding: 2px 6px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+       .card-content {
+            font-size: 0.85rem;
+            max-height: 150px;
+            overflow-y: auto;
+            padding-right: 10px;
+            text-align: justify;
+        }
+
+        /* Brutalist Block Scrollbar */
+       .card-content::-webkit-scrollbar {
+            width: 5px;
+        }
+       .card-content::-webkit-scrollbar-track {
+            background: var(--bg-color);
+            border-left: 1px solid var(--muted-green);
+        }
+       .card-content::-webkit-scrollbar-thumb {
+            background: var(--neon-green);
+        }
+
+       .error-log {
+            grid-column: 1 / -1;
+            border: 2px dashed #ff3333;
+            color: #ff3333;
+            padding: 20px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        /* ==========================================================================
+           MOBILE VIEWPORT OPTIMIZATION
+           ========================================================================== */
+        @media (max-width: 480px) {
+           .matrix-grid {
+                grid-template-columns: 1fr;
+            }
+            body { padding: 20px 10px; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>N7 // DECOUPLED ARCHIVE MATRIX</h1>
-    </div>
+    <header>
+        <h1>N7_MATRIX // OMNIVERSAL_INDEX</h1>
+        <div class="sys-status">
+            <div class="status-light"></div>
+            <span>LIVE TELEMETRY FEED :: HIGHLY ENCRYPTED</span>
+        </div>
+    </header>
 
-    <div id="loading">FETCHING SECURE DATA ARRAY...</div>
-    
-    <div class="grid-container" id="matrix-grid"></div>
+    <main>
+        <div id="matrix-container" class="matrix-grid">
+            </div>
+    </main>
 
     <script>
-        fetch('matrix_data.json?' + new Date().getTime())
-            .then(res => res.json())
-            .then(dataArray => {
-                document.getElementById('loading').style.display = 'none';
-                const grid = document.getElementById('matrix-grid');
-                
-                // Ensure the backend successfully created an array
-                if(Array.isArray(dataArray)) {
-                    // Reverse to show the newest generated article first
-                    dataArray.reverse().forEach(entry => {
+        // ==========================================================================
+        // N7 MATRIX CORE DOM HYDRATION SCRIPT
+        // ==========================================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('matrix-container');
+            const dataSource = 'matrix_data.json';
+
+            /**
+             * Formats an ISO 8601 timestamp into a tactical military date string.
+             */
+            const formatTime = (isoString) => {
+                const date = new Date(isoString);
+                return date.toISOString().replace('T', ' ').substring(0, 19) + 'Z';
+            };
+
+            /**
+             * Fetches, inverses, and hydrates the DOM with the JSON array payload.
+             */
+            const hydrateMatrix = async () => {
+                try {
+                    // Aggressive cache-busting ensures the absolute latest array is fetched
+                    const timestampQuery = new Date().getTime();
+                    const response = await fetch(`${dataSource}?t=${timestampQuery}`);
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status} :: CRITICAL DATA NODE UNREACHABLE`);
+                    }
+
+                    const data = await response.json();
+
+                    // Schema validation check
+                    if (!Array.isArray(data) |
+
+| data.length === 0) {
+                        throw new Error("DATABASE IS EMPTY OR CORRUPTED.");
+                    }
+
+                    // Reverse array chronologically to position newest records at the top
+                    const chronologicalData = data.reverse();
+
+                    // Procedural DOM Assembly Loop
+                    chronologicalData.forEach(entry => {
+                        const card = document.createElement('article');
+                        card.className = 'card';
+
+                        // Meta Bar construction (ID & UTC Time)
+                        const meta = document.createElement('div');
+                        meta.className = 'card-meta';
+                        meta.innerHTML = `<span>ID: ${entry.id.substring(0,8)}</span><span>${formatTime(entry.timestamp)}</span>`;
+
+                        // Image Asset Container
+                        const imgContainer = document.createElement('div');
+                        imgContainer.className = 'card-img-container';
+                        const img = document.createElement('img');
+                        img.className = 'card-img';
+                        img.src = entry.image_url;
+                        img.alt = entry.title;
                         
-                        // Handle potential 404 strings injected by the python error block
-                        let contentDisplay = entry.content;
-                        if(contentDisplay.includes("ERROR 404")) {
-                            contentDisplay = `<span style="color:#ff003c;">${contentDisplay}</span>`;
+                        // Performance optimization: defer image download until intersected by viewport
+                        img.loading = 'lazy'; 
+                        imgContainer.appendChild(img);
+
+                        // Card Title
+                        const title = document.createElement('h2');
+                        title.className = 'card-title';
+                        title.textContent = entry.title;
+
+                        // Taxonomic Tags Mapping
+                        const tagWrapper = document.createElement('div');
+                        tagWrapper.className = 'card-tags';
+                        if (entry.category_tags && Array.isArray(entry.category_tags)) {
+                            entry.category_tags.forEach(tagText => {
+                                const tag = document.createElement('span');
+                                tag.className = 'tag';
+                                tag.textContent = tagText;
+                                tagWrapper.appendChild(tag);
+                            });
                         }
 
-                        // Build the card HTML dynamically
-                        const cardHTML = `
-                            <div class="data-card">
-                                <div class="card-meta">ID: ${entry.id} | SYNC: ${entry.timestamp} <br> ${entry.category}</div>
-                                <div class="card-title">${entry.title}</div>
-                                <div class="card-content">${contentDisplay}</div>
-                                <a href="${entry.source_radar}" target="_blank" class="btn">>> DECRYPT RADAR SOURCE <<</a>
-                            </div>
-                        `;
-                        grid.insertAdjacentHTML('beforeend', cardHTML);
+                        // Blueprint Body Content (secured via textContent)
+                        const content = document.createElement('div');
+                        content.className = 'card-content';
+                        content.textContent = entry.content; 
+
+                        // Inject assembled nodes structurally into the primary article card
+                        card.append(meta, imgContainer, title, tagWrapper, content);
+                        
+                        // Hydrate the main DOM container
+                        container.appendChild(card);
                     });
-                } else {
-                    // Fallback if data is corrupt
-                    grid.innerHTML = `<h2 style="color:#ff003c;">ERROR: DATABASE IS NOT AN ARRAY.</h2>`;
+
+                } catch (error) {
+                    console.error("DOM Hydration Sequence Failed:", error);
+                    // Render fallback error topography to prevent an empty screen
+                    container.innerHTML = `<div class="error-log">CRITICAL ERROR: ${error.message}<br>RETRYING CONNECTION OR AWAITING MANUAL OVERRIDE...</div>`;
                 }
-            })
-            .catch(err => {
-                document.getElementById('loading').innerHTML = `<span style="color:#ff003c;">CRITICAL FAILURE: MATRIX JSON NOT FOUND.</span>`;
-            });
+            };
+
+            // Initiate the engine
+            hydrateMatrix();
+        });
     </script>
 </body>
 </html>
