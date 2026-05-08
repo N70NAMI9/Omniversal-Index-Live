@@ -3,162 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>N7</title>
+    <title>N7 // OMNIVERSAL ARCHIVE</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Share+Tech+Mono&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
         
         body {
-            background-color: #010101;
-            color: #00ffcc;
+            background-color: #030303; color: #00ffcc;
             font-family: 'Share Tech Mono', monospace;
-            margin: 0; padding: 0;
-            display: flex; justify-content: center; align-items: center;
-            min-height: 100vh;
-            background-image: 
-                radial-gradient(circle at 50% 50%, #030606 0%, #000000 100%),
-                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 255, 204, 0.01) 2px, rgba(0, 255, 204, 0.01) 4px);
-            overflow: hidden;
+            margin: 0; padding: 40px;
+            background-image: radial-gradient(rgba(0, 255, 204, 0.05) 1.5px, transparent 1.5px);
+            background-size: 25px 25px;
         }
         
-        .glitch-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 999;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
-            background-size: 100% 4px; opacity: 0.2;
-        }
-
-        .hud-container {
-            width: 95%; max-width: 1200px;
-            border: 1px solid rgba(0, 255, 204, 0.05);
-            background: rgba(1, 1, 1, 0.95);
-            padding: 60px; position: relative;
-            box-shadow: inset 0 0 30px rgba(0, 0, 0, 1);
-        }
-
-        .hud-container::before {
-            content: '[ N7 ]'; position: absolute; top: -10px; left: 20px;
-            background: #010101; padding: 0 10px; font-size: 0.65rem; letter-spacing: 5px; color: #333;
-        }
-
         .header {
-            font-family: 'Syncopate', sans-serif; font-size: 0.65rem; letter-spacing: 6px;
-            color: #333; display: flex; justify-content: space-between;
-            border-bottom: 1px dashed rgba(0,255,204,0.1); padding-bottom: 20px; margin-bottom: 40px;
+            border-bottom: 2px solid #00ffcc; padding-bottom: 20px; margin-bottom: 40px;
+            text-transform: uppercase; text-shadow: 0 0 10px rgba(0,255,204,0.4);
         }
         
-        .blink-status { color: #ff003c; animation: pulse 2s infinite; text-shadow: 0 0 8px rgba(255,0,60,0.3); }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.1; } }
-        
-        .grid-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-        
-        .visual-box {
-            border: 1px solid #0a0a0a; position: relative; overflow: hidden;
-            background: #020202; min-height: 350px; display: flex; align-items: center; justify-content: center;
+        /* The Math-driven Grid */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
         }
         
-        .visual-box img {
-            width: 100%; height: auto; display: block;
-            filter: contrast(140%) brightness(0.7) grayscale(40%);
+        .data-card {
+            background: #060606; border: 1px solid #111;
+            border-left: 3px solid #00ffcc; padding: 25px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,1);
         }
         
-        .visual-box img[src=""], .visual-box img:not([src]) { opacity: 0; }
+        .card-meta { font-size: 0.75rem; color: #555; margin-bottom: 15px; border-bottom: 1px dashed #222; padding-bottom: 10px;}
+        .card-title { font-size: 1.3rem; margin-bottom: 20px; color: #fff; letter-spacing: 2px;}
         
-        .visual-box::after {
-            content: '';
-            position: absolute; color: #111; font-size: 0.7rem; letter-spacing: 5px; z-index: -1;
-        }
-
-        .data-box { display: flex; flex-direction: column; justify-content: center; }
-        
-        h1 { 
-            font-family: 'Syncopate', sans-serif; font-size: 1.5rem; color: #eee; 
-            margin: 0 0 15px 0; letter-spacing: 5px; text-transform: uppercase;
-            text-shadow: 1px 1px 0px rgba(0,255,204,0.1);
+        .card-content {
+            font-size: 0.9rem; color: #888; line-height: 1.8;
+            height: 250px; overflow-y: auto; margin-bottom: 20px;
+            white-space: pre-wrap; padding-right: 10px;
         }
         
-        .meta-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; }
-        .tag { background: #050505; border: 1px solid #1a1a1a; padding: 5px 10px; font-size: 0.6rem; color: #444; letter-spacing: 3px; }
+        /* Custom Scrollbar for Content Box */
+        .card-content::-webkit-scrollbar { width: 5px; }
+        .card-content::-webkit-scrollbar-thumb { background: #00ffcc; }
         
-        p { font-size: 0.85rem; line-height: 2; color: #666; margin-bottom: 40px; letter-spacing: 1px; }
-        
-        .error-text { color: #ff003c; text-shadow: 0 0 5px rgba(255,0,60,0.3); font-weight: bold; }
-
         .btn {
-            display: inline-block; padding: 12px 30px; border: 1px solid rgba(0,255,204,0.2);
-            color: #00ffcc; text-decoration: none; font-size: 0.65rem; letter-spacing: 6px;
-            text-transform: uppercase; transition: all 0.2s; width: fit-content;
-            background: transparent;
+            display: inline-block; border: 1px solid rgba(0,255,204,0.3);
+            color: #00ffcc; text-decoration: none; font-size: 0.7rem; letter-spacing: 3px;
+            padding: 10px 20px; text-transform: uppercase; background: transparent;
         }
-        .btn:hover { background: rgba(0, 255, 204, 0.05); border-color: #00ffcc; text-shadow: 0 0 5px #00ffcc; }
-
-        #loading { text-align: center; color: #00ffcc; letter-spacing: 10px; font-size: 1rem; opacity: 0.5; }
+        .btn:hover { background: rgba(0,255,204,0.1); }
+        
+        #loading { font-size: 1.5rem; letter-spacing: 5px; animation: blink 1.5s infinite; }
+        @keyframes blink { 50% { opacity: 0.3; } }
     </style>
 </head>
 <body>
 
-    <div class="glitch-overlay"></div>
-    <div id="loading">[ N7_BOOT ]</div>
-
-    <div class="hud-container" id="matrix-hud" style="display: none;">
-        <div class="header">
-            <span>N7</span>
-            <span class="blink-status" id="sync-time"></span>
-        </div>
-
-        <div class="grid-layout">
-            <div class="visual-box">
-                <img id="kalyug-image" src="" alt="" onerror="this.style.display='none'">
-            </div>
-
-            <div class="data-box">
-                <h1>N7 // FILM BLUEPRINT</h1>
-                <div class="meta-tags">
-                    <span class="tag">[ ENCRYPTION: KALYUG-01 ]</span>
-                    <span class="tag">[ RENDER: OPTICOLOR+ ]</span>
-                    <span class="tag">[ TEMPORAL: 0.5s SYNC ]</span>
-                </div>
-                
-                <p id="kalyug-text"></p>
-                
-                <a href="#" id="source-link" class="btn" target="_blank">>> INITIATE_LINK <<</a>
-            </div>
-        </div>
+    <div class="header">
+        <h1>N7 // DECOUPLED ARCHIVE MATRIX</h1>
     </div>
 
+    <div id="loading">FETCHING SECURE DATA ARRAY...</div>
+    
+    <div class="grid-container" id="matrix-grid"></div>
+
     <script>
-        function fetchMatrixData() {
-            fetch('matrix_data.json?' + new Date().getTime())
-                .then(response => {
-                    if (!response.ok) throw new Error("Offline");
-                    return response.json();
-                })
-                .then(data => {
-                    document.getElementById('loading').style.display = 'none';
-                    document.getElementById('matrix-hud').style.display = 'block';
-                    
-                    // Sirf exact Time dikhega, koi faltoo text nahi
-                    document.getElementById('sync-time').innerText = data.sync_time;
-                    
-                    // Exact error jo tumne manga tha
-                    let rawText = data.logistics_data;
-                    if (rawText.includes("API KEY MISSING") || rawText.includes("INVALID") || rawText.includes("404")) {
-                        document.getElementById('kalyug-text').innerHTML = "<span class='error-text'>ERROR 404: [ KALYUG NEURAL UNREACHABLE. AWAITING ]</span>";
-                    } else {
-                        document.getElementById('kalyug-text').innerText = rawText;
-                    }
+        fetch('matrix_data.json?' + new Date().getTime())
+            .then(res => res.json())
+            .then(dataArray => {
+                document.getElementById('loading').style.display = 'none';
+                const grid = document.getElementById('matrix-grid');
+                
+                // Ensure the backend successfully created an array
+                if(Array.isArray(dataArray)) {
+                    // Reverse to show the newest generated article first
+                    dataArray.reverse().forEach(entry => {
+                        
+                        // Handle potential 404 strings injected by the python error block
+                        let contentDisplay = entry.content;
+                        if(contentDisplay.includes("ERROR 404")) {
+                            contentDisplay = `<span style="color:#ff003c;">${contentDisplay}</span>`;
+                        }
 
-                    if (data.visual_asset && data.visual_asset !== "N/A") {
-                        document.getElementById('kalyug-image').src = data.visual_asset;
-                    }
-                    
-                    document.getElementById('source-link').href = data.source_radar;
-                })
-                .catch(error => {
-                    document.getElementById('loading').innerHTML = "<span class='error-text'>ERROR 404: [ KALYUG NEURAL UNREACHABLE. AWAITING ]</span>";
-                });
-        }
-
-        fetchMatrixData();
+                        // Build the card HTML dynamically
+                        const cardHTML = `
+                            <div class="data-card">
+                                <div class="card-meta">ID: ${entry.id} | SYNC: ${entry.timestamp} <br> ${entry.category}</div>
+                                <div class="card-title">${entry.title}</div>
+                                <div class="card-content">${contentDisplay}</div>
+                                <a href="${entry.source_radar}" target="_blank" class="btn">>> DECRYPT RADAR SOURCE <<</a>
+                            </div>
+                        `;
+                        grid.insertAdjacentHTML('beforeend', cardHTML);
+                    });
+                } else {
+                    // Fallback if data is corrupt
+                    grid.innerHTML = `<h2 style="color:#ff003c;">ERROR: DATABASE IS NOT AN ARRAY.</h2>`;
+                }
+            })
+            .catch(err => {
+                document.getElementById('loading').innerHTML = `<span style="color:#ff003c;">CRITICAL FAILURE: MATRIX JSON NOT FOUND.</span>`;
+            });
     </script>
 </body>
 </html>
