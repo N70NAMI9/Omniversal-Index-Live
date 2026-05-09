@@ -12,19 +12,17 @@
     <style>
         :root {
             --bg-base: #050505;
-            --bg-surface: rgba(15, 15, 15, 0.6); 
+            --bg-surface: rgba(15, 15, 15, 0.6);
             --bg-surface-hover: rgba(25, 25, 25, 0.8);
             --accent: #00f0ff;
             --accent-glow: rgba(0, 240, 255, 0.15);
             --text-main: #ffffff;
-            --text-muted: #e5e7eb; /* [FIXED] Brightened for public readability */
+            --text-muted: #e5e7eb; 
             --border-subtle: rgba(255, 255, 255, 0.05);
             --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* [FIXED] Removed cursor: none; to restore standard mouse */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         html { scroll-behavior: smooth; }
 
         body {
@@ -46,10 +44,7 @@
             padding: 2.5rem 2rem; display: flex; flex-direction: column; z-index: 100;
         }
 
-        .brand-logo {
-            font-family: 'Syncopate', sans-serif; font-size: 1.5rem; font-weight: 700;
-            letter-spacing: -1px; text-transform: uppercase; margin-bottom: 0.5rem;
-        }
+        .brand-logo { font-family: 'Syncopate', sans-serif; font-size: 1.5rem; font-weight: 700; letter-spacing: -1px; text-transform: uppercase; margin-bottom: 0.5rem; }
         .brand-logo span { color: var(--accent); }
         .brand-sub { font-size: 0.7rem; color: #9ca3af; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 2.5rem; }
 
@@ -72,10 +67,7 @@
             padding: 0.8rem 1rem; border-radius: 8px; transition: var(--transition-smooth);
             display: flex; align-items: center; position: relative; overflow: hidden; cursor: pointer;
         }
-        .magnetic-btn::before {
-            content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 3px;
-            background: var(--accent); transform: scaleY(0); transition: transform 0.3s ease;
-        }
+        .magnetic-btn::before { content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 3px; background: var(--accent); transform: scaleY(0); transition: transform 0.3s ease; }
         .magnetic-btn:hover { color: var(--text-main); background: rgba(255,255,255,0.02); }
         .magnetic-btn.active { color: var(--accent); background: var(--accent-glow); }
         .magnetic-btn.active::before { transform: scaleY(1); }
@@ -87,71 +79,36 @@
 
         .page-title { font-family: 'Syncopate', sans-serif; font-size: 2.5rem; text-transform: uppercase; margin-bottom: 3rem; font-weight: 700; letter-spacing: -1px; }
 
-        .masonry-grid {
-            display: flex; 
-            flex-direction: column; 
-            gap: 3rem; 
-            align-items: center; /* Center mein layega */
-            max-width: 900px; /* Text ko zyada lamba nahi hone dega */
-            margin: 0 auto; /* Screen ke beecho-beech set karega */
-        }
+        .masonry-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 2.5rem; align-items: start; }
 
         .pro-card {
             background: var(--bg-surface); border: 1px solid var(--border-subtle);
             border-radius: 12px; overflow: hidden; position: relative;
             backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-            transition: var(--transition-smooth);
-            opacity: 0; transform: translateY(20px);
+            transition: var(--transition-smooth); opacity: 0; transform: translateY(20px);
             animation: fadeUpIn 0.6s ease forwards;
         }
 
         @keyframes fadeUpIn { to { opacity: 1; transform: translateY(0); } }
 
-        .pro-card:hover {
-            transform: translateY(-8px) scale(1.01);
-            border-color: rgba(0, 240, 255, 0.3);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 20px var(--accent-glow);
-        }
+        .pro-card:hover { transform: translateY(-8px) scale(1.01); border-color: rgba(0, 240, 255, 0.3); box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 20px var(--accent-glow); }
 
         .card-visual { width: 100%; height: 300px; position: relative; overflow: hidden; background: #000; }
-        .card-visual img {
-            width: 100%; height: 100%; object-fit: cover;
-            filter: grayscale(80%) contrast(1.1);
-            transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s ease;
-        }
+        .card-visual img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(80%) contrast(1.1); transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s ease; }
         .pro-card:hover .card-visual img { transform: scale(1.05); filter: grayscale(0%) contrast(1.05); }
 
         .card-data { padding: 2rem; }
         
-        .card-id-badge {
-            display: inline-block; font-family: 'Syncopate'; font-size: 0.65rem;
-            color: var(--bg-base); background: var(--accent); padding: 0.3rem 0.6rem;
-            border-radius: 4px; font-weight: 700; margin-bottom: 1.5rem; letter-spacing: 1px;
-        }
+        .card-id-badge { display: inline-block; font-family: 'Syncopate'; font-size: 0.65rem; color: var(--bg-base); background: var(--accent); padding: 0.3rem 0.6rem; border-radius: 4px; font-weight: 700; margin-bottom: 1.5rem; letter-spacing: 1px; }
 
-        .card-heading {
-            font-family: 'Syncopate', sans-serif; font-size: 1.2rem; font-weight: 700;
-            line-height: 1.4; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: -0.5px;
-        }
+        .card-heading { font-family: 'Syncopate', sans-serif; font-size: 1.2rem; font-weight: 700; line-height: 1.4; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: -0.5px; }
 
-        /* [FIXED] Enhanced Readability: Brighter color, larger font, more breathable line-height */
-        .card-text {
-            font-size: 1.05rem; 
-            line-height: 1.8; 
-            color: var(--text-muted); 
-            white-space: pre-wrap; 
-            font-weight: 400; 
-            margin-bottom: 2rem;
-        }
+        .card-text { font-size: 1.05rem; line-height: 1.8; color: var(--text-muted); white-space: pre-wrap; font-weight: 400; margin-bottom: 2rem; }
         
         .highlight { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.2); }
 
         .card-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; }
-        .pro-tag {
-            background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle);
-            color: #9ca3af; padding: 0.4rem 0.8rem; border-radius: 6px;
-            font-size: 0.7rem; font-family: 'Syncopate'; text-transform: uppercase; letter-spacing: 1px;
-        }
+        .pro-tag { background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); color: #9ca3af; padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.7rem; font-family: 'Syncopate'; text-transform: uppercase; letter-spacing: 1px; }
 
         .mobile-menu-btn { display: none; position: fixed; top: 1.5rem; right: 1.5rem; z-index: 1000; background: var(--bg-surface); border: 1px solid var(--border-subtle); padding: 0.8rem; border-radius: 8px; color: var(--accent); font-family: 'Syncopate'; font-size: 0.8rem; cursor: pointer;}
 
@@ -172,15 +129,12 @@
     </style>
 </head>
 <body>
-
     <button class="mobile-menu-btn" onclick="document.querySelector('.sidebar').classList.toggle('open')">MENU</button>
 
     <aside class="sidebar">
         <div class="brand-logo">N7<span>MATRIX</span></div>
         <div class="brand-sub">Hyper-Realism Engine</div>
-
         <input type="text" id="searchInput" class="search-box" placeholder="Faceted Search Intel..." onkeyup="filterBySearch()">
-
         <div class="nav-label">Tactical Taxonomy</div>
         <ul class="category-list" id="category-menu"></ul>
     </aside>
@@ -189,7 +143,6 @@
         <div class="content-area" id="contentArea">
             <div class="breadcrumbs">INDEX / <span id="bread-current">ALL OPERATIONS</span></div>
             <h1 class="page-title" id="page-heading">Global Telemetry</h1>
-
             <section class="masonry-grid" id="matrix-grid"></section>
         </div>
     </main>
@@ -199,19 +152,44 @@
         let targetScrollY = 0;
         let currentRenderedY = 0;
 
+        // --- NEW BULLETPROOF AI DATA CLEANER ---
+        function getSafeTags(tagData) {
+            if (!tagData) return [];
+            if (Array.isArray(tagData)) return tagData.map(t => String(t).replace(/\[|\]/g, '').trim());
+            if (typeof tagData === 'string') return tagData.split(',').map(t => t.replace(/\[|\]/g, '').trim());
+            return [];
+        }
+
         async function bootMatrix() {
             try {
                 const response = await fetch('matrix_data.json?t=' + Date.now());
-                if (!response.ok) throw new Error("Uplink Severed.");
+                if (!response.ok) throw new Error(`HTTP Error ${response.status}: Unable to fetch matrix_data.json`);
                 
-                globalData = await response.json();
+                const rawText = await response.text();
+                
+                try {
+                    globalData = JSON.parse(rawText);
+                } catch (jsonError) {
+                    throw new Error(`JSON Format Error. Data generated by AI is malformed. Details: ${jsonError.message}`);
+                }
+
+                if (!Array.isArray(globalData)) {
+                    globalData = [globalData]; // Force to array if AI returned single object
+                }
+
                 globalData.reverse(); 
                 
                 buildTaxonomy();
                 renderMasonry(globalData);
                 engageLinearInterpolationScroll();
+
             } catch (error) {
-                document.getElementById('matrix-grid').innerHTML = `<h2 style="color: #ff3333; font-family: 'Syncopate';">FATAL: DATASTREAM CORRUPTED.</h2>`;
+                console.error("MATRIX CORE CRASH:", error);
+                document.getElementById('matrix-grid').innerHTML = `
+                    <div style="background: rgba(255,0,0,0.1); border: 1px solid red; padding: 20px; border-radius: 10px;">
+                        <h2 style="color: #ff3333; font-family: 'Syncopate'; margin-bottom: 10px;">FATAL ERROR DECODING MATRIX</h2>
+                        <p style="color: #fff; font-family: 'Manrope';">${error.message}</p>
+                    </div>`;
             }
         }
 
@@ -221,11 +199,13 @@
             
             const uniqueTags = new Set();
             globalData.forEach(entry => {
-                (entry.category_tags || []).forEach(tag => uniqueTags.add(tag.replace(/\[|\]/g, '').trim()));
+                getSafeTags(entry.category_tags).forEach(tag => {
+                    if(tag) uniqueTags.add(tag);
+                });
             });
 
             uniqueTags.forEach(tag => {
-                if(tag) html += `<li><button class="magnetic-btn" onclick="filterCategory('${tag}', this)">${tag}</button></li>`;
+                html += `<li><button class="magnetic-btn" onclick="filterCategory('${tag}', this)">${tag}</button></li>`;
             });
             menu.innerHTML = html;
         }
@@ -238,7 +218,7 @@
             document.getElementById('bread-current').innerText = tag.toUpperCase();
             document.getElementById('searchInput').value = ''; 
 
-            const filtered = tag === 'All' ? globalData : globalData.filter(e => (e.category_tags || []).some(t => t.includes(tag)));
+            const filtered = tag === 'All' ? globalData : globalData.filter(e => getSafeTags(e.category_tags).includes(tag));
             renderMasonry(filtered);
         }
 
@@ -248,7 +228,8 @@
             document.getElementById('page-heading').innerText = query ? `Search: ${query}` : 'Global Telemetry';
             
             const filtered = globalData.filter(e => 
-                e.title.toLowerCase().includes(query) || e.content.toLowerCase().includes(query)
+                (e.title && e.title.toLowerCase().includes(query)) || 
+                (e.content && e.content.toLowerCase().includes(query))
             );
             renderMasonry(filtered);
         }
@@ -267,18 +248,23 @@
                 card.className = 'pro-card';
                 card.style.animationDelay = `${index * 0.1}s`; 
 
-                const tagsHtml = (entry.category_tags || []).map(tag => `<span class="pro-tag">${tag.replace(/\[|\]/g, '').trim()}</span>`).join('');
-                let formattedContent = entry.content.replace(/\*\*(.*?)\*\*/g, '<span class="highlight">$1</span>');
-                const fallbackImg = "https://images.unsplash.com/photo-1618331835717-801e976710b2?q=80&w=1920&auto=format&fit=crop";
+                const tagsHtml = getSafeTags(entry.category_tags).map(tag => `<span class="pro-tag">${tag}</span>`).join('');
+                
+                let safeContent = entry.content || "No data recovered.";
+                let formattedContent = safeContent.replace(/\*\*(.*?)\*\*/g, '<span class="highlight">$1</span>');
+                
+                const safeTitle = entry.title || "UNKNOWN ANOMALY";
+                const safeImage = entry.image_url || "https://images.unsplash.com/photo-1618331835717-801e976710b2?q=80&w=1920&auto=format&fit=crop";
+                const safeId = entry.id ? entry.id.substring(0,8) : "N/A";
 
                 card.innerHTML = `
                     <div class="card-visual">
-                        <img src="${entry.image_url}" alt="Classified Asset" loading="lazy"
-                             onerror="this.onerror=null; this.src='${fallbackImg}';" />
+                        <img src="${safeImage}" alt="Classified Asset" loading="lazy"
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1618331835717-801e976710b2?q=80&w=1920&auto=format&fit=crop';" />
                     </div>
                     <div class="card-data">
-                        <div class="card-id-badge">ID: ${entry.id.substring(0,8)}</div>
-                        <h2 class="card-heading">${entry.title}</h2>
+                        <div class="card-id-badge">ID: ${safeId}</div>
+                        <h2 class="card-heading">${safeTitle}</h2>
                         <div class="card-text">${formattedContent}</div>
                         <div class="card-tags">${tagsHtml}</div>
                     </div>
@@ -297,8 +283,6 @@
                 document.body.style.transform = `translate3d(0, -${currentRenderedY}px, 0)`;
                 requestAnimationFrame(executeLERPLoop);
             };
-            // Note: If LERP causes issues on full body, simply removing the call to executeLERPLoop() restores native scrolling.
-            // executeLERPLoop(); 
         };
 
         document.addEventListener('DOMContentLoaded', bootMatrix);
