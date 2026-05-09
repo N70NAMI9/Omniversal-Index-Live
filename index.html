@@ -13,7 +13,6 @@
             --border-heavy: #222;
         }
 
-        /* Foundational Typology and Procedural Background Generation */
         body {
             margin: 0;
             padding: 2rem;
@@ -27,7 +26,6 @@
             line-height: 1.6;
         }
 
-        /* Brutalist Header Elements */
         h1 {
             color: var(--neon-green);
             text-transform: uppercase;
@@ -39,22 +37,20 @@
             letter-spacing: -1px;
         }
 
-       .header-subtext {
+        .header-subtext {
             color: #888;
             font-weight: bold;
             margin-top: 0;
             margin-bottom: 3rem;
         }
 
-        /* Responsive CSS Grid Implementation */
         #matrix-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
             gap: 2.5rem;
         }
 
-        /* Intelligence Card Block Architecture */
-       .intel-card {
+        .intel-card {
             background: #0a0a0a;
             border: 2px solid var(--border-heavy);
             border-left: 6px solid var(--neon-green);
@@ -65,24 +61,28 @@
             flex-direction: column;
         }
 
-       .intel-card:hover {
+        .intel-card:hover {
             transform: translate(-4px, -4px);
             border-color: var(--neon-green);
             box-shadow: 10px 10px 0px #000;
         }
 
-        /* Media Container */
-       .intel-card img {
+        .intel-card img {
             width: 100%;
             height: auto;
             border: 2px solid var(--border-heavy);
             margin-bottom: 1.5rem;
             display: block;
             background-color: #000;
+            filter: grayscale(100%) contrast(1.2);
+            transition: filter 0.3s ease;
+        }
+        
+        .intel-card:hover img {
+            filter: grayscale(0%) contrast(1.1);
         }
 
-        /* Card Typography */
-       .intel-title {
+        .intel-title {
             color: var(--neon-green);
             font-size: 1.4rem;
             font-weight: bold;
@@ -90,7 +90,7 @@
             margin: 0 0 0.5rem 0;
         }
 
-       .intel-meta {
+        .intel-meta {
             font-size: 0.8rem;
             color: #666;
             margin-bottom: 1.5rem;
@@ -98,21 +98,21 @@
             padding-bottom: 0.5rem;
         }
 
-       .intel-content {
+        .intel-content {
             font-size: 0.95rem;
             white-space: pre-wrap;
             flex-grow: 1;
+            text-align: justify;
         }
 
-        /* Classification Tags */
-       .tags-container {
+        .tags-container {
             margin-top: 2rem;
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
         }
 
-       .tag {
+        .tag {
             background: rgba(0, 255, 204, 0.05);
             color: var(--neon-green);
             padding: 0.3rem 0.6rem;
@@ -130,63 +130,54 @@
         <p class="header-subtext">STATUS: ONLINE // SECURE CONNECTION ESTABLISHED // ACCESS GRANTED</p>
     </header>
 
-    <main id="matrix-grid">
-        </main>
+    <main id="matrix-grid"></main>
 
     <script>
-        /**
-         * Asynchronous function to fetch, parse, and inject intelligence data.
-         * Executes upon standard DOMContentLoaded event.
-         */
         async function loadIntelligence() {
             try {
-                // Initialize HTTP GET request to local flat-file JSON datastore
-                const response = await fetch('matrix_data.json');
+                const timestampQuery = new Date().getTime();
+                const response = await fetch(`matrix_data.json?t=${timestampQuery}`);
                 
                 if (!response.ok) {
                     throw new Error(`Data stream unavailable. HTTP Status: ${response.status}`);
                 }
                 
-                // Await parsing of the text stream into a JSON object array
                 const data = await response.json();
                 const grid = document.getElementById('matrix-grid');
 
-                // Reverse array mutation to enforce chronological descent (newest top-left)
+                if (!Array.isArray(data) || data.length === 0) {
+                    throw new Error("DATABASE IS EMPTY OR CORRUPTED.");
+                }
+
                 data.reverse().forEach(entry => {
                     const card = document.createElement('article');
                     card.className = 'intel-card';
 
-                    // Map string array to HTML tag elements safely handling null states
-                    const tagsHtml = (entry.category_tags ||)
-                       .map(tag => `<span class="tag">${tag}</span>`)
-                       .join('');
+                    // [FIXED] Added empty array fallback to prevent JS crash
+                    const tagsHtml = (entry.category_tags || []).map(tag => `<span class="tag">${tag}</span>`).join('');
 
-                    // Construct interior DOM tree via template literals
                     card.innerHTML = `
                         <img src="${entry.image_url}" alt="${entry.title}" loading="lazy" />
                         <h2 class="intel-title">${entry.title}</h2>
                         <div class="intel-meta">
-                            ID: ${entry.id} <br>
+                            ID: ${entry.id.substring(0,8)} <br>
                             TS: ${entry.timestamp}
                         </div>
                         <div class="intel-content">${entry.content}</div>
                         <div class="tags-container">${tagsHtml}</div>
                     `;
                     
-                    // Inject finalized card into the Grid container
                     grid.appendChild(card);
                 });
                 
             } catch (error) {
                 console.error('Matrix Synchronization Failure:', error);
                 const grid = document.getElementById('matrix-grid');
-                grid.innerHTML = `<p style="color: red; grid-column: 1/-1;">CRITICAL ERROR: Failed to load matrix database. System terminal locked.</p>`;
+                grid.innerHTML = `<p style="color: red; grid-column: 1/-1;">CRITICAL ERROR: Failed to load matrix database. System terminal locked. <br>${error.message}</p>`;
             }
         }
 
-        // Bind initialization script to document readiness state
         document.addEventListener('DOMContentLoaded', loadIntelligence);
     </script>
-
 </body>
 </html>
