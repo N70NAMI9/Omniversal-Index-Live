@@ -7,20 +7,20 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Syncopate:wght@700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syncopate:wght@700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 
     <style>
         /* === ARCHITECTURAL COLOR MATRIX & VARIABLES === */
         :root {
             --void-black: #050608;
-            --tactical-charcoal: #14151a;
+            --tactical-charcoal: #111216;
             --crt-gray: #2c2f38;
             --neon-tritium: #03d5ff;
             --neon-tritium-glow: rgba(3, 213, 255, 0.4);
-            --phase-white: #f5f5f7;
+            --phase-white: #e0e0e3;
             
-            /* Glassmorphism 3.0 Substrate Calculation */
-            --glass-bg: color-mix(in srgb, var(--tactical-charcoal) 60%, transparent);
+            /* Glassmorphism 3.0 Substrate */
+            --glass-bg: rgba(17, 18, 22, 0.65);
             
             /* Typographic Hierarchy */
             --font-head: 'Syncopate', sans-serif;
@@ -42,149 +42,154 @@
         
         body {
             background-color: var(--void-black);
+            /* Procedural dot grid for extreme depth */
+            background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 24px 24px;
             color: var(--phase-white);
             font-family: var(--font-body);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            overscroll-behavior-y: none; /* Prevents mobile rubber-banding */
+            overscroll-behavior-y: none;
         }
 
         /* === PROCEDURAL FILM GRAIN & CRT OPTICS === */
-       .noise-overlay {
+      .noise-overlay {
             position: fixed;
             inset: 0;
             width: 100vw;
             height: 100vh;
             pointer-events: none;
             z-index: 9998;
-            opacity: 0.35;
-            mix-blend-mode: overlay; /* Multiplies darks, screens lights */
+            opacity: 0.25;
+            mix-blend-mode: overlay;
         }
         
-       .crt-scanlines {
+      .crt-scanlines {
             position: fixed;
             inset: 0;
             width: 100vw;
             height: 100vh;
             pointer-events: none;
             z-index: 9997;
-            /* Infinite repeating linear gradient bypasses DOM node limits */
             background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
             background-size: 100% 3px;
         }
 
         /* === KINEMATIC MAGNETIC CURSOR === */
-       .custom-cursor {
+      .custom-cursor {
             position: fixed;
             top: 0; left: 0;
-            width: 20px; height: 20px;
+            width: 16px; height: 16px;
             border-radius: 50%;
-            background: var(--phase-white);
-            mix-blend-mode: difference;
+            background: var(--neon-tritium);
+            box-shadow: 0 0 15px var(--neon-tritium-glow);
+            mix-blend-mode: screen;
             pointer-events: none;
             z-index: 9999;
             transform: translate(-50%, -50%);
-            /* Transition curves for state changes, physics handled by JS */
-            transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1), 
-                        height 0.3s cubic-bezier(0.25, 1, 0.5, 1), 
+            transition: width 0.4s cubic-bezier(0.19, 1, 0.22, 1), 
+                        height 0.4s cubic-bezier(0.19, 1, 0.22, 1), 
                         background-color 0.3s;
             will-change: transform;
         }
-       .custom-cursor.active {
-            width: 60px; height: 60px;
-            background: var(--neon-tritium);
+      .custom-cursor.active {
+            width: 50px; height: 50px;
+            background: transparent;
+            border: 1px solid var(--neon-tritium);
+            box-shadow: none;
             mix-blend-mode: normal;
         }
 
         /* === SPA LAYOUT ARCHITECTURE === */
-       .app-container {
+      .app-container {
             display: flex;
             width: 100vw;
             height: 100vh;
-            overflow: hidden; /* Strict overflow containment for LERP virtualization */
+            overflow: hidden;
         }
 
         /* === TAXONOMY SIDEBAR === */
-       .sidebar {
-            width: 320px;
+      .sidebar {
+            width: 300px;
             height: 100vh;
             flex-shrink: 0;
-            padding: 40px;
-            border-right: 1px solid var(--crt-gray);
+            padding: 50px 40px;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
             flex-direction: column;
             z-index: 100;
-            background: rgba(5, 6, 8, 0.95);
-            backdrop-filter: blur(20px);
+            background: rgba(5, 6, 8, 0.85);
+            backdrop-filter: blur(24px);
             transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
         }
 
-       .brand-header {
+      .brand-header {
             font-family: var(--font-head);
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             letter-spacing: 4px;
             text-transform: uppercase;
-            margin-bottom: 60px;
-            color: var(--phase-white);
-            line-height: 1.6;
+            margin-bottom: 70px;
+            color: #fff;
+            line-height: 1.8;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 20px;
         }
         
-       .brand-header span { color: var(--neon-tritium); }
+      .brand-header span { color: var(--neon-tritium); }
 
-       .taxonomy-title {
+      .taxonomy-title {
             font-family: var(--font-sub);
-            font-size: 1rem;
-            letter-spacing: 2px;
-            color: #888;
-            margin-bottom: 20px;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            color: #666;
+            margin-bottom: 24px;
             text-transform: uppercase;
         }
 
-       .filter-list {
+      .filter-list {
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 16px;
         }
 
-       .filter-item {
+      .filter-item {
             font-family: var(--font-sub);
-            font-size: 1.1rem;
+            font-size: 0.9rem;
             font-weight: 600;
-            color: var(--phase-white);
-            opacity: 0.5;
-            transition: all 0.3s ease;
+            color: #999;
+            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             display: inline-block;
             transform-origin: left center;
         }
 
-       .filter-item.active,.filter-item:hover {
-            opacity: 1;
+      .filter-item.active,.filter-item:hover {
             color: var(--neon-tritium);
-            transform: translateX(10px);
+            transform: translateX(8px);
+            text-shadow: 0 0 10px var(--neon-tritium-glow);
         }
 
         /* === MASONRY CONTENT AREA === */
-       .scroll-wrapper {
+      .scroll-wrapper {
             flex-grow: 1;
             height: 100vh;
-            overflow-y: scroll; /* Maintains native scrollbar for accessibility/hardware binding */
+            overflow-y: scroll;
             position: relative;
         }
 
-       .scroll-wrapper::-webkit-scrollbar { width: 0px; background: transparent; }
+      .scroll-wrapper::-webkit-scrollbar { width: 0px; background: transparent; }
 
-       .content-area {
-            padding: 40px;
+      .content-area {
+            padding: 50px;
             width: 100%;
-            will-change: transform; /* Hardware acceleration target for LERP engine */
+            will-change: transform;
         }
 
-       .grid-masonry {
+      .grid-masonry {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             grid-auto-rows: var(--grid-row-height);
             gap: var(--grid-gap);
             width: 100%;
@@ -192,133 +197,142 @@
         }
 
         /* === VOLUMETRIC DATA CARDS (GLASSMORPHISM 3.0) === */
-       .data-card {
+      .data-card {
             background: var(--glass-bg);
-            border-radius: 12px;
+            border-radius: 6px;
             padding: 24px;
             display: flex;
             flex-direction: column;
             position: relative;
             overflow: hidden;
             
-            /* Optical Refraction Layer */
-            backdrop-filter: blur(16px) saturate(150%);
-            -webkit-backdrop-filter: blur(16px) saturate(150%);
+            /* Optical Refraction & 3D Stack */
+            backdrop-filter: blur(20px) saturate(120%);
+            -webkit-backdrop-filter: blur(20px) saturate(120%);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             
-            /* Physical 3D Edge Beveling via Inset Shadows */
-            border: 1px solid rgba(255, 255, 255, 0.05);
             box-shadow: 
-                0 15px 35px rgba(0,0,0,0.4), 
-                inset 1px 1px 0px rgba(255, 255, 255, 0.1),
-                inset -1px -1px 0px rgba(0, 0, 0, 0.5);
+                0 20px 40px rgba(0,0,0,0.6), 
+                inset 1px 1px 0px rgba(255, 255, 255, 0.05),
+                inset -1px -1px 0px rgba(0, 0, 0, 0.4);
                 
             /* Entrance Kinematics */
             opacity: 0;
-            transform: translateY(30px);
-            animation: cardFadeUp 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            transform: translateY(40px);
+            animation: cardFadeUp 0.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
         }
 
         @keyframes cardFadeUp {
             to { opacity: 1; transform: translateY(0); }
         }
 
-       .card-image-wrapper {
+      .card-image-wrapper {
             width: 100%;
-            border-radius: 8px;
-            overflow: hidden;
-            margin-bottom: 20px;
+            padding-top: 66.66%; /* Enforces strict 3:2 aspect ratio preventing layout collapse */
             position: relative;
-            background: var(--tactical-charcoal);
+            background: #0a0b0e;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255,255,255,0.02);
         }
 
-       .card-image {
+      .card-image {
+            position: absolute;
+            top: 0; left: 0;
             width: 100%;
-            height: auto;
+            height: 100%;
             display: block;
             object-fit: cover;
-            /* Default desaturation to enforce moody aesthetic */
-            filter: grayscale(80%) contrast(120%);
-            transition: filter 0.5s ease, transform 0.5s ease;
+            filter: grayscale(100%) contrast(110%) brightness(0.8);
+            transition: filter 0.6s cubic-bezier(0.19, 1, 0.22, 1), transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
-       .data-card:hover.card-image {
-            filter: grayscale(0%) contrast(100%);
-            transform: scale(1.03);
+      .data-card:hover.card-image {
+            filter: grayscale(0%) contrast(100%) brightness(1);
+            transform: scale(1.05);
         }
 
-       .card-meta {
+      .card-meta {
             font-family: var(--font-sub);
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             color: var(--neon-tritium);
-            margin-bottom: 8px;
-            letter-spacing: 1px;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
             display: flex;
             justify-content: space-between;
-        }
-
-       .card-title {
-            font-family: var(--font-head);
-            font-size: 1.1rem;
-            margin-bottom: 12px;
-            line-height: 1.3;
             text-transform: uppercase;
         }
 
-       .card-content {
+      .card-title {
+            font-family: var(--font-head);
             font-size: 0.95rem;
-            line-height: 1.6;
-            color: #aaa;
+            margin-bottom: 16px;
+            line-height: 1.4;
+            letter-spacing: 1px;
+            color: #fff;
+        }
+
+      .card-content {
+            font-size: 0.85rem;
+            line-height: 1.7;
+            color: #888;
         }
 
         /* Lexical Markdown Highlight Class */
-       .neon-glow {
-            color: var(--neon-tritium);
-            text-shadow: 0 0 8px var(--neon-tritium-glow);
-            font-weight: 500;
+      .neon-glow {
+            color: #fff;
+            text-shadow: 0 0 8px var(--neon-tritium);
+            font-weight: 600;
         }
 
-       .card-tags {
-            margin-top: 20px;
+      .card-tags {
+            margin-top: 24px;
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
         }
 
-       .tag {
+      .tag {
             font-family: var(--font-sub);
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             padding: 4px 10px;
-            border: 1px solid var(--crt-gray);
-            border-radius: 20px;
-            color: #888;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 2px;
+            color: #777;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
         }
 
         /* === RESPONSIVE FLUID ARCHITECTURE === */
-       .mobile-nav-trigger {
+      .mobile-nav-trigger {
             display: none;
             position: fixed;
             top: 20px; right: 20px;
             z-index: 1000;
-            color: var(--phase-white);
+            color: var(--neon-tritium);
             font-family: var(--font-sub);
-            font-size: 1.2rem;
-            background: var(--tactical-charcoal);
-            padding: 10px 20px;
-            border: 1px solid var(--neon-tritium);
-            border-radius: 30px;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            background: rgba(5,6,8,0.9);
+            padding: 12px 24px;
+            border: 1px solid rgba(3, 213, 255, 0.3);
+            border-radius: 4px;
+            backdrop-filter: blur(10px);
         }
 
         @media (max-width: 1024px) {
-           .mobile-nav-trigger { display: block; }
-           .sidebar {
+          .mobile-nav-trigger { display: block; }
+          .sidebar {
                 position: fixed;
                 left: 0; top: 0;
                 transform: translateX(-100%);
             }
-           .sidebar.nav-open { transform: translateX(0); }
-           .grid-masonry { grid-template-columns: 1fr; }
+          .sidebar.nav-open { transform: translateX(0); }
+          .grid-masonry { grid-template-columns: 1fr; }
+          .content-area { padding: 80px 20px 20px 20px; }
         }
     </style>
 </head>
@@ -326,7 +340,7 @@
 
     <svg style="display: none">
         <filter id="film-grain">
-            <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" stitchTiles="stitch" />
+            <feTurbulence type="fractalNoise" baseFrequency="0.80" numOctaves="3" stitchTiles="stitch" />
             <feColorMatrix type="matrix" values="1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 0.4 0" />
         </filter>
     </svg>
@@ -384,37 +398,36 @@
             const fetchMatrixData = async () => {
                 try {
                     const response = await fetch('matrix_data.json');
-                    if (!response.ok) throw new Error('Local network payload failure. Executing fallback protocol.');
+                    if (!response.ok) throw new Error('Local payload missing. Initializing fallback.');
                     return await response.json();
                 } catch (error) {
                     console.warn(error.message);
-                    // Bulletproof Fallback Payload representing Operation Kalyug parameters
+                    // Fixed, syntactically perfect fallback payload
                     return 
                         },
                         { 
                             id: "OPK-02", timestamp: "0530H", title: "Asset Securing", 
                             content: "Primary winch attached to mammalian asset. Structural tension critical. Awaiting final **clearance from command** before initiating the mechanical hoist sequence.", 
-                            image_url: "https://images.unsplash.com/photo-1549480017-d76466a4b8e8?q=80&w=1200", 
+                            image_url: "https://images.unsplash.com/photo-1588602058372-df7598687f8b?q=80&w=800", 
                             category_tags: ["Operation", "Heavy Machinery"] 
                         },
                         { 
                             id: "OPK-03", timestamp: "0615H", title: "Aerial Overwatch", 
-                            content: "Thermal scans indicate massive displacement in the surrounding terrain. Ground saturation reaching critical mass. Proceed with absolute **caution**.", 
-                            image_url: "https://images.unsplash.com/photo-1588602058372-df7598687f8b?q=80&w=1200", 
+                            content: "Thermal scans indicate massive displacement in the surrounding terrain. Ground saturation reaching critical mass.", 
+                            image_url: "https://images.unsplash.com/photo-1611082531011-845a76e7b165?q=80&w=800", 
                             category_tags: 
                         },
                         { 
                             id: "OPK-04", timestamp: "0745H", title: "Extraction Initiated", 
                             content: "Hoist engaged. Tension meters reading optimal resistance. The mud vacuum effect is causing significant drag. **Deploying secondary stabilizer cables**.", 
-                            image_url: "https://images.unsplash.com/photo-1611082531011-845a76e7b165?q=80&w=1200", 
-                            category_tags: ["Operation", "Extraction"] 
+                            image_url: "https://images.unsplash.com/photo-1549480017-d76466a4b8e8?q=80&w=800", 
+                            category_tags: ["Extraction", "Heavy Machinery"] 
                         }
                     ];
                 }
             };
 
             const parseLexicalMarkdown = (text) => {
-                // Regular Expression parsing for cyber-brutalist neon highlights
                 return text.replace(/\*\*(.*?)\*\*/g, '<span class="neon-glow">$1</span>');
             };
 
@@ -429,35 +442,30 @@
                 const rowHeight = parseInt(computedStyle.getPropertyValue('--grid-row-height'));
                 
                 items.forEach(item => {
-                    // Reset grid row to allow natural DOM flow for accurate height measurement
                     item.style.gridRowEnd = 'auto';
                     const rect = item.getBoundingClientRect();
-                    
-                    // Core Masonry Calculation Equation
                     const rowSpan = Math.ceil((rect.height + gap) / (rowHeight + gap));
-                    
-                    // Assign strict mathematical span
                     item.style.gridRowEnd = `span ${rowSpan}`;
                 });
             };
 
             const executeDOMInjection = (data) => {
-                // Clear existing nodes for zero-reload SPA rendering
                 gridContainer.innerHTML = '';
                 
                 data.forEach((item, index) => {
                     const cardNode = document.createElement('div');
-                    cardNode.className = 'data-card interactive'; // 'interactive' binds to Spring Physics
-                    // Staggered entrance timeline calculation
+                    cardNode.className = 'data-card interactive'; 
                     cardNode.style.animationDelay = `${index * 0.08}s`; 
                     
                     const taxonomyHtml = item.category_tags.map(tag => `<span class="tag">${tag}</span>`).join('');
                     
-                    // Construct inner DOM with embedded onerror asset fallback
+                    // Bulletproof Image Fallback using a Base64 placeholder pattern if Unsplash fails
+                    const fallbackImg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'%3E%3Crect width='800' height='600' fill='%23111216'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-size='14px' fill='%23333'%3E%3C/text%3E%3C/svg%3E";
+
                     cardNode.innerHTML = `
                         <div class="card-image-wrapper">
                             <img src="${item.image_url}" alt="${item.title}" class="card-image" 
-                                 onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1611082531011-845a76e7b165?q=80&w=1200';">
+                                 onerror="this.onerror=null; this.src='${fallbackImg}';">
                         </div>
                         <div class="card-meta">
                             <span>ID: ${item.id}</span>
@@ -470,13 +478,11 @@
                     
                     gridContainer.appendChild(cardNode);
                     
-                    // Bind resize recalculation to asynchronous image loading
                     const injectedImg = cardNode.querySelector('img');
                     injectedImg.addEventListener('load', calculateAsymmetricalMasonry);
                 });
                 
-                // Initial execution post-injection
-                requestAnimationFrame(calculateAsymmetricalMasonry);
+                requestAnimationFrame(() => setTimeout(calculateAsymmetricalMasonry, 50));
             };
 
             /* =====================================================================
@@ -484,11 +490,9 @@
                ===================================================================== */
 
             const initializeTaxonomyEngine = (data) => {
-                // Utilize Set object to extract unique string permutations
                 const uniqueTags = new Set();
                 data.forEach(item => item.category_tags.forEach(tag => uniqueTags.add(tag)));
                 
-                // Construct master array with global reset parameter
                 const taxonomyArray =;
                 filterList.innerHTML = '';
                 
@@ -497,13 +501,11 @@
                     filterNode.className = `filter-item interactive ${tag === activeFilter? 'active' : ''}`;
                     filterNode.innerText = tag;
                     
-                    // Bind click event for localized memory filtering
                     filterNode.addEventListener('click', (e) => {
                         document.querySelectorAll('.filter-item').forEach(el => el.classList.remove('active'));
                         e.target.classList.add('active');
                         activeFilter = tag;
                         
-                        // Execute Array.filter math
                         const filteredDataset = tag === 'ALL' 
                            ? rawData 
                             : rawData.filter(item => item.category_tags.includes(tag));
@@ -520,63 +522,47 @@
                ===================================================================== */
 
             const engageLinearInterpolationScroll = () => {
-                // Passive event listener decouples hardware input from visual output
                 scrollWrapper.addEventListener('scroll', () => {
                     targetScrollY = scrollWrapper.scrollTop;
                 }, { passive: true });
 
                 const executeLERPLoop = () => {
-                    // LERP Calculation: Current = Current + (Target - Current) * Friction
                     currentRenderedY += (targetScrollY - currentRenderedY) * 0.08;
-                    
-                    // GPU-Accelerated 3D Transform Translation
                     contentArea.style.transform = `translate3d(0, -${currentRenderedY}px, 0)`;
-                    
                     requestAnimationFrame(executeLERPLoop);
                 };
                 executeLERPLoop();
             };
 
             const engageMagneticSpringPhysics = () => {
-                // Hardware mouse coordinate tracking
                 window.addEventListener('mousemove', (e) => {
                     hardwareCursorX = e.clientX;
                     hardwareCursorY = e.clientY;
                 });
 
                 const executeCursorLERP = () => {
-                    // Constant LERP tracking for the custom cursor div
-                    cursorVectorX += (hardwareCursorX - cursorVectorX) * 0.18;
-                    cursorVectorY += (hardwareCursorY - cursorVectorY) * 0.18;
+                    cursorVectorX += (hardwareCursorX - cursorVectorX) * 0.25;
+                    cursorVectorY += (hardwareCursorY - cursorVectorY) * 0.25;
                     cursor.style.transform = `translate(${cursorVectorX}px, ${cursorVectorY}px) translate(-50%, -50%)`;
-                    
                     requestAnimationFrame(executeCursorLERP);
                 };
                 executeCursorLERP();
 
-                // Advanced Spring Dynamics Event Delegation
                 document.body.addEventListener('mousemove', (e) => {
                     const targetNode = e.target.closest('.interactive');
                     
                     if (targetNode) {
                         cursor.classList.add('active');
-                        
-                        // Extract exact element geometry
                         const rect = targetNode.getBoundingClientRect();
-                        
-                        // Calculate mathematical center points
                         const centerX = rect.left + rect.width / 2;
                         const centerY = rect.top + rect.height / 2;
                         
-                        // Calculate vector distance from hardware cursor to absolute center
-                        const vectorDistanceX = (e.clientX - centerX) * 0.15; // Magnetic pull multiplier
+                        const vectorDistanceX = (e.clientX - centerX) * 0.15; 
                         const vectorDistanceY = (e.clientY - centerY) * 0.15;
                         
-                        // Apply translated matrix vector
                         targetNode.style.transform = `translate3d(${vectorDistanceX}px, ${vectorDistanceY}px, 0)`;
                     } else {
                         cursor.classList.remove('active');
-                        // Reset all nodes to origin coordinates (0,0,0) when spring tension is released
                         document.querySelectorAll('.interactive').forEach(el => {
                             el.style.transform = `translate3d(0,0,0)`;
                         });
@@ -589,19 +575,14 @@
                ===================================================================== */
             
             const bootSequence = async () => {
-                // Await asynchronous data ingestion
                 rawData = await fetchMatrixData();
-                
-                // Initialize modules
                 initializeTaxonomyEngine(rawData);
                 executeDOMInjection(rawData);
                 engageLinearInterpolationScroll();
                 engageMagneticSpringPhysics();
                 
-                // Bind environmental resize events
                 window.addEventListener('resize', calculateAsymmetricalMasonry);
                 
-                // Mobile interface state handling
                 document.getElementById('mobileTrigger').addEventListener('click', () => {
                     document.getElementById('sidebar').classList.toggle('nav-open');
                 });
@@ -610,7 +591,6 @@
             return { boot: bootSequence };
         })();
 
-        // Execute architectural engine once the DOM is fully parsed
         document.addEventListener('DOMContentLoaded', ArchitectureEngine.boot);
     </script>
 </body>
