@@ -3,324 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>N7 MATRIX // CINEMATIC DATABASE</title>
+    <title>N7 MATRIX // IMDb ELITE</title>
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Syncopate:wght@700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-base: #030303;
-            --bg-surface: #0a0a0a;
-            --bg-surface-hover: #111111;
-            --accent: #00f0ff;
-            --accent-glow: rgba(0, 240, 255, 0.15);
-            --text-main: #ffffff;
-            --text-muted: #d1d5db; 
-            --border-subtle: rgba(255, 255, 255, 0.08);
-            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --imdb-yellow: #F5DE50;
+            --imdb-dark: #000000;
+            --imdb-surface: #121212;
+            --imdb-surface-light: #1A1A1A;
+            --text-main: #FFFFFF;
+            --text-muted: #AAAAAA;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--imdb-dark); color: var(--text-main); overflow-x: hidden; }
 
-        body {
-            background-color: var(--bg-base); color: var(--text-main);
-            font-family: 'Manrope', sans-serif; display: flex; min-height: 100vh;
-            overflow-x: hidden; position: relative;
-        }
+        /* --- Header --- */
+        header { background-color: var(--imdb-surface); padding: 15px 5%; display: flex; align-items: center; border-bottom: 1px solid #333; position: sticky; top: 0; z-index: 100; }
+        .logo { background-color: var(--imdb-yellow); color: var(--imdb-dark); font-family: 'Syncopate', sans-serif; font-weight: 700; padding: 5px 12px; border-radius: 4px; font-size: 1.5rem; letter-spacing: -1px; margin-right: 15px; }
 
-        /* Cinematic Noise Overlay */
-        body::after {
-            content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-            opacity: 0.04; pointer-events: none; z-index: 9999;
-        }
-
-        /* SIDEBAR TAXONOMY */
-        .sidebar {
-            width: 280px; height: 100vh; position: fixed; top: 0; left: 0;
-            background: rgba(3, 3, 3, 0.95); backdrop-filter: blur(20px);
-            border-right: 1px solid var(--border-subtle);
-            padding: 2.5rem 1.5rem; display: flex; flex-direction: column; z-index: 100;
-        }
-
-        .brand-logo { font-family: 'Syncopate', sans-serif; font-size: 1.5rem; font-weight: 700; letter-spacing: -1px; text-transform: uppercase; margin-bottom: 0.5rem; }
-        .brand-logo span { color: var(--accent); }
-        .brand-sub { font-size: 0.65rem; color: #6b7280; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 2.5rem; }
-
-        .search-box {
-            width: 100%; padding: 0.8rem 1rem; background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border-subtle); border-radius: 6px;
-            color: var(--text-main); font-family: 'Manrope'; font-size: 0.85rem;
-            margin-bottom: 2rem; outline: none; transition: var(--transition-smooth);
-        }
-        .search-box:focus { border-color: var(--accent); background: rgba(0, 240, 255, 0.05); }
-
-        .nav-label { font-size: 0.7rem; font-family: 'Syncopate'; color: #6b7280; margin-bottom: 1rem; letter-spacing: 1px; }
-
-        .category-list { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; overflow-y: auto; }
-        .category-list::-webkit-scrollbar { display: none; }
-
-        .magnetic-btn {
-            background: transparent; border: none; color: #9ca3af;
-            font-family: 'Manrope'; font-size: 0.85rem; text-align: left;
-            padding: 0.8rem 1rem; border-radius: 6px; transition: var(--transition-smooth);
-            display: flex; align-items: center; position: relative; overflow: hidden; cursor: pointer;
-            width: 100%;
-        }
-        .magnetic-btn::before { content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 3px; background: var(--accent); transform: scaleY(0); transition: transform 0.3s ease; }
-        .magnetic-btn:hover { color: var(--text-main); background: rgba(255,255,255,0.02); }
-        .magnetic-btn.active { color: var(--accent); background: var(--accent-glow); }
-        .magnetic-btn.active::before { transform: scaleY(1); }
-
-        /* MAIN CONTENT AREA */
-        .main-wrapper { 
-            margin-left: 280px; 
-            padding: 3rem 4rem; 
-            width: calc(100% - 280px);
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Centers the content */
-        }
-
-        .content-container {
-            width: 100%;
-            max-width: 1100px; /* IMDb style max-width to prevent extreme stretching */
-        }
-
-        .breadcrumbs { font-size: 0.75rem; color: #6b7280; margin-bottom: 1rem; letter-spacing: 1px; font-family: 'Syncopate'; }
-        .breadcrumbs span { color: var(--accent); }
-
-        .page-title { font-family: 'Syncopate', sans-serif; font-size: 2.2rem; text-transform: uppercase; margin-bottom: 3rem; font-weight: 700; letter-spacing: -1px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 1rem;}
-
-        /* THE IMDB-STYLE FEED LAYOUT */
-        .cinematic-feed { display: flex; flex-direction: column; gap: 3rem; width: 100%; }
-
-        .pro-card {
-            display: flex;
-            background: var(--bg-surface); 
-            border: 1px solid var(--border-subtle);
-            border-radius: 12px; 
-            overflow: hidden; 
-            position: relative;
-            transition: var(--transition-smooth); 
-            opacity: 0; transform: translateY(20px);
-            animation: fadeUpIn 0.6s ease forwards;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        @keyframes fadeUpIn { to { opacity: 1; transform: translateY(0); } }
-
-        .pro-card:hover { transform: translateY(-5px); border-color: rgba(0, 240, 255, 0.3); box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 15px var(--accent-glow); }
-
-        /* Poster Image Left Side */
-        .card-visual { width: 350px; flex-shrink: 0; position: relative; background: #000; overflow: hidden;}
-        .card-visual img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(50%) contrast(1.1); transition: transform 0.7s ease, filter 0.7s ease; }
-        .pro-card:hover .card-visual img { transform: scale(1.05); filter: grayscale(0%) contrast(1.05); }
-
-        /* Data Right Side */
-        .card-data { padding: 2.5rem; display: flex; flex-direction: column; flex-grow: 1; justify-content: center; }
+        /* --- Hero Slider --- */
+        .hero-section { width: 100%; height: 75vh; position: relative; }
+        .swiper { width: 100%; height: 100%; }
+        .swiper-slide { background-position: center; background-size: cover; position: relative; }
         
-        .card-meta { display: flex; justify-content: space-between; font-family: 'Syncopate'; font-size: 0.7rem; color: var(--accent); margin-bottom: 1rem; letter-spacing: 1px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.5rem;}
+        .hero-overlay { position: absolute; bottom: 0; left: 0; width: 100%; height: 80%; background: linear-gradient(to top, var(--imdb-dark) 0%, rgba(0,0,0,0.8) 50%, transparent 100%); display: flex; align-items: flex-end; padding: 50px 5%; }
+        .hero-content { display: flex; gap: 30px; align-items: flex-end; width: 100%; max-width: 1200px; margin: 0 auto; }
         
-        .card-heading { font-family: 'Syncopate', sans-serif; font-size: 1.5rem; font-weight: 700; line-height: 1.3; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: -0.5px; }
+        .hero-poster { width: 200px; border-radius: 6px; box-shadow: 0 10px 30px rgba(0,0,0,0.9); border: 1px solid #333; display: none; }
+        @media (min-width: 768px) { .hero-poster { display: block; } }
 
-        .card-text { font-size: 1rem; line-height: 1.8; color: var(--text-muted); white-space: pre-wrap; font-weight: 400; margin-bottom: 2rem; }
+        .hero-text h2 { font-size: 3.5rem; font-weight: 800; margin-bottom: 15px; line-height: 1.1; text-shadow: 2px 2px 10px rgba(0,0,0,0.8); }
+        .hero-trailer-btn { background-color: rgba(255, 255, 255, 0.1); color: white; border: 2px solid white; padding: 12px 24px; font-size: 1.1rem; font-weight: 600; cursor: pointer; border-radius: 4px; display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s; backdrop-filter: blur(5px); }
+        .hero-trailer-btn:hover { background-color: var(--imdb-yellow); color: var(--imdb-dark); border-color: var(--imdb-yellow); }
+
+        /* --- Grid System --- */
+        .content-section { padding: 50px 5%; max-width: 1400px; margin: 0 auto; }
+        .section-title { color: var(--imdb-yellow); font-size: 1.8rem; margin-bottom: 30px; border-left: 5px solid var(--imdb-yellow); padding-left: 15px; }
         
-        .highlight { color: #fff; font-weight: bold; text-shadow: 0 0 8px rgba(255,255,255,0.2); }
-
-        .card-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: auto; }
-        .pro-tag { background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); color: #9ca3af; padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.65rem; font-family: 'Syncopate'; text-transform: uppercase; letter-spacing: 1px; }
-
-        .mobile-menu-btn { display: none; position: fixed; top: 1.2rem; right: 1.2rem; z-index: 1000; background: var(--bg-surface); border: 1px solid var(--border-subtle); padding: 0.6rem 1rem; border-radius: 6px; color: var(--accent); font-family: 'Syncopate'; font-size: 0.8rem; cursor: pointer;}
-
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-base); }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
-
-        /* === RESPONSIVE ARCHITECTURE (PC, TAB, MOBILE) === */
-        @media (max-width: 1200px) {
-            .main-wrapper { padding: 2rem; }
-            .card-visual { width: 280px; }
-        }
+        .movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 25px; }
+        .movie-card { background-color: var(--imdb-surface-light); border-radius: 6px; overflow: hidden; cursor: pointer; transition: transform 0.3s; }
+        .movie-card:hover { transform: scale(1.05); box-shadow: 0 10px 20px rgba(0,0,0,0.8); z-index: 10; }
         
-        @media (max-width: 992px) {
-            .sidebar { left: -100%; transition: left 0.4s ease; }
-            .sidebar.open { left: 0; }
-            .mobile-menu-btn { display: block; }
-            .main-wrapper { margin-left: 0; width: 100%; padding: 5rem 1.5rem 2rem 1.5rem; }
-            /* Tablet Layout: Stack image on top of text */
-            .pro-card { flex-direction: column; }
-            .card-visual { width: 100%; height: 350px; }
-        }
+        .movie-card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; }
+        .movie-info { padding: 15px; }
+        .rating { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 5px; }
+        .star { color: var(--imdb-yellow); font-size: 1.1rem; margin-right: 5px; }
+        .movie-info h3 { font-size: 1.1rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        @media (max-width: 600px) {
-            .page-title { font-size: 1.5rem; }
-            .card-visual { height: 250px; }
-            .card-data { padding: 1.5rem; }
-            .card-heading { font-size: 1.2rem; }
-            .card-text { font-size: 0.95rem; }
-        }
+        /* --- Elite Modal (Deep Dive) --- */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.95); z-index: 1000; overflow-y: auto; padding: 40px 5%; }
+        .modal-content { background-color: var(--imdb-surface); max-width: 1000px; margin: 0 auto; padding: 40px; border-radius: 8px; position: relative; }
+        .close-btn { position: absolute; top: 20px; right: 30px; color: var(--text-muted); font-size: 2.5rem; cursor: pointer; transition: color 0.2s; }
+        .close-btn:hover { color: white; }
+        
+        .trailer-container { position: relative; width: 100%; padding-bottom: 56.25%; margin-bottom: 30px; background-color: #000; border-radius: 6px; overflow: hidden; }
+        .trailer-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        
+        .modal-title { font-size: 3rem; font-weight: 800; margin-bottom: 20px; }
+        .cast-box { background: var(--imdb-surface-light); padding: 20px; border-left: 4px solid var(--imdb-yellow); margin-bottom: 30px; }
+        .cast-box h4 { color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; margin-bottom: 5px; }
+        .cast-box p { font-size: 1.1rem; margin-bottom: 15px; }
+        
+        .modal-article h3 { color: var(--imdb-yellow); font-size: 1.5rem; margin: 30px 0 15px; }
+        .modal-article p { font-size: 1.1rem; line-height: 1.8; color: #E0E0E0; margin-bottom: 20px; }
+        .modal-article ul { margin-left: 20px; color: #E0E0E0; font-size: 1.1rem; line-height: 1.8; margin-bottom: 20px; }
+
+        @media (max-width: 768px) { .hero-text h2 { font-size: 2rem; } .modal-title { font-size: 2rem; } .modal-content { padding: 20px; } }
     </style>
 </head>
 <body>
-    <button class="mobile-menu-btn" onclick="document.querySelector('.sidebar').classList.toggle('open')">MENU</button>
 
-    <aside class="sidebar">
-        <div class="brand-logo">N7<span>MATRIX</span></div>
-        <div class="brand-sub">Omniversal Intelligence</div>
-        <input type="text" id="searchInput" class="search-box" placeholder="Faceted Search Intel..." onkeyup="filterBySearch()">
-        <div class="nav-label">Tactical Taxonomy</div>
-        <ul class="category-list" id="category-menu"></ul>
-    </aside>
+    <header>
+        <div class="logo">N7</div>
+        <div style="font-size: 1.2rem; font-weight: 600; letter-spacing: 1px;">OMNIVERSAL HUB</div>
+    </header>
 
-    <main class="main-wrapper" id="scrollWrapper">
-        <div class="content-container">
-            <div class="breadcrumbs">INDEX / <span id="bread-current">ALL OPERATIONS</span></div>
-            <h1 class="page-title" id="page-heading">Global Telemetry</h1>
-            <section class="cinematic-feed" id="matrix-grid"></section>
+    <div class="hero-section">
+        <div class="swiper heroSwiper">
+            <div class="swiper-wrapper" id="hero-wrapper"></div>
         </div>
-    </main>
+    </div>
+
+    <div class="content-section">
+        <h2 class="section-title">Deep Technical Archives</h2>
+        <div class="movie-grid" id="grid-wrapper"></div>
+    </div>
+
+    <div class="modal" id="article-modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div class="trailer-container" id="modal-trailer"></div>
+            <h1 class="modal-title" id="modal-title"></h1>
+            <div class="cast-box" id="modal-cast-crew"></div>
+            <div class="modal-article" id="modal-article"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <script>
-        let globalData = [];
-        let targetScrollY = 0;
-        let currentRenderedY = 0;
+        // ==========================================
+        // SYSTEM BOOT (PURA DHYAN YAHAN LAGA BHAI!)
+        // ==========================================
+        
+        const SHEET_ID = '13LAiMhG_73QdOTbHA6D9sASr0vjEqS7QzTgEtqpbSlc'; // Apni lambi wali Sheet ID yahan daal
+        const API_KEY = 'AIzaSyBZVIqZQ1nIHqIHqaUIASgPc8X96UI_1zg';   // Abhi jo API key copy ki hai wo yahan daal
+        
+        const SHEET_RANGE = 'Sheet1!A:I';
+        const API_URL = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${SHEET_RANGE}?key=${API_KEY}`;
 
-        function getSafeTags(tagData) {
-            if (!tagData) return [];
-            if (Array.isArray(tagData)) return tagData.map(t => String(t).replace(/\[|\]/g, '').trim());
-            if (typeof tagData === 'string') return tagData.split(',').map(t => t.replace(/\[|\]/g, '').trim());
-            return [];
-        }
+        let globalMovieData = [];
 
-        async function bootMatrix() {
+        async function fetchVaultData() {
             try {
-                const response = await fetch('matrix_data.json?t=' + Date.now());
-                if (!response.ok) throw new Error(`HTTP Error ${response.status}: Unable to fetch matrix_data.json`);
+                const response = await fetch(API_URL);
+                const data = await response.json();
                 
-                const rawText = await response.text();
-                let parsedData = JSON.parse(rawText);
-                if (!Array.isArray(parsedData)) parsedData = [parsedData]; 
-
-                // [THE HACKER FIX: DUPLICATE KILLER]
-                const uniqueData = [];
-                const seenTitles = new Set();
+                // Pura data array mein badlo, pehli line (headers) hata kar
+                const rows = data.values.slice(1);
                 
-                parsedData.reverse().forEach(item => {
-                    const safeTitle = item.title ? item.title.toLowerCase().trim() : "unknown";
-                    // Agar title pehle nahi dekha, tabhi array mein daalo
-                    if (!seenTitles.has(safeTitle)) {
-                        seenTitles.add(safeTitle);
-                        uniqueData.push(item);
-                    }
-                });
-
-                globalData = uniqueData; // Now globalData ONLY has 100% unique posts!
+                globalMovieData = rows.map(row => ({
+                    id: row[0],
+                    title: row[1],
+                    poster: row[3],
+                    backdrop: row[4],
+                    trailer: row[5],
+                    cast_crew: JSON.parse(row[6] || '{"director":"Unknown","cast":[]}'),
+                    article: row[7]
+                })).reverse(); // Naya post sabse pehle dikhega
                 
-                buildTaxonomy();
-                renderFeed(globalData);
-
+                renderUI();
             } catch (error) {
-                console.error("MATRIX CORE CRASH:", error);
-                document.getElementById('matrix-grid').innerHTML = `
-                    <div style="background: rgba(255,0,0,0.1); border: 1px solid red; padding: 20px; border-radius: 10px;">
-                        <h2 style="color: #ff3333; font-family: 'Syncopate'; margin-bottom: 10px;">FATAL ERROR DECODING MATRIX</h2>
-                        <p style="color: #fff; font-family: 'Manrope';">${error.message}</p>
-                    </div>`;
+                console.error("Database connection failed:", error);
+                document.getElementById('grid-wrapper').innerHTML = "<p style='color:red;'>System Offline. Cannot fetch Matrix Data.</p>";
             }
         }
 
-        function buildTaxonomy() {
-            const menu = document.getElementById('category-menu');
-            let html = `<li><button class="magnetic-btn active" onclick="filterCategory('All', this)">All Operations</button></li>`;
+        function renderUI() {
+            const heroWrapper = document.getElementById('hero-wrapper');
+            const gridWrapper = document.getElementById('grid-wrapper');
             
-            const uniqueTags = new Set();
-            globalData.forEach(entry => {
-                getSafeTags(entry.category_tags).forEach(tag => {
-                    if(tag) uniqueTags.add(tag);
-                });
-            });
-
-            uniqueTags.forEach(tag => {
-                html += `<li><button class="magnetic-btn" onclick="filterCategory('${tag}', this)">${tag}</button></li>`;
-            });
-            menu.innerHTML = html;
-        }
-
-        window.filterCategory = function(tag, btnElement) {
-            document.querySelectorAll('.magnetic-btn').forEach(btn => btn.classList.remove('active'));
-            btnElement.classList.add('active');
-            
-            document.getElementById('page-heading').innerText = tag === 'All' ? 'Global Telemetry' : tag;
-            document.getElementById('bread-current').innerText = tag.toUpperCase();
-            document.getElementById('searchInput').value = ''; 
-
-            const filtered = tag === 'All' ? globalData : globalData.filter(e => getSafeTags(e.category_tags).includes(tag));
-            renderFeed(filtered);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        window.filterBySearch = function() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            document.querySelectorAll('.magnetic-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('page-heading').innerText = query ? `Search: ${query}` : 'Global Telemetry';
-            
-            const filtered = globalData.filter(e => 
-                (e.title && e.title.toLowerCase().includes(query)) || 
-                (e.content && e.content.toLowerCase().includes(query))
-            );
-            renderFeed(filtered);
-        }
-
-        function renderFeed(dataBlock) {
-            const grid = document.getElementById('matrix-grid');
-            grid.innerHTML = ''; 
-
-            if(dataBlock.length === 0) {
-                grid.innerHTML = `<p style="color: #9ca3af; font-family: 'Syncopate';">NO INTEL MATCHES DIRECTIVE.</p>`;
-                return;
-            }
-
-            dataBlock.forEach((entry, index) => {
-                const card = document.createElement('article');
-                card.className = 'pro-card';
-                card.style.animationDelay = `${index * 0.15}s`; 
-
-                const tagsHtml = getSafeTags(entry.category_tags).map(tag => `<span class="pro-tag">${tag}</span>`).join('');
-                
-                let safeContent = entry.content || "No data recovered.";
-                let formattedContent = safeContent.replace(/\*\*(.*?)\*\*/g, '<span class="highlight">$1</span>');
-                
-                const safeTitle = entry.title || "CLASSIFIED ANOMALY";
-                const safeImage = entry.image_url || "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1200&auto=format&fit=crop";
-                const safeId = entry.id ? entry.id.substring(0,8) : "N/A";
-                const safeTime = entry.timestamp ? entry.timestamp.substring(0,10) : "UNKNOWN";
-
-                // IMDb Poster Left, Data Right Layout
-                card.innerHTML = `
-                    <div class="card-visual">
-                        <img src="${safeImage}" alt="Cinematic Asset" loading="lazy"
-                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1200&auto=format&fit=crop';" />
-                    </div>
-                    <div class="card-data">
-                        <div class="card-meta">
-                            <span>ASSET ID: ${safeId}</span>
-                            <span>DATALOG: ${safeTime}</span>
+            // Hero Slider (Top 5 movies)
+            const topMovies = globalMovieData.slice(0, 5);
+            topMovies.forEach((movie, index) => {
+                heroWrapper.insertAdjacentHTML('beforeend', `
+                    <div class="swiper-slide" style="background-image: url('${movie.backdrop}');">
+                        <div class="hero-overlay">
+                            <div class="hero-content">
+                                <img src="${movie.poster}" class="hero-poster" alt="${movie.title}">
+                                <div class="hero-text">
+                                    <h2>${movie.title}</h2>
+                                    <button class="hero-trailer-btn" onclick="openModal(${index})">▶ Enter The Matrix</button>
+                                </div>
+                            </div>
                         </div>
-                        <h2 class="card-heading">${safeTitle}</h2>
-                        <div class="card-text">${formattedContent}</div>
-                        <div class="card-tags">${tagsHtml}</div>
                     </div>
-                `;
-                grid.appendChild(card);
+                `);
+            });
+
+            new Swiper('.heroSwiper', { loop: true, autoplay: { delay: 5000 }, effect: 'fade' });
+
+            // Movie Grid Layout
+            globalMovieData.forEach((movie, index) => {
+                const fakeRating = (Math.random() * (9.8 - 8.0) + 8.0).toFixed(1);
+                gridWrapper.insertAdjacentHTML('beforeend', `
+                    <div class="movie-card" onclick="openModal(${index})">
+                        <img loading="lazy" src="${movie.poster}" alt="${movie.title}">
+                        <div class="movie-info">
+                            <div class="rating"><span class="star">★</span> ${fakeRating}</div>
+                            <h3>${movie.title}</h3>
+                        </div>
+                    </div>
+                `);
             });
         }
 
-        document.addEventListener('DOMContentLoaded', bootMatrix);
+        function openModal(index) {
+            const movie = globalMovieData[index];
+            document.getElementById('modal-title').innerText = movie.title;
+            document.getElementById('modal-article').innerHTML = movie.article;
+            
+            document.getElementById('modal-cast-crew').innerHTML = `
+                <h4>Director</h4><p>${movie.cast_crew.director}</p>
+                <h4>Top Cast</h4><p>${movie.cast_crew.cast.join(', ')}</p>
+            `;
+            
+            document.getElementById('modal-trailer').innerHTML = `<iframe src="https://www.youtube.com/embed/${movie.trailer}?autoplay=1&controls=1&modestbranding=1" allow="autoplay; fullscreen"></iframe>`;
+            
+            document.getElementById('article-modal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('article-modal').style.display = 'none';
+            document.getElementById('modal-trailer').innerHTML = ''; // Rok de video
+            document.body.style.overflow = 'auto';
+        }
+
+        fetchVaultData();
     </script>
 </body>
 </html>
