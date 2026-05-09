@@ -88,9 +88,12 @@
         .page-title { font-family: 'Syncopate', sans-serif; font-size: 2.5rem; text-transform: uppercase; margin-bottom: 3rem; font-weight: 700; letter-spacing: -1px; }
 
         .masonry-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
-            gap: 2.5rem; align-items: start;
+            display: flex; 
+            flex-direction: column; 
+            gap: 3rem; 
+            align-items: center; /* Center mein layega */
+            max-width: 900px; /* Text ko zyada lamba nahi hone dega */
+            margin: 0 auto; /* Screen ke beecho-beech set karega */
         }
 
         .pro-card {
