@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>N7 MATRIX // CLASSIFIED INTELLIGENCE DATABASE</title>
     <style>
-        /* CSS Variables defining the Neo-Brutalist Palette */
         :root {
             --bg-color: #050505;
             --neon-green: #00ffcc;
@@ -37,7 +36,7 @@
             letter-spacing: -1px;
         }
 
-        .header-subtext {
+      .header-subtext {
             color: #888;
             font-weight: bold;
             margin-top: 0;
@@ -50,7 +49,7 @@
             gap: 2.5rem;
         }
 
-        .intel-card {
+      .intel-card {
             background: #0a0a0a;
             border: 2px solid var(--border-heavy);
             border-left: 6px solid var(--neon-green);
@@ -61,28 +60,22 @@
             flex-direction: column;
         }
 
-        .intel-card:hover {
+      .intel-card:hover {
             transform: translate(-4px, -4px);
             border-color: var(--neon-green);
             box-shadow: 10px 10px 0px #000;
         }
 
-        .intel-card img {
+      .intel-card img {
             width: 100%;
             height: auto;
             border: 2px solid var(--border-heavy);
             margin-bottom: 1.5rem;
             display: block;
             background-color: #000;
-            filter: grayscale(100%) contrast(1.2);
-            transition: filter 0.3s ease;
-        }
-        
-        .intel-card:hover img {
-            filter: grayscale(0%) contrast(1.1);
         }
 
-        .intel-title {
+      .intel-title {
             color: var(--neon-green);
             font-size: 1.4rem;
             font-weight: bold;
@@ -90,7 +83,7 @@
             margin: 0 0 0.5rem 0;
         }
 
-        .intel-meta {
+      .intel-meta {
             font-size: 0.8rem;
             color: #666;
             margin-bottom: 1.5rem;
@@ -98,21 +91,20 @@
             padding-bottom: 0.5rem;
         }
 
-        .intel-content {
+      .intel-content {
             font-size: 0.95rem;
             white-space: pre-wrap;
             flex-grow: 1;
-            text-align: justify;
         }
 
-        .tags-container {
+      .tags-container {
             margin-top: 2rem;
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
         }
 
-        .tag {
+      .tag {
             background: rgba(0, 255, 204, 0.05);
             color: var(--neon-green);
             padding: 0.3rem 0.6rem;
@@ -135,9 +127,7 @@
     <script>
         async function loadIntelligence() {
             try {
-                const timestampQuery = new Date().getTime();
-                const response = await fetch(`matrix_data.json?t=${timestampQuery}`);
-                
+                const response = await fetch('matrix_data.json');
                 if (!response.ok) {
                     throw new Error(`Data stream unavailable. HTTP Status: ${response.status}`);
                 }
@@ -145,22 +135,20 @@
                 const data = await response.json();
                 const grid = document.getElementById('matrix-grid');
 
-                if (!Array.isArray(data) || data.length === 0) {
-                    throw new Error("DATABASE IS EMPTY OR CORRUPTED.");
-                }
-
                 data.reverse().forEach(entry => {
                     const card = document.createElement('article');
                     card.className = 'intel-card';
 
-                    // [FIXED] Added empty array fallback to prevent JS crash
-                    const tagsHtml = (entry.category_tags || []).map(tag => `<span class="tag">${tag}</span>`).join('');
+                    // Safely handle missing category_tags without throwing undefined errors
+                    const tagsHtml = (entry.category_tags ||)
+                      .map(tag => `<span class="tag">${tag}</span>`)
+                      .join('');
 
                     card.innerHTML = `
                         <img src="${entry.image_url}" alt="${entry.title}" loading="lazy" />
                         <h2 class="intel-title">${entry.title}</h2>
                         <div class="intel-meta">
-                            ID: ${entry.id.substring(0,8)} <br>
+                            ID: ${entry.id} <br>
                             TS: ${entry.timestamp}
                         </div>
                         <div class="intel-content">${entry.content}</div>
@@ -173,11 +161,12 @@
             } catch (error) {
                 console.error('Matrix Synchronization Failure:', error);
                 const grid = document.getElementById('matrix-grid');
-                grid.innerHTML = `<p style="color: red; grid-column: 1/-1;">CRITICAL ERROR: Failed to load matrix database. System terminal locked. <br>${error.message}</p>`;
+                grid.innerHTML = `<p style="color: red; grid-column: 1/-1;">CRITICAL ERROR: Failed to load matrix database. System terminal locked.</p>`;
             }
         }
 
         document.addEventListener('DOMContentLoaded', loadIntelligence);
     </script>
+
 </body>
 </html>
