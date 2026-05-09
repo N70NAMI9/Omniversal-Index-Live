@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>N7 MATRIX // EXTREME CINEMATIC ENGINE</title>
+    <title>N7 MATRIX // CINEMATIC DATABASE</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,14 +11,14 @@
     
     <style>
         :root {
-            --bg-base: #050505;
-            --bg-surface: rgba(15, 15, 15, 0.6);
-            --bg-surface-hover: rgba(25, 25, 25, 0.8);
+            --bg-base: #030303;
+            --bg-surface: #0a0a0a;
+            --bg-surface-hover: #111111;
             --accent: #00f0ff;
             --accent-glow: rgba(0, 240, 255, 0.15);
             --text-main: #ffffff;
-            --text-muted: #e5e7eb; 
-            --border-subtle: rgba(255, 255, 255, 0.05);
+            --text-muted: #d1d5db; 
+            --border-subtle: rgba(255, 255, 255, 0.08);
             --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -31,100 +31,138 @@
             overflow-x: hidden; position: relative;
         }
 
+        /* Cinematic Noise Overlay */
         body::after {
             content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-            opacity: 0.03; pointer-events: none; z-index: 9999;
+            opacity: 0.04; pointer-events: none; z-index: 9999;
         }
 
+        /* SIDEBAR TAXONOMY */
         .sidebar {
-            width: 300px; height: 100vh; position: sticky; top: 0;
-            background: rgba(5, 5, 5, 0.8); backdrop-filter: blur(20px);
+            width: 280px; height: 100vh; position: fixed; top: 0; left: 0;
+            background: rgba(3, 3, 3, 0.95); backdrop-filter: blur(20px);
             border-right: 1px solid var(--border-subtle);
-            padding: 2.5rem 2rem; display: flex; flex-direction: column; z-index: 100;
+            padding: 2.5rem 1.5rem; display: flex; flex-direction: column; z-index: 100;
         }
 
         .brand-logo { font-family: 'Syncopate', sans-serif; font-size: 1.5rem; font-weight: 700; letter-spacing: -1px; text-transform: uppercase; margin-bottom: 0.5rem; }
         .brand-logo span { color: var(--accent); }
-        .brand-sub { font-size: 0.7rem; color: #9ca3af; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 2.5rem; }
+        .brand-sub { font-size: 0.65rem; color: #6b7280; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 2.5rem; }
 
         .search-box {
-            width: 100%; padding: 1rem; background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border-subtle); border-radius: 8px;
+            width: 100%; padding: 0.8rem 1rem; background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-subtle); border-radius: 6px;
             color: var(--text-main); font-family: 'Manrope'; font-size: 0.85rem;
             margin-bottom: 2rem; outline: none; transition: var(--transition-smooth);
         }
         .search-box:focus { border-color: var(--accent); background: rgba(0, 240, 255, 0.05); }
 
-        .nav-label { font-size: 0.7rem; font-family: 'Syncopate'; color: #9ca3af; margin-bottom: 1rem; letter-spacing: 1px; }
+        .nav-label { font-size: 0.7rem; font-family: 'Syncopate'; color: #6b7280; margin-bottom: 1rem; letter-spacing: 1px; }
 
         .category-list { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; overflow-y: auto; }
         .category-list::-webkit-scrollbar { display: none; }
 
         .magnetic-btn {
             background: transparent; border: none; color: #9ca3af;
-            font-family: 'Manrope'; font-size: 0.9rem; text-align: left;
-            padding: 0.8rem 1rem; border-radius: 8px; transition: var(--transition-smooth);
+            font-family: 'Manrope'; font-size: 0.85rem; text-align: left;
+            padding: 0.8rem 1rem; border-radius: 6px; transition: var(--transition-smooth);
             display: flex; align-items: center; position: relative; overflow: hidden; cursor: pointer;
+            width: 100%;
         }
         .magnetic-btn::before { content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 3px; background: var(--accent); transform: scaleY(0); transition: transform 0.3s ease; }
         .magnetic-btn:hover { color: var(--text-main); background: rgba(255,255,255,0.02); }
         .magnetic-btn.active { color: var(--accent); background: var(--accent-glow); }
         .magnetic-btn.active::before { transform: scaleY(1); }
 
-        .main-wrapper { flex-grow: 1; padding: 3rem 4rem; width: calc(100% - 300px); }
+        /* MAIN CONTENT AREA */
+        .main-wrapper { 
+            margin-left: 280px; 
+            padding: 3rem 4rem; 
+            width: calc(100% - 280px);
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centers the content */
+        }
 
-        .breadcrumbs { font-size: 0.8rem; color: #9ca3af; margin-bottom: 1.5rem; letter-spacing: 1px; }
+        .content-container {
+            width: 100%;
+            max-width: 1100px; /* IMDb style max-width to prevent extreme stretching */
+        }
+
+        .breadcrumbs { font-size: 0.75rem; color: #6b7280; margin-bottom: 1rem; letter-spacing: 1px; font-family: 'Syncopate'; }
         .breadcrumbs span { color: var(--accent); }
 
-        .page-title { font-family: 'Syncopate', sans-serif; font-size: 2.5rem; text-transform: uppercase; margin-bottom: 3rem; font-weight: 700; letter-spacing: -1px; }
+        .page-title { font-family: 'Syncopate', sans-serif; font-size: 2.2rem; text-transform: uppercase; margin-bottom: 3rem; font-weight: 700; letter-spacing: -1px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 1rem;}
 
-        .masonry-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 2.5rem; align-items: start; }
+        /* THE IMDB-STYLE FEED LAYOUT */
+        .cinematic-feed { display: flex; flex-direction: column; gap: 3rem; width: 100%; }
 
         .pro-card {
-            background: var(--bg-surface); border: 1px solid var(--border-subtle);
-            border-radius: 12px; overflow: hidden; position: relative;
-            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-            transition: var(--transition-smooth); opacity: 0; transform: translateY(20px);
+            display: flex;
+            background: var(--bg-surface); 
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px; 
+            overflow: hidden; 
+            position: relative;
+            transition: var(--transition-smooth); 
+            opacity: 0; transform: translateY(20px);
             animation: fadeUpIn 0.6s ease forwards;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         @keyframes fadeUpIn { to { opacity: 1; transform: translateY(0); } }
 
-        .pro-card:hover { transform: translateY(-8px) scale(1.01); border-color: rgba(0, 240, 255, 0.3); box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 20px var(--accent-glow); }
+        .pro-card:hover { transform: translateY(-5px); border-color: rgba(0, 240, 255, 0.3); box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 15px var(--accent-glow); }
 
-        .card-visual { width: 100%; height: 300px; position: relative; overflow: hidden; background: #000; }
-        .card-visual img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(80%) contrast(1.1); transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s ease; }
+        /* Poster Image Left Side */
+        .card-visual { width: 350px; flex-shrink: 0; position: relative; background: #000; overflow: hidden;}
+        .card-visual img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(50%) contrast(1.1); transition: transform 0.7s ease, filter 0.7s ease; }
         .pro-card:hover .card-visual img { transform: scale(1.05); filter: grayscale(0%) contrast(1.05); }
 
-        .card-data { padding: 2rem; }
+        /* Data Right Side */
+        .card-data { padding: 2.5rem; display: flex; flex-direction: column; flex-grow: 1; justify-content: center; }
         
-        .card-id-badge { display: inline-block; font-family: 'Syncopate'; font-size: 0.65rem; color: var(--bg-base); background: var(--accent); padding: 0.3rem 0.6rem; border-radius: 4px; font-weight: 700; margin-bottom: 1.5rem; letter-spacing: 1px; }
-
-        .card-heading { font-family: 'Syncopate', sans-serif; font-size: 1.2rem; font-weight: 700; line-height: 1.4; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: -0.5px; }
-
-        .card-text { font-size: 1.05rem; line-height: 1.8; color: var(--text-muted); white-space: pre-wrap; font-weight: 400; margin-bottom: 2rem; }
+        .card-meta { display: flex; justify-content: space-between; font-family: 'Syncopate'; font-size: 0.7rem; color: var(--accent); margin-bottom: 1rem; letter-spacing: 1px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.5rem;}
         
-        .highlight { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.2); }
+        .card-heading { font-family: 'Syncopate', sans-serif; font-size: 1.5rem; font-weight: 700; line-height: 1.3; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: -0.5px; }
 
-        .card-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; }
-        .pro-tag { background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); color: #9ca3af; padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.7rem; font-family: 'Syncopate'; text-transform: uppercase; letter-spacing: 1px; }
+        .card-text { font-size: 1rem; line-height: 1.8; color: var(--text-muted); white-space: pre-wrap; font-weight: 400; margin-bottom: 2rem; }
+        
+        .highlight { color: #fff; font-weight: bold; text-shadow: 0 0 8px rgba(255,255,255,0.2); }
 
-        .mobile-menu-btn { display: none; position: fixed; top: 1.5rem; right: 1.5rem; z-index: 1000; background: var(--bg-surface); border: 1px solid var(--border-subtle); padding: 0.8rem; border-radius: 8px; color: var(--accent); font-family: 'Syncopate'; font-size: 0.8rem; cursor: pointer;}
+        .card-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: auto; }
+        .pro-tag { background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); color: #9ca3af; padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.65rem; font-family: 'Syncopate'; text-transform: uppercase; letter-spacing: 1px; }
 
-        ::-webkit-scrollbar { width: 6px; }
+        .mobile-menu-btn { display: none; position: fixed; top: 1.2rem; right: 1.2rem; z-index: 1000; background: var(--bg-surface); border: 1px solid var(--border-subtle); padding: 0.6rem 1rem; border-radius: 6px; color: var(--accent); font-family: 'Syncopate'; font-size: 0.8rem; cursor: pointer;}
+
+        ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg-base); }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
-        @media (max-width: 1024px) { .masonry-grid { grid-template-columns: 1fr; } }
-        @media (max-width: 768px) {
-            body { flex-direction: column; }
-            .mobile-menu-btn { display: block; }
-            .sidebar { position: fixed; left: -100%; transition: left 0.4s ease; width: 100%; border-right: none; border-bottom: 1px solid var(--border-subtle); background: var(--bg-base); }
+        /* === RESPONSIVE ARCHITECTURE (PC, TAB, MOBILE) === */
+        @media (max-width: 1200px) {
+            .main-wrapper { padding: 2rem; }
+            .card-visual { width: 280px; }
+        }
+        
+        @media (max-width: 992px) {
+            .sidebar { left: -100%; transition: left 0.4s ease; }
             .sidebar.open { left: 0; }
-            .main-wrapper { width: 100%; padding: 5rem 1.5rem 2rem 1.5rem; }
-            .page-title { font-size: 1.8rem; }
+            .mobile-menu-btn { display: block; }
+            .main-wrapper { margin-left: 0; width: 100%; padding: 5rem 1.5rem 2rem 1.5rem; }
+            /* Tablet Layout: Stack image on top of text */
+            .pro-card { flex-direction: column; }
+            .card-visual { width: 100%; height: 350px; }
+        }
+
+        @media (max-width: 600px) {
+            .page-title { font-size: 1.5rem; }
+            .card-visual { height: 250px; }
+            .card-data { padding: 1.5rem; }
+            .card-heading { font-size: 1.2rem; }
+            .card-text { font-size: 0.95rem; }
         }
     </style>
 </head>
@@ -133,17 +171,17 @@
 
     <aside class="sidebar">
         <div class="brand-logo">N7<span>MATRIX</span></div>
-        <div class="brand-sub">Hyper-Realism Engine</div>
+        <div class="brand-sub">Omniversal Intelligence</div>
         <input type="text" id="searchInput" class="search-box" placeholder="Faceted Search Intel..." onkeyup="filterBySearch()">
         <div class="nav-label">Tactical Taxonomy</div>
         <ul class="category-list" id="category-menu"></ul>
     </aside>
 
     <main class="main-wrapper" id="scrollWrapper">
-        <div class="content-area" id="contentArea">
+        <div class="content-container">
             <div class="breadcrumbs">INDEX / <span id="bread-current">ALL OPERATIONS</span></div>
             <h1 class="page-title" id="page-heading">Global Telemetry</h1>
-            <section class="masonry-grid" id="matrix-grid"></section>
+            <section class="cinematic-feed" id="matrix-grid"></section>
         </div>
     </main>
 
@@ -152,7 +190,6 @@
         let targetScrollY = 0;
         let currentRenderedY = 0;
 
-        // --- NEW BULLETPROOF AI DATA CLEANER ---
         function getSafeTags(tagData) {
             if (!tagData) return [];
             if (Array.isArray(tagData)) return tagData.map(t => String(t).replace(/\[|\]/g, '').trim());
@@ -166,22 +203,26 @@
                 if (!response.ok) throw new Error(`HTTP Error ${response.status}: Unable to fetch matrix_data.json`);
                 
                 const rawText = await response.text();
+                let parsedData = JSON.parse(rawText);
+                if (!Array.isArray(parsedData)) parsedData = [parsedData]; 
+
+                // [THE HACKER FIX: DUPLICATE KILLER]
+                const uniqueData = [];
+                const seenTitles = new Set();
                 
-                try {
-                    globalData = JSON.parse(rawText);
-                } catch (jsonError) {
-                    throw new Error(`JSON Format Error. Data generated by AI is malformed. Details: ${jsonError.message}`);
-                }
+                parsedData.reverse().forEach(item => {
+                    const safeTitle = item.title ? item.title.toLowerCase().trim() : "unknown";
+                    // Agar title pehle nahi dekha, tabhi array mein daalo
+                    if (!seenTitles.has(safeTitle)) {
+                        seenTitles.add(safeTitle);
+                        uniqueData.push(item);
+                    }
+                });
 
-                if (!Array.isArray(globalData)) {
-                    globalData = [globalData]; // Force to array if AI returned single object
-                }
-
-                globalData.reverse(); 
+                globalData = uniqueData; // Now globalData ONLY has 100% unique posts!
                 
                 buildTaxonomy();
-                renderMasonry(globalData);
-                engageLinearInterpolationScroll();
+                renderFeed(globalData);
 
             } catch (error) {
                 console.error("MATRIX CORE CRASH:", error);
@@ -219,7 +260,8 @@
             document.getElementById('searchInput').value = ''; 
 
             const filtered = tag === 'All' ? globalData : globalData.filter(e => getSafeTags(e.category_tags).includes(tag));
-            renderMasonry(filtered);
+            renderFeed(filtered);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         window.filterBySearch = function() {
@@ -231,10 +273,10 @@
                 (e.title && e.title.toLowerCase().includes(query)) || 
                 (e.content && e.content.toLowerCase().includes(query))
             );
-            renderMasonry(filtered);
+            renderFeed(filtered);
         }
 
-        function renderMasonry(dataBlock) {
+        function renderFeed(dataBlock) {
             const grid = document.getElementById('matrix-grid');
             grid.innerHTML = ''; 
 
@@ -246,24 +288,29 @@
             dataBlock.forEach((entry, index) => {
                 const card = document.createElement('article');
                 card.className = 'pro-card';
-                card.style.animationDelay = `${index * 0.1}s`; 
+                card.style.animationDelay = `${index * 0.15}s`; 
 
                 const tagsHtml = getSafeTags(entry.category_tags).map(tag => `<span class="pro-tag">${tag}</span>`).join('');
                 
                 let safeContent = entry.content || "No data recovered.";
                 let formattedContent = safeContent.replace(/\*\*(.*?)\*\*/g, '<span class="highlight">$1</span>');
                 
-                const safeTitle = entry.title || "UNKNOWN ANOMALY";
-                const safeImage = entry.image_url || "https://images.unsplash.com/photo-1618331835717-801e976710b2?q=80&w=1920&auto=format&fit=crop";
+                const safeTitle = entry.title || "CLASSIFIED ANOMALY";
+                const safeImage = entry.image_url || "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1200&auto=format&fit=crop";
                 const safeId = entry.id ? entry.id.substring(0,8) : "N/A";
+                const safeTime = entry.timestamp ? entry.timestamp.substring(0,10) : "UNKNOWN";
 
+                // IMDb Poster Left, Data Right Layout
                 card.innerHTML = `
                     <div class="card-visual">
-                        <img src="${safeImage}" alt="Classified Asset" loading="lazy"
-                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1618331835717-801e976710b2?q=80&w=1920&auto=format&fit=crop';" />
+                        <img src="${safeImage}" alt="Cinematic Asset" loading="lazy"
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1200&auto=format&fit=crop';" />
                     </div>
                     <div class="card-data">
-                        <div class="card-id-badge">ID: ${safeId}</div>
+                        <div class="card-meta">
+                            <span>ASSET ID: ${safeId}</span>
+                            <span>DATALOG: ${safeTime}</span>
+                        </div>
                         <h2 class="card-heading">${safeTitle}</h2>
                         <div class="card-text">${formattedContent}</div>
                         <div class="card-tags">${tagsHtml}</div>
@@ -272,18 +319,6 @@
                 grid.appendChild(card);
             });
         }
-
-        const engageLinearInterpolationScroll = () => {
-            window.addEventListener('scroll', () => {
-                targetScrollY = window.scrollY;
-            }, { passive: true });
-
-            const executeLERPLoop = () => {
-                currentRenderedY += (targetScrollY - currentRenderedY) * 0.08;
-                document.body.style.transform = `translate3d(0, -${currentRenderedY}px, 0)`;
-                requestAnimationFrame(executeLERPLoop);
-            };
-        };
 
         document.addEventListener('DOMContentLoaded', bootMatrix);
     </script>
