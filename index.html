@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>N7 MATRIX // CLASSIFIED INTELLIGENCE DATABASE</title>
+    <title>N7 MATRIX // KALYUG</title>
     <style>
         :root {
             --bg-color: #050505;
@@ -11,126 +11,36 @@
             --grid-color: rgba(0, 255, 204, 0.05);
             --border-heavy: #222;
         }
-
         body {
-            margin: 0;
-            padding: 2rem;
-            background-color: var(--bg-color);
-            background-image:
-                linear-gradient(var(--grid-color) 1px, transparent 1px),
-                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-            background-size: 40px 40px;
-            color: #d0d0d0;
-            font-family: 'Courier New', Courier, monospace;
-            line-height: 1.6;
+            margin: 0; padding: 2rem; background-color: var(--bg-color);
+            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px), linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 40px 40px; color: #d0d0d0; font-family: 'Courier New', Courier, monospace; line-height: 1.6;
         }
-
-        h1 {
-            color: var(--neon-green);
-            text-transform: uppercase;
-            font-size: 2.5rem;
-            border-bottom: 4px solid var(--neon-green);
-            padding-bottom: 0.5rem;
-            margin-bottom: 0.2rem;
-            text-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
-            letter-spacing: -1px;
-        }
-
-      .header-subtext {
-            color: #888;
-            font-weight: bold;
-            margin-top: 0;
-            margin-bottom: 3rem;
-        }
-
-        #matrix-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 2.5rem;
-        }
-
-      .intel-card {
-            background: #0a0a0a;
-            border: 2px solid var(--border-heavy);
-            border-left: 6px solid var(--neon-green);
-            padding: 1.5rem;
-            box-shadow: 6px 6px 0px #000;
-            transition: transform 0.15s ease-out, border-color 0.15s ease-out;
-            display: flex;
-            flex-direction: column;
-        }
-
-      .intel-card:hover {
-            transform: translate(-4px, -4px);
-            border-color: var(--neon-green);
-            box-shadow: 10px 10px 0px #000;
-        }
-
-      .intel-card img {
-            width: 100%;
-            height: auto;
-            border: 2px solid var(--border-heavy);
-            margin-bottom: 1.5rem;
-            display: block;
-            background-color: #000;
-        }
-
-      .intel-title {
-            color: var(--neon-green);
-            font-size: 1.4rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            margin: 0 0 0.5rem 0;
-        }
-
-      .intel-meta {
-            font-size: 0.8rem;
-            color: #666;
-            margin-bottom: 1.5rem;
-            border-bottom: 1px dotted #333;
-            padding-bottom: 0.5rem;
-        }
-
-      .intel-content {
-            font-size: 0.95rem;
-            white-space: pre-wrap;
-            flex-grow: 1;
-        }
-
-      .tags-container {
-            margin-top: 2rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-      .tag {
-            background: rgba(0, 255, 204, 0.05);
-            color: var(--neon-green);
-            padding: 0.3rem 0.6rem;
-            font-size: 0.75rem;
-            font-weight: bold;
-            border: 1px solid var(--neon-green);
-            text-transform: uppercase;
-        }
+        h1 { color: var(--neon-green); font-size: 2.5rem; border-bottom: 4px solid var(--neon-green); padding-bottom: 0.5rem; margin-bottom: 0.2rem; }
+        .header-subtext { color: #888; font-weight: bold; margin-bottom: 3rem; }
+        #matrix-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2.5rem; }
+        .intel-card { background: #0a0a0a; border: 2px solid var(--border-heavy); border-left: 6px solid var(--neon-green); padding: 1.5rem; box-shadow: 6px 6px 0px #000; display: flex; flex-direction: column; }
+        .intel-card img { width: 100%; height: auto; border: 2px solid var(--border-heavy); margin-bottom: 1.5rem; background-color: #000; filter: grayscale(100%); transition: filter 0.3s; }
+        .intel-card:hover img { filter: grayscale(0%); }
+        .intel-title { color: var(--neon-green); font-size: 1.4rem; text-transform: uppercase; margin: 0 0 0.5rem 0; }
+        .intel-meta { font-size: 0.8rem; color: #666; margin-bottom: 1.5rem; border-bottom: 1px dotted #333; padding-bottom: 0.5rem; }
+        .intel-content { font-size: 0.95rem; white-space: pre-wrap; flex-grow: 1; text-align: justify; }
+        .tags-container { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .tag { background: rgba(0, 255, 204, 0.05); color: var(--neon-green); padding: 0.3rem 0.6rem; font-size: 0.75rem; border: 1px solid var(--neon-green); }
     </style>
 </head>
 <body>
-
     <header>
-        <h1>N7 Matrix // Omniversal Index</h1>
-        <p class="header-subtext">STATUS: ONLINE // SECURE CONNECTION ESTABLISHED // ACCESS GRANTED</p>
+        <h1>N7 MATRIX // OPERATION KALYUG</h1>
+        <p class="header-subtext">STATUS: ONLINE // SECURE CONNECTION ESTABLISHED</p>
     </header>
-
     <main id="matrix-grid"></main>
 
     <script>
         async function loadIntelligence() {
             try {
-                const response = await fetch('matrix_data.json');
-                if (!response.ok) {
-                    throw new Error(`Data stream unavailable. HTTP Status: ${response.status}`);
-                }
+                const response = await fetch('matrix_data.json?t=' + new Date().getTime());
+                if (!response.ok) throw new Error("Data stream unavailable.");
                 
                 const data = await response.json();
                 const grid = document.getElementById('matrix-grid');
@@ -138,35 +48,21 @@
                 data.reverse().forEach(entry => {
                     const card = document.createElement('article');
                     card.className = 'intel-card';
-
-                    // Safely handle missing category_tags without throwing undefined errors
-                    const tagsHtml = (entry.category_tags ||)
-                      .map(tag => `<span class="tag">${tag}</span>`)
-                      .join('');
-
+                    const tagsHtml = (entry.category_tags || []).map(tag => `<span class="tag">${tag}</span>`).join('');
                     card.innerHTML = `
-                        <img src="${entry.image_url}" alt="${entry.title}" loading="lazy" />
+                        <img src="${entry.image_url}" alt="Kalyug Asset" loading="lazy" />
                         <h2 class="intel-title">${entry.title}</h2>
-                        <div class="intel-meta">
-                            ID: ${entry.id} <br>
-                            TS: ${entry.timestamp}
-                        </div>
+                        <div class="intel-meta">ID: ${entry.id.substring(0,8)} | TS: ${entry.timestamp}</div>
                         <div class="intel-content">${entry.content}</div>
                         <div class="tags-container">${tagsHtml}</div>
                     `;
-                    
                     grid.appendChild(card);
                 });
-                
             } catch (error) {
-                console.error('Matrix Synchronization Failure:', error);
-                const grid = document.getElementById('matrix-grid');
-                grid.innerHTML = `<p style="color: red; grid-column: 1/-1;">CRITICAL ERROR: Failed to load matrix database. System terminal locked.</p>`;
+                document.getElementById('matrix-grid').innerHTML = `<p style="color: red;">CRITICAL ERROR: SYSTEM TERMINAL LOCKED.</p>`;
             }
         }
-
         document.addEventListener('DOMContentLoaded', loadIntelligence);
     </script>
-
 </body>
 </html>
