@@ -1,44 +1,312 @@
-[
-    {
-        "id": "6034500378be",
-        "timestamp": "2026-05-09T09:45:56.088769+00:00",
-        "title": "Munjya: Decoding the Digital Phantom \u2013 A Hyper-Technical Blueprint of Ethereal CGI Integration",
-        "content": "The cinematic landscape of 2024 bore witness to 'Munjya', an Indian Hindi-language comedy horror that defied conventional expectations, emerging as a sleeper hit with a worldwide gross of \u20b9132.13 crore against a modest \u20b930 crore production budget. Beyond its commercial success and critical reception, its triumph at the 70th Filmfare Awards for Best Special Effects underscores a pivotal achievement in digital character creation and seamless VFX integration, marking a new benchmark for Indian cinema's technical prowess, particularly within the horror-comedy genre.\n\nAt the core of 'Munjya's' narrative and visual identity is its titular character, a being entirely brought to life through advanced Computer-Generated Imagery (CGI). This wasn't merely about creating a creature; it was about imbuing a folklore-inspired entity with palpable presence, intricate physical fidelity, and the capacity for both terrifying supernatural menace and comedic timing, all while meticulously anchoring it within live-action plates filmed by director Aditya Sarpotdar and his team.\n\n**The Digital Genesis: Munjya's Anatomical Architecture and Performance**\n\nThe creation of Munjya commenced long before principal photography, with intensive concept art and character design phases drawing heavily from Indian folklore regarding mischievous spirits and spectral entities. This informed the digital sculpt, a highly detailed ZBrush or Mudbox model translated into a clean, animation-ready mesh via meticulous retopology. The polygon count was optimized for efficient rendering while retaining sufficient geometric detail for micro-displacement maps, crucial for conveying ancient, weathered skin textures and intricate facial features. UV unwrapping was paramount for precise texture application, utilizing UDIM workflows to manage high-resolution PBR (Physically Based Rendering) texture sets \u2013 diffuse, albedo, normal, displacement, roughness, metallic, and crucial subsurface scattering (SSS) maps. The SSS component was critical for simulating light penetration and dispersion within Munjya's skin, lending an organic, albeit otherworldly, translucency, particularly visible around edges and thinner areas, enhancing its ethereal quality.\n\nAnimation rigging involved a complex skeletal system, incorporating advanced IK/FK blending for naturalistic limb movements, driven by a robust controller set. Blend shapes and FACS (Facial Action Coding System) driven rigs allowed for nuanced facial expressions, essential for both horror and comedy beats. While extensive motion capture for the creature itself might have been minimal given its unique anatomy and supernatural gait, performance capture data from on-set actors or dedicated animators provided reference for interaction and emotional cues. Keyframe animation, however, remained the primary driver, allowing animators precise control over Munjya's distinct, often unnatural, movement cadence. The animators meticulously imbued the character with a sense of its mythological origin \u2013 a blend of nimble agility and ancient, stiff-limbed menace, ensuring secondary animation (e.g., hair, subtle clothing elements) reacted realistically to primary movements.\n\n**Cinematic Symbiosis: Lenses, Lighting, and Seamless Integration**\n\nThe cinematography, likely handled with modern large-format digital cinema cameras (e.g., ARRI Alexa LF, RED V-Raptor), played a crucial role in framing Munjya's digital presence. The choice of spherical prime lenses, potentially with a slightly vintage or detuned aesthetic, could have contributed to the film's horror-comedy tone, offering controlled optical aberrations and a pleasing fall-off. Maintaining a consistent aperture (T-stop) across sequences where Munjya interacted with actors was vital for depth of field consistency, ensuring the digital character's plane of focus perfectly matched that of the live-action elements. This attention to detail ensured Munjya felt physically present within the spatial dimensions of the set, rather than a flat overlay.\n\nLighting architecture was perhaps the most challenging aspect of integration. On-set, high-dynamic-range imaging (HDRI) panoramas and chrome/grey ball captures were indispensable for recreating the exact lighting conditions of each shot within the 3D rendering environment. The VFX team would have meticulously matched the intensity, color temperature, directionality, and fall-off of practical lights and ambient occlusion. Global Illumination (GI) and advanced ray-tracing algorithms were employed to render Munjya, ensuring realistic bounce light, specular highlights, and ambient occlusion that precisely corresponded to the on-set environment. Crucially, the digital character also needed to cast accurate shadows on practical elements and receive practical shadows from live-action actors, requiring meticulous light interaction simulations and multi-pass rendering (diffuse, specular, reflection, SSS, shadow, depth, ID masks).\n\n**The Physics of Phantoms: Grounding the Supernatural**\n\nThe most sophisticated aspect of Munjya's integration involved its adherence \u2013 or deliberate subversion \u2013 of Newtonian physics. While Munjya is a supernatural entity, its interaction with the physical world required precise simulation. Animators and VFX artists accounted for perceived mass and inertia, ensuring footfalls generated appropriate ground interaction (e.g., subtle dust kicks, deformation of loose soil), and impacts conveyed a sense of physical force. Collision detection systems within the 3D software allowed Munjya to interact realistically with practical props, actors, and environmental elements. When Munjya lifted an object, the weight transfer and resulting strain on its digital anatomy had to be convincing. Conversely, its ethereal nature was often highlighted by intentional deviations from physics \u2013 sudden teleportations, levitation, or gravity-defying maneuvers that emphasized its non-corporeal state, strategically deployed for jump scares or comedic beats.\n\nCompositing was the final crucible. Render passes of Munjya were meticulously layered onto the live-action plates using Nuke or Fusion. Keying (if green/blue screens were used for specific interactions), rotoscoping, and detailed matte extractions ensured Munjya was seamlessly placed. Critical post-processing included motion blur matching (from both camera and object motion), chromatic aberration matching, film grain simulation, and precise color grading to ensure Munjya's rendered output perfectly harmonized with the film's overall aesthetic. Atmospheric elements like mist, dust, or ethereal glows around Munjya were digitally added to enhance its supernatural presence and further blend it into the scene.\n\nAditya Sarpotdar's directorial vision was paramount in orchestrating this complex technical ballet. Early pre-visualization (pre-vis) and technical scouts were crucial for planning camera angles, blocking, and VFX requirements. On-set VFX supervision ensured correct data capture, appropriate practical lighting for CG integration, and the use of stand-in objects or actors for interaction cues, guiding the live-action performances against an invisible foe. The collaboration between direction, cinematography, and the VFX department created a cohesive workflow, allowing the intricate digital character to feel like a tangible, albeit terrifyingly playful, part of the narrative.\n\nMunjya's success and its recognition for Special Effects represent a significant leap for Indian cinema, showcasing how a character entirely conceived in the digital realm can achieve profound cinematic impact through hyper-detailed technical execution and a sophisticated understanding of visual storytelling. It stands as a testament to meticulous planning, advanced pipeline workflows, and a nuanced approach to merging the supernatural with the tangible.\nSource Intelligence Extracted from: https://en.wikipedia.org/wiki/Munjya_(film)",
-        "image_url": "https://images.unsplash.com/photo-1611082531011-845a76e7b165?q=80&w=1200",
-        "category_tags": [
-            "VFX Architecture",
-            "Digital Character Creation",
-            "Cinematic Integration",
-            "Horror Comedy VFX",
-            "Newtonian Physics in CGI"
-        ]
-    },
-    {
-        "id": "703e67fec078",
-        "timestamp": "2026-05-09T09:28:01.274825+00:00",
-        "title": "Project Chimera: Deconstructing the Science Fiction Cinematic Blueprint \u2013 An Executive Analysis",
-        "content": "Operational Directive: To analyze and delineate the core technical and artistic methodologies required for the manifestation of 'Science Fiction' as a genre, herein defined as speculative fiction projecting advanced scientific or technological progress. This dossier serves as a classified cinematic blueprint, detailing the exigencies across VFX, Cinematography, Direction, and the judicious application of physical laws.\n\n**Phase 1: Conceptual Architecture & Thematic Grounding**\nScience fiction, at its nexus, interrogates humanity's response to the consequences of projected scientific advances. Its thematic bandwidth has expanded from traditional tropes like space exploration, extraterrestrial life, and time travel to encompass complex contemporary issues such as parallel universes, dystopian societies, biological manipulation, information technology, transhumanism, posthumanism, and critical environmental challenges. The director's primary mandate is to establish a singular, coherent vision that anchors these speculative elements within a relatable human narrative, ensuring the technological marvels serve the story's emotional and philosophical core. This initial phase demands rigorous world-building, often articulated through extensive concept art, pre-visualization (pre-vis), and technical read-throughs, establishing the visual lexicon for the entire production.\n\n**Phase 2: Visual Effects (VFX) \u2013 The Fabric of the Improbable**\nVFX constitutes the bedrock of sci-fi's verisimilitude. The challenge lies not merely in generating fantastical imagery, but in rendering it with absolute photorealistic fidelity, convincing the audience of its tangible existence. For grand-scale space opera and futuristic cityscapes, procedural generation techniques are paramount, allowing for the rapid yet detailed creation of vast, complex environments that maintain a consistent design language. Digital matte paintings, often augmented with parallax and volumetric lighting, extend practical sets to impossible scales. Extraterrestrial lifeforms and robotics necessitate advanced character rigging, sub-surface scattering for organic realism, and sophisticated performance capture (mocap/hand-animation hybrids) to imbue creatures with believable motion and emotive range. Particle systems are critical for depicting atmospheric phenomena, plasma discharges, and kinetic weapon effects, while physically-based rendering (PBR) workflows ensure accurate light interaction and material properties across all digital assets. Node-based compositing is the final stage, meticulously integrating CGI with live-action plates, managing complex lens artifacts, and ensuring seamless continuity.\n\n**Phase 3: Cinematography & Lens Protocol \u2013 Framing the Future**\nThe choice of camera system and lensing is pivotal in defining the aesthetic and psychological tenor of a science fiction piece. For 'hard science fiction,' which emphasizes scientific accuracy, a clinical, often wide-angle approach (e.g., 20mm-35mm spherical primes) is favored to capture expansive sets and intricate machinery with minimal distortion, promoting a sense of objective observation. High Dynamic Range (HDR) capture is essential for rendering the extreme contrast of deep space or stark metallic interiors. 'Space Opera,' conversely, often benefits from anamorphic lenses (e.g., Panavision C-series or Hawk V-Lite) to achieve a wider aspect ratio, pronounced horizontal lens flares, and characteristic bokeh, evoking a classic cinematic grandeur. Cyberpunk demands high contrast, saturated neon palettes, and frequently utilizes wide-angle lenses (e.g., Laowa 15mm Zero-D) with pronounced distortions to create claustrophobic, oppressive urban landscapes, often shot with shallow depth of field to isolate characters amidst overwhelming environments. Climate fiction might employ desaturated palettes and gritty, texture-emphasizing lenses to underscore environmental degradation, utilizing longer focal lengths to create a sense of observational detachment or impending doom. Lighting schemes vary from stark, directional sources to volumetric haze, all meticulously planned to sculpt the unique visual language of each subgenre.\n\n**Phase 4: Newtonian Physics \u2013 The Illusion of Reality**\nWhile cinematic license is often granted, the credible depiction of physical laws is non-negotiable for genre authenticity, particularly in 'hard sci-fi.' Operational challenges include the simulation of microgravity environments, demanding precise wirework, advanced harness systems, and digital rig removal. VFX teams meticulously simulate object trajectories, momentum, and inertia in vacuum for believable space combat or orbital mechanics, often requiring specialized physics-based animation engines. The absence of sound in space, though frequently disregarded for dramatic effect, can be subtly acknowledged through visual cues like vibrations or internal ship sounds. The visual representation of extreme G-forces on human subjects necessitates performance capture combined with subtle digital deformation and fluid dynamics simulation for internal organ shift. Even when exaggerated, the visual language must be rooted in an identifiable physical reality to maintain audience immersion. For example, explosions in space should visually represent rapidly expanding gas and debris, not necessarily concussive sound waves.\n\n**Phase 5: Subgenre-Specific Directorial Directives**\n\n*   **Hard Sci-Fi:** Emphasize detail, functional design, and logical consistency. Direction must prioritize clarity of scientific concepts and their impact.\n*   **Soft Sci-Fi:** Focus on social implications and character psychology. Visuals should be evocative and serve emotional beats over strict technical accuracy.\n*   **Cyberpunk:** Create an oppressive, layered visual density. Directorial emphasis on juxtaposition: high tech/low life, wealth/poverty.\n*   **Climate Fiction:** Utilize stark realism and visceral imagery to convey urgency. Direction must highlight human resilience or despair in the face of ecological collapse.\n\nThis multi-faceted approach, integrating stringent technical execution with a profound understanding of narrative and thematic intent, is paramount to translating the intricate visions of science fiction into compelling, immersive cinematic experiences.\n\nSource Intelligence Extracted from: https://en.wikipedia.org/wiki/Science_fiction",
-        "image_url": "https://images.unsplash.com/photo-1611082531011-845a76e7b165?q=80&w=1200",
-        "category_tags": [
-            "VFX Architecture",
-            "Cinematic Design",
-            "Science Fiction Theory",
-            "Advanced Lensing",
-            "Directorial Strategy"
-        ]
-    },
-    {
-        "id": "9b6eb27c2c76",
-        "timestamp": "2026-05-09T08:31:22.560049+00:00",
-        "title": "Operation Arrakis: Deconstructing the Visual Architecture for Dune Part 2",
-        "content": "PROJECT CLASSIFICATION: TOP TIER | VISUAL DEVELOPMENT ARCHITECTURE\nSUBJECT: DUNE PART 2 \u2013 PHENOMENOLOGICAL VISUAL SYNTHESIS\n\nREPORT INITIATED: 2024-05-15\n\n**OVERVIEW: THE EXTENDED DUNIVERSE & CINEMATIC REALIZATION**\n\nThe cinematic undertaking of Frank Herbert\u2019s *Dune* saga, an intergalactic narrative spanning millennia and civilizations defined by their staunch anti-'thinking machine' ethos, necessitates a hyper-technical and meticulously integrated visual strategy. *Dune Part 2*, as the direct continuation of the 2021 prelude, builds upon an established visual lexicon, expanding the scope of a universe where advanced human mental and physical disciplines supersede computational intelligence. Our architectural analysis focuses on the extreme detail required to render this unique technofeudal polity, centering on the harsh desert planet Arrakis and the strategic resource, melange.\n\n**SECTION 1: ENVIRONMENTAL VFX \u2013 ARRAKIS GEODYNAMICS & ATMOSPHERIC PHENOMENA**\n\nThe primary stage for *Dune Part 2* is Arrakis, a planet whose identity is intrinsically linked to its arid, severe environment. The VFX mandate here is not merely depiction but visceral immersion. Leveraging petascale simulation pipelines, the digital recreation of Arrakis's surface necessitates accurate Newtonian physics for sand dynamics. This includes micro-particle simulations for wind-blown dust, macro-simulations for colossal dunes, and real-time fluid simulations for 'sandfalls' or avalanches triggered by seismic activity or mass movement. Each grain of sand, though rendered volumetrically, contributes to the illusion of mass and movement, responding to virtual gravity, air resistance, and inter-particle friction. Atmospheric scattering models are paramount for rendering the twin-sun harshness, creating credible heat hazes, mirages, and the 'spice blow' effects\u2014massive, explosive expulsions of melange that reshape the landscape. The sheer scale dictates extensive use of photogrammetry-derived assets blended with procedural generation for expansive desertscapes, often pushing resolution boundaries beyond 8K for plate elements.\n\n**SECTION 2: NON-COMPUTATIONAL TECHNOSCAPES & SCALE INTEGRATION**\n\nHerbert\u2019s Duniverse explicitly bans 'thinking machines,' compelling a distinct approach to technology visualization. This translates to an aesthetic favoring mechanical, optical, and biological complexity over sleek digital interfaces. VFX here manifests in the detailed rendering of advanced, yet physically operated, technologies. Ornithopter flight dynamics, for instance, are governed by complex wing articulation and aerodynamic principles, with subtle variations in airflow and material flex simulated to achieve photorealism, adhering to observable physics. Large-scale Imperial structures and vehicles are rendered with brutalist precision, utilizing digital matte paintings and volumetric modeling for their immense size, integrating seamlessly with practical miniatures and full-scale sets. The challenge lies in making the 'analogue' advanced technology feel genuinely functional and intricate without resorting to futuristic holographic displays or AI-driven systems. Directionally, this grounds the visual narrative in a tactile reality, forcing the audience to believe in the physical mechanisms at play rather than abstract digital processes.\n\n**SECTION 3: CINEMATOGRAPHIC IMPERATIVES \u2013 LENSING THE EPOCHAL & INTIMATE**\n\nThe direction of *Dune Part 2* demands a distinct cinematographic strategy to capture both the epic scale of Arrakis and the intense intimacy of human conflict. Large-format cameras (e.g., ARRI ALEXA LF, IMAX-certified digital cameras) are non-negotiable for their ability to render immense depth of field and texture with unparalleled fidelity, crucial for the vast desert vistas. Anamorphic lenses provide a cinematic widescreen aspect ratio, further enhancing the sense of scale and immersion, particularly in depicting the sweeping grandeur of the Imperium's forces or the vastness of the Fremen territories. Lighting design is critical: the harsh, high-contrast illumination of Arrakis is meticulously replicated, often with multi-directional key lighting to simulate dual suns and extreme exposure latitude to preserve detail in both searing highlights and deep shadows. For interior sequences, a deliberate play of chiaroscuro emphasizes the feudal, often claustrophobic, political machinations. The director's vision consistently frames characters against monumental backdrops, leveraging negative space and low-angle shots to convey both human insignificance and resilience.\n\n**SECTION 4: THE DIRECTOR'S VISION & NARRATIVE VFX SYNTHESIS**\n\nThe visionary direction ensures that every VFX asset and cinematographic choice serves to deepen the narrative and thematic resonance. The 'classified cinematic blueprint' is to achieve an unparalleled level of realism, not for spectacle alone, but to ground the extraordinary elements of the Duniverse\u2014the spice, the prescient computations enabled by it, the sheer brutality of Arrakis\u2014in a believable, tactile reality. This necessitates a seamless integration of practical effects with digital enhancements, a philosophy that prioritizes in-camera realism wherever possible, then extends it with meticulously crafted CG elements. The final composite must be indistinguishable, ensuring that the audience\u2019s suspension of disbelief is never broken, allowing them to fully inhabit a future where humanity has forged a path without the aid of forbidden 'thinking machines.' The challenge for Part 2 is to elevate this integration, presenting even more complex interactions\u2014be it sandworm encounters (implied by the planet's nature) or mass battles\u2014with the same unwavering commitment to a grounded, hyper-realistic aesthetic.\n\nSource Intelligence Extracted from: https://en.wikipedia.org/wiki/Dune_(franchise)",
-        "image_url": "[https://image.pollinations.ai/prompt/](https://image.pollinations.ai/prompt/)Operation%20Arrakis%3A%20Deconstructing%20the%20Visual%20Architecture%20for%20Dune%20Part%202%20cinematic%20still%2C%20extreme%20heavy%20mud%20elephant%20rescue%2C%20brutal%20raw%20realism%2C%20Hasselblad%20Phase%20One%20IQ4%20150MP%2C%2016-bit%20RAW%2C%20highly%20detailed%20photography%2C%20no%20CGI%2C%20natural%20lighting?width=1920&height=1080&nologo=true",
-        "category_tags": [
-            "VFX Architecture",
-            "Cinematic Design",
-            "Sci-Fi Realism",
-            "Environmental Simulation",
-            "Newtonian Physics in Film"
-        ]
-    }
-]
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>N7 MATRIX // CINEMATIC DATABASE</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-base: #000000;
+            --bg-surface: #0f0f0f;
+            --accent: #00f0ff;
+            --text-main: #ffffff;
+            --text-muted: #9ca3af; 
+            --text-dark: #6b7280;
+            --border-subtle: #222222;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-base); color: var(--text-main);
+            font-family: 'Inter', sans-serif; display: flex; min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Subtle Cinematic Grain */
+        body::after {
+            content: ""; position: fixed; inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03; pointer-events: none; z-index: 9999;
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            width: 260px; height: 100vh; position: fixed; top: 0; left: 0;
+            background: var(--bg-base); border-right: 1px solid var(--border-subtle);
+            padding: 2.5rem 1.5rem; display: flex; flex-direction: column; z-index: 100;
+        }
+
+        .brand-logo { font-family: 'Syncopate', sans-serif; font-size: 1.4rem; font-weight: 700; letter-spacing: -1px; margin-bottom: 0.2rem; }
+        .brand-logo span { color: var(--accent); }
+        .brand-sub { font-size: 0.65rem; color: var(--text-dark); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 2.5rem; }
+
+        .search-box {
+            width: 100%; padding: 0.8rem 1rem; background: var(--bg-surface);
+            border: 1px solid var(--border-subtle); border-radius: 4px;
+            color: var(--text-main); font-family: 'Inter'; font-size: 0.85rem;
+            margin-bottom: 2rem; outline: none; transition: border 0.3s ease;
+        }
+        .search-box:focus { border-color: var(--accent); }
+
+        .nav-label { font-size: 0.7rem; font-weight: 600; color: var(--text-dark); margin-bottom: 1rem; letter-spacing: 1px; text-transform: uppercase; }
+
+        .category-list { list-style: none; display: flex; flex-direction: column; gap: 0.2rem; overflow-y: auto; }
+        .category-list::-webkit-scrollbar { display: none; }
+
+        .cat-btn {
+            background: transparent; border: none; color: var(--text-muted);
+            font-family: 'Inter'; font-size: 0.85rem; text-align: left;
+            padding: 0.6rem 0.8rem; border-radius: 4px; transition: all 0.2s ease;
+            cursor: pointer; width: 100%; font-weight: 500;
+        }
+        .cat-btn:hover { color: var(--text-main); background: var(--bg-surface); }
+        .cat-btn.active { color: var(--bg-base); background: var(--accent); font-weight: 600; }
+
+        /* --- MAIN CONTENT (IMDB FEED) --- */
+        .main-wrapper { 
+            margin-left: 260px; padding: 3rem 4rem; width: calc(100% - 260px);
+            display: flex; flex-direction: column; align-items: center;
+        }
+
+        .content-container { width: 100%; max-width: 950px; }
+
+        .page-header { border-bottom: 1px solid var(--border-subtle); padding-bottom: 1rem; margin-bottom: 2rem; }
+        .breadcrumbs { font-size: 0.75rem; color: var(--text-dark); margin-bottom: 0.5rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 600;}
+        .page-title { font-size: 2rem; font-weight: 700; letter-spacing: -0.5px; color: #fff; }
+
+        .cinematic-feed { display: flex; flex-direction: column; width: 100%; }
+
+        /* ELITE IMDB STYLE CARD */
+        .pro-card {
+            display: flex; gap: 2rem; padding: 2.5rem 0;
+            border-bottom: 1px solid var(--border-subtle);
+            transition: all 0.3s ease; opacity: 0; transform: translateY(10px);
+            animation: fadeUpIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeUpIn { to { opacity: 1; transform: translateY(0); } }
+
+        /* Movie Poster Aspect Ratio (2:3) */
+        .card-visual { 
+            width: 180px; flex-shrink: 0; border-radius: 4px; overflow: hidden; 
+            aspect-ratio: 2 / 3; background: #111;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        .card-visual img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.85) contrast(1.1); transition: filter 0.3s ease; }
+        .pro-card:hover .card-visual img { filter: brightness(1) contrast(1.05); }
+
+        .card-data { display: flex; flex-direction: column; justify-content: flex-start; flex-grow: 1; overflow: hidden; }
+        
+        .card-heading { font-size: 1.4rem; font-weight: 700; line-height: 1.3; margin-bottom: 0.3rem; color: #fff; }
+        
+        .card-meta { display: flex; gap: 1rem; font-size: 0.8rem; color: var(--text-dark); margin-bottom: 1rem; font-weight: 500; }
+        .card-meta span { display: flex; align-items: center; gap: 0.3rem; }
+        
+        .card-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.2rem; }
+        .pro-tag { border: 1px solid #333; color: #d1d5db; padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.7rem; font-weight: 500; text-transform: capitalize; }
+
+        /* Read More Truncation Logic */
+        .card-text { 
+            font-size: 0.95rem; line-height: 1.7; color: var(--text-muted); 
+            white-space: pre-wrap; font-weight: 400; margin-bottom: 1rem;
+            display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .card-text.expanded { -webkit-line-clamp: unset; }
+        .highlight { color: #fff; font-weight: 600; }
+
+        .read-more-btn {
+            background: transparent; border: none; color: var(--accent); font-weight: 600;
+            font-size: 0.85rem; cursor: pointer; text-align: left; align-self: flex-start;
+            text-transform: uppercase; letter-spacing: 1px; padding: 0;
+        }
+        .read-more-btn:hover { text-decoration: underline; }
+
+        .mobile-menu-btn { display: none; position: fixed; top: 1rem; right: 1rem; z-index: 1000; background: var(--bg-surface); border: 1px solid var(--border-subtle); padding: 0.5rem 0.8rem; border-radius: 4px; color: #fff; font-size: 0.8rem; cursor: pointer;}
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-base); }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+        /* === RESPONSIVE LAYOUT === */
+        @media (max-width: 992px) {
+            .sidebar { left: -100%; transition: left 0.4s ease; }
+            .sidebar.open { left: 0; }
+            .mobile-menu-btn { display: block; }
+            .main-wrapper { margin-left: 0; width: 100%; padding: 4rem 1.5rem 2rem 1.5rem; }
+        }
+
+        @media (max-width: 600px) {
+            .pro-card { flex-direction: column; gap: 1rem; padding: 2rem 0; }
+            /* On mobile, poster goes full width like a banner, or stays small. Let's make it look like a nice banner */
+            .card-visual { width: 100%; aspect-ratio: 16 / 9; } 
+            .card-heading { font-size: 1.2rem; }
+            .page-title { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+    <button class="mobile-menu-btn" onclick="document.querySelector('.sidebar').classList.toggle('open')">MENU</button>
+
+    <aside class="sidebar">
+        <div class="brand-logo">N7<span>MATRIX</span></div>
+        <div class="brand-sub">Film Database</div>
+        <input type="text" id="searchInput" class="search-box" placeholder="Search intel..." onkeyup="filterBySearch()">
+        <div class="nav-label">Categories</div>
+        <ul class="category-list" id="category-menu"></ul>
+    </aside>
+
+    <main class="main-wrapper">
+        <div class="content-container">
+            <div class="page-header">
+                <div class="breadcrumbs">INDEX / <span id="bread-current" style="color: var(--accent);">ALL OPERATIONS</span></div>
+                <h1 class="page-title" id="page-heading">Global Telemetry</h1>
+            </div>
+            <section class="cinematic-feed" id="matrix-grid"></section>
+        </div>
+    </main>
+
+    <script>
+        let globalData = [];
+
+        function getSafeTags(tagData) {
+            if (!tagData) return [];
+            if (Array.isArray(tagData)) return tagData.map(t => String(t).replace(/\[|\]/g, '').trim());
+            if (typeof tagData === 'string') return tagData.split(',').map(t => t.replace(/\[|\]/g, '').trim());
+            return [];
+        }
+
+        async function bootMatrix() {
+            try {
+                const response = await fetch('matrix_data.json?t=' + Date.now());
+                if (!response.ok) throw new Error(`HTTP Error ${response.status}`);
+                
+                let parsedData = JSON.parse(await response.text());
+                if (!Array.isArray(parsedData)) parsedData = [parsedData]; 
+
+                // Duplicate Killer Logic
+                const uniqueData = [];
+                const seenTitles = new Set();
+                parsedData.reverse().forEach(item => {
+                    const safeTitle = item.title ? item.title.toLowerCase().trim() : "unknown";
+                    if (!seenTitles.has(safeTitle)) {
+                        seenTitles.add(safeTitle);
+                        uniqueData.push(item);
+                    }
+                });
+
+                globalData = uniqueData;
+                buildTaxonomy();
+                renderFeed(globalData);
+
+            } catch (error) {
+                document.getElementById('matrix-grid').innerHTML = `<p style="color: #ef4444;">Database Offline: ${error.message}</p>`;
+            }
+        }
+
+        function buildTaxonomy() {
+            const menu = document.getElementById('category-menu');
+            let html = `<li><button class="cat-btn active" onclick="filterCategory('All', this)">All Operations</button></li>`;
+            
+            const uniqueTags = new Set();
+            globalData.forEach(entry => getSafeTags(entry.category_tags).forEach(tag => { if(tag) uniqueTags.add(tag); }));
+
+            uniqueTags.forEach(tag => {
+                html += `<li><button class="cat-btn" onclick="filterCategory('${tag}', this)">${tag}</button></li>`;
+            });
+            menu.innerHTML = html;
+        }
+
+        window.filterCategory = function(tag, btnElement) {
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            
+            document.getElementById('page-heading').innerText = tag === 'All' ? 'Global Telemetry' : tag;
+            document.getElementById('bread-current').innerText = tag;
+            document.getElementById('searchInput').value = ''; 
+
+            const filtered = tag === 'All' ? globalData : globalData.filter(e => getSafeTags(e.category_tags).includes(tag));
+            renderFeed(filtered);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.filterBySearch = function() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('page-heading').innerText = query ? `Search: "${query}"` : 'Global Telemetry';
+            
+            const filtered = globalData.filter(e => 
+                (e.title && e.title.toLowerCase().includes(query)) || 
+                (e.content && e.content.toLowerCase().includes(query))
+            );
+            renderFeed(filtered);
+        }
+
+        // Toggle Expand/Collapse
+        window.toggleRead = function(btn) {
+            const textContainer = btn.previousElementSibling;
+            if (textContainer.classList.contains('expanded')) {
+                textContainer.classList.remove('expanded');
+                btn.innerText = 'READ FULL REPORT ˅';
+            } else {
+                textContainer.classList.add('expanded');
+                btn.innerText = 'COLLAPSE ˄';
+            }
+        }
+
+        function renderFeed(dataBlock) {
+            const grid = document.getElementById('matrix-grid');
+            grid.innerHTML = ''; 
+
+            if(dataBlock.length === 0) {
+                grid.innerHTML = `<p style="color: #6b7280;">No records found.</p>`;
+                return;
+            }
+
+            dataBlock.forEach((entry, index) => {
+                const card = document.createElement('article');
+                card.className = 'pro-card';
+                card.style.animationDelay = `${index * 0.1}s`; 
+
+                const tagsHtml = getSafeTags(entry.category_tags).map(tag => `<span class="pro-tag">${tag}</span>`).join('');
+                
+                let safeContent = entry.content || "No data recovered.";
+                let formattedContent = safeContent.replace(/\*\*(.*?)\*\*/g, '<span class="highlight">$1</span>');
+                
+                const safeTitle = entry.title || "Classified Intel";
+                // Vertical Poster Fallback
+                const safeImage = entry.image_url || "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?q=80&w=600&auto=format&fit=crop";
+                const safeId = entry.id ? entry.id.substring(0,8) : "N/A";
+                const safeTime = entry.timestamp ? new Date(entry.timestamp).toLocaleDateString('en-US', {year: 'numeric', month: 'short', day: 'numeric'}) : "Unknown Date";
+
+                card.innerHTML = `
+                    <div class="card-visual">
+                        <img src="${safeImage}" alt="Poster" loading="lazy"
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1440404653325-ab127d49abc1?q=80&w=600&auto=format&fit=crop';" />
+                    </div>
+                    <div class="card-data">
+                        <h2 class="card-heading">${safeTitle}</h2>
+                        <div class="card-meta">
+                            <span>ID: ${safeId}</span> • <span>${safeTime}</span>
+                        </div>
+                        <div class="card-tags">${tagsHtml}</div>
+                        <div class="card-text">${formattedContent}</div>
+                        <button class="read-more-btn" onclick="toggleRead(this)">READ FULL REPORT ˅</button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', bootMatrix);
+    </script>
+</body>
+</html>
