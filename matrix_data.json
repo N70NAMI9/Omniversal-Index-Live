@@ -1,7 +1,13 @@
-{
-    "node": "N7_KALYUG_PHASE_ONE",
-    "sync_time": "2026-05-09 01:04:10",
-    "logistics_data": "ERROR 404: GEMINI API KEY MISSING OR INVALID IN GITHUB SECRETS.",
-    "visual_asset": "N/A",
-    "source_radar": "https://en.wikipedia.org/wiki/Animal_rescue"
-}
+[
+    {
+        "title": "OP_KALYUG_FAIL",
+        "content": "System failed to connect.",
+        "image_url": "https://image.pollinations.ai/prompt/OP_KALYUG_FAIL%20cinematic%20shot%2C%20heavy%20deep-mud%20wildlife%20rescue%2C%20brutal%20realism%2C%20Hasselblad%20Phase%20One%20IQ4%20150MP%2C%2016-bit%20RAW%2C%20highly%20detailed?width=1920&height=1080&nologo=true",
+        "category_tags": [
+            "[ ENCRYPTION: KALYUG-01 ]",
+            "[ OPTICS: PHASE ONE ]"
+        ],
+        "id": "740dd4f2-961e-4a3d-ace9-5d25f42114d8",
+        "timestamp": "2026-05-09T01:05:20.957450+00:00"
+    }
+]
