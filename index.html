@@ -3,308 +3,360 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>N7 MATRIX // PREMIUM DATABASE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <title>N7 MATRIX // EXTREME CINEMATIC ENGINE</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
+        /* CSS Variables for Premium Dark Theme */
         :root {
-            --bg-main: #09090b;
-            --bg-surface: #18181b;
-            --bg-surface-hover: #27272a;
-            --accent-cyan: #06b6d4;
-            --accent-glow: rgba(6, 182, 212, 0.4);
-            --text-primary: #f8fafc;
-            --text-secondary: #a1a1aa;
-            --border-color: rgba(255, 255, 255, 0.08);
+            --bg-base: #050505;
+            --bg-surface: rgba(15, 15, 15, 0.6);
+            --bg-surface-hover: rgba(25, 25, 25, 0.8);
+            --accent: #00f0ff;
+            --accent-glow: rgba(0, 240, 255, 0.15);
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-subtle: rgba(255, 255, 255, 0.05);
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; /* Hide default cursor for custom one */ }
+        
+        html { scroll-behavior: smooth; }
 
         body {
-            background-color: var(--bg-main);
-            color: var(--text-primary);
-            font-family: 'Inter', sans-serif;
-            display: flex;
-            min-height: 100vh;
-            overflow-x: hidden;
+            background-color: var(--bg-base); color: var(--text-main);
+            font-family: 'Manrope', sans-serif; display: flex; min-height: 100vh;
+            overflow-x: hidden; position: relative;
         }
 
-        /* --- LEFT SIDEBAR (MULTI-CATEGORY NAVIGATION) --- */
+        /* Cinematic Film Grain Overlay (High-End Effect) */
+        body::after {
+            content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03; pointer-events: none; z-index: 9999;
+        }
+
+        /* CUSTOM MAGNETIC CURSOR */
+        #cursor-dot {
+            position: fixed; top: 0; left: 0; width: 6px; height: 6px;
+            background-color: var(--accent); border-radius: 50%;
+            pointer-events: none; z-index: 10000; transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+        #cursor-ring {
+            position: fixed; top: 0; left: 0; width: 34px; height: 34px;
+            border: 1px solid var(--accent); border-radius: 50%;
+            pointer-events: none; z-index: 9999; transform: translate(-50%, -50%);
+            transition: transform 0.1s ease-out, width 0.2s, height 0.2s;
+        }
+
+        /* --- SIDEBAR (Context-Aware & Sticky) --- */
         .sidebar {
-            width: 280px;
-            background-color: var(--bg-surface);
-            border-right: 1px solid var(--border-color);
-            position: fixed;
-            height: 100vh;
-            padding: 2rem 1.5rem;
-            display: flex;
-            flex-direction: column;
-            z-index: 100;
+            width: 300px; height: 100vh; position: sticky; top: 0;
+            background: rgba(5, 5, 5, 0.8); backdrop-filter: blur(20px);
+            border-right: 1px solid var(--border-subtle);
+            padding: 2.5rem 2rem; display: flex; flex-direction: column; z-index: 100;
         }
 
-        .brand {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 0.5rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
+        .brand-logo {
+            font-family: 'Syncopate', sans-serif; font-size: 1.5rem; font-weight: 700;
+            letter-spacing: -1px; text-transform: uppercase; margin-bottom: 0.5rem;
         }
+        .brand-logo span { color: var(--accent); }
+        .brand-sub { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 2.5rem; }
 
-        .brand span { color: var(--accent-cyan); }
-        .brand-subtitle { font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 3rem; text-transform: uppercase; letter-spacing: 2px;}
-
-        .nav-title {
-            font-size: 0.8rem; font-weight: 600; color: var(--text-primary);
-            text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 1rem;
+        /* Faceted Search Bar */
+        .search-box {
+            width: 100%; padding: 1rem; background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-subtle); border-radius: 8px;
+            color: var(--text-main); font-family: 'Manrope'; font-size: 0.85rem;
+            margin-bottom: 2rem; outline: none; transition: var(--transition-smooth);
         }
+        .search-box:focus { border-color: var(--accent); background: rgba(0, 240, 255, 0.05); }
 
-        .category-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+        .nav-label { font-size: 0.7rem; font-family: 'Syncopate'; color: var(--text-muted); margin-bottom: 1rem; letter-spacing: 1px; }
 
-        .category-btn {
-            background: transparent; border: none; color: var(--text-secondary);
-            font-family: 'Inter', sans-serif; font-size: 0.95rem; text-align: left;
-            padding: 0.8rem 1rem; border-radius: 8px; cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex; justify-content: space-between; align-items: center;
+        .category-list { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; overflow-y: auto; }
+        .category-list::-webkit-scrollbar { display: none; } /* Hide scrollbar for ultra-clean look */
+
+        .magnetic-btn {
+            background: transparent; border: none; color: var(--text-muted);
+            font-family: 'Manrope'; font-size: 0.9rem; text-align: left;
+            padding: 0.8rem 1rem; border-radius: 8px; transition: var(--transition-smooth);
+            display: flex; align-items: center; position: relative; overflow: hidden;
         }
-
-        .category-btn:hover, .category-btn.active {
-            background-color: rgba(6, 182, 212, 0.1);
-            color: var(--accent-cyan);
+        .magnetic-btn::before {
+            content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 3px;
+            background: var(--accent); transform: scaleY(0); transition: transform 0.3s ease;
         }
+        .magnetic-btn:hover { color: var(--text-main); background: rgba(255,255,255,0.02); }
+        .magnetic-btn.active { color: var(--accent); background: var(--accent-glow); }
+        .magnetic-btn.active::before { transform: scaleY(1); }
 
-        /* --- MAIN CONTENT AREA --- */
-        .main-content {
-            margin-left: 280px;
-            padding: 3rem 4rem;
-            width: calc(100% - 280px);
-        }
+        /* --- MAIN CONTENT (Advanced Grid) --- */
+        .main-wrapper { flex-grow: 1; padding: 3rem 4rem; width: calc(100% - 300px); }
 
-        .page-header { margin-bottom: 3rem; }
-        .page-title { font-family: 'Rajdhani', sans-serif; font-size: 2.5rem; font-weight: 600; margin-bottom: 0.5rem; }
-        .page-desc { color: var(--text-secondary); font-size: 1rem; }
+        .breadcrumbs { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.5rem; letter-spacing: 1px; }
+        .breadcrumbs span { color: var(--accent); }
 
-        /* --- MULTI-COLUMN GRID --- */
-        .grid-layout {
+        .page-title { font-family: 'Syncopate', sans-serif; font-size: 2.5rem; text-transform: uppercase; margin-bottom: 3rem; font-weight: 700; letter-spacing: -1px; }
+
+        /* Bespoke Asymmetrical Grid */
+        .masonry-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
-            gap: 2.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+            gap: 2.5rem; align-items: start;
         }
 
-        /* --- PREMIUM CARD DESIGN --- */
-        .intel-card {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        /* Premium High-Fidelity Card */
+        .pro-card {
+            background: var(--bg-surface); border: 1px solid var(--border-subtle);
+            border-radius: 12px; overflow: hidden; position: relative;
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            transition: var(--transition-smooth);
+            opacity: 0; transform: translateY(20px); /* For entrance animation */
+            animation: fadeUpIn 0.6s ease forwards;
         }
 
-        .intel-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-cyan);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 15px var(--accent-glow);
+        @keyframes fadeUpIn { to { opacity: 1; transform: translateY(0); } }
+
+        .pro-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            border-color: rgba(0, 240, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 20px var(--accent-glow);
         }
 
-        .card-img-wrapper {
-            width: 100%; height: 280px; overflow: hidden;
-            position: relative; background: #000;
+        .card-visual {
+            width: 100%; height: 300px; position: relative; overflow: hidden; background: #000;
         }
-
-        .card-img {
+        .card-visual img {
             width: 100%; height: 100%; object-fit: cover;
-            opacity: 0.85; transition: opacity 0.5s ease, transform 0.5s ease;
+            filter: grayscale(80%) contrast(1.1);
+            transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s ease;
+        }
+        .pro-card:hover .card-visual img {
+            transform: scale(1.05); filter: grayscale(0%) contrast(1.05);
         }
 
-        .intel-card:hover .card-img { opacity: 1; transform: scale(1.03); }
-
-        .card-body { padding: 2rem; display: flex; flex-direction: column; flex-grow: 1; }
-
-        .card-meta {
-            display: flex; justify-content: space-between; align-items: center;
-            font-size: 0.75rem; color: var(--text-secondary);
-            margin-bottom: 1rem; font-family: 'Rajdhani', sans-serif; letter-spacing: 1px;
-        }
-
-        .card-title {
-            font-family: 'Rajdhani', sans-serif; font-size: 1.6rem; font-weight: 700;
-            color: var(--text-primary); margin-bottom: 1.5rem; line-height: 1.3;
-        }
-
-        /* SUPER READABLE CONTENT TEXT */
-        .card-content {
-            font-size: 0.95rem; line-height: 1.8; color: var(--text-secondary);
-            white-space: pre-wrap; text-align: justify; flex-grow: 1;
-            font-weight: 300;
-        }
-
-        .highlight { color: #fff; font-weight: 600; color: var(--accent-cyan); }
-
-        .card-tags { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .card-data { padding: 2rem; }
         
-        .tag {
-            background: rgba(255, 255, 255, 0.05); color: var(--text-primary);
-            padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.75rem;
-            font-weight: 600; border: 1px solid var(--border-color);
+        .card-id-badge {
+            display: inline-block; font-family: 'Syncopate'; font-size: 0.65rem;
+            color: var(--bg-base); background: var(--accent); padding: 0.3rem 0.6rem;
+            border-radius: 4px; font-weight: 700; margin-bottom: 1.5rem; letter-spacing: 1px;
         }
 
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-main); }
-        ::-webkit-scrollbar-thumb { background: var(--bg-surface-hover); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--accent-cyan); }
+        .card-heading {
+            font-family: 'Syncopate', sans-serif; font-size: 1.2rem; font-weight: 700;
+            line-height: 1.4; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: -0.5px;
+        }
+
+        .card-text {
+            font-size: 0.95rem; line-height: 1.8; color: var(--text-muted);
+            white-space: pre-wrap; font-weight: 400; margin-bottom: 2rem;
+            display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden;
+        }
+        
+        .highlight { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.2); }
+
+        .card-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+        .pro-tag {
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle);
+            color: var(--text-muted); padding: 0.4rem 0.8rem; border-radius: 6px;
+            font-size: 0.7rem; font-family: 'Syncopate'; text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        /* Mobile Menu Hamburger */
+        .mobile-menu-btn { display: none; position: fixed; top: 1.5rem; right: 1.5rem; z-index: 1000; background: var(--bg-surface); border: 1px solid var(--border-subtle); padding: 0.8rem; border-radius: 8px; color: var(--accent); font-family: 'Syncopate'; font-size: 0.8rem; cursor: none;}
+
+        /* Smooth Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-base); }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
         @media (max-width: 1024px) {
-            .grid-layout { grid-template-columns: 1fr; }
+            .masonry-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 768px) {
+            * { cursor: auto; } /* Disable custom cursor on mobile */
+            #cursor-dot, #cursor-ring { display: none; }
             body { flex-direction: column; }
-            .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--border-color); padding: 1.5rem; }
-            .main-content { margin-left: 0; width: 100%; padding: 2rem 1.5rem; }
+            .mobile-menu-btn { display: block; }
+            .sidebar { position: fixed; left: -100%; transition: left 0.4s ease; width: 100%; border-right: none; border-bottom: 1px solid var(--border-subtle); background: var(--bg-base); }
+            .sidebar.open { left: 0; }
+            .main-wrapper { width: 100%; padding: 5rem 1.5rem 2rem 1.5rem; }
+            .page-title { font-size: 1.8rem; }
         }
     </style>
 </head>
 <body>
 
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+
+    <button class="mobile-menu-btn magnetic" onclick="document.querySelector('.sidebar').classList.toggle('open')">MENU</button>
+
     <aside class="sidebar">
-        <div>
-            <div class="brand">N7<span>MATRIX</span></div>
-            <div class="brand-subtitle">Omniversal Intelligence</div>
-        </div>
-        
-        <div class="nav-title">Data Categories</div>
+        <div class="brand-logo">N7<span>MATRIX</span></div>
+        <div class="brand-sub">Hyper-Realism Engine</div>
+
+        <input type="text" id="searchInput" class="search-box" placeholder="Faceted Search Intel..." onkeyup="filterBySearch()">
+
+        <div class="nav-label">Tactical Taxonomy</div>
         <ul class="category-list" id="category-menu">
             </ul>
     </aside>
 
-    <main class="main-content">
-        <header class="page-header">
-            <h1 class="page-title" id="current-category-title">All Operations</h1>
-            <p class="page-desc">Classified cinematic blueprints and tactical telemetry.</p>
-        </header>
+    <main class="main-wrapper">
+        <div class="breadcrumbs">INDEX / <span id="bread-current">ALL OPERATIONS</span></div>
+        <h1 class="page-title" id="page-heading">Global Telemetry</h1>
 
-        <section class="grid-layout" id="matrix-grid">
+        <section class="masonry-grid" id="matrix-grid">
             </section>
     </main>
 
     <script>
-        let globalData = []; // Store data globally for filtering
+        // --- 1. THE MAGNETIC CURSOR PHYSICS ---
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorRing = document.getElementById('cursor-ring');
+        let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
 
-        async function initDashboard() {
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX; mouseY = e.clientY;
+            cursorDot.style.transform = `translate(calc(${mouseX}px - 50%), calc(${mouseY}px - 50%))`;
+        });
+
+        // Smooth Lerp for the outer ring
+        function renderCursor() {
+            ringX += (mouseX - ringX) * 0.15;
+            ringY += (mouseY - ringY) * 0.15;
+            cursorRing.style.transform = `translate(calc(${ringX}px - 50%), calc(${ringY}px - 50%))`;
+            requestAnimationFrame(renderCursor);
+        }
+        renderCursor();
+
+        // Cursor Interactive States
+        function initCursorInteractions() {
+            document.querySelectorAll('a, button, .pro-card, .search-box').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursorDot.style.backgroundColor = 'transparent';
+                    cursorRing.style.width = '50px'; cursorRing.style.height = '50px';
+                    cursorRing.style.backgroundColor = 'rgba(0, 240, 255, 0.1)';
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursorDot.style.backgroundColor = 'var(--accent)';
+                    cursorRing.style.width = '34px'; cursorRing.style.height = '34px';
+                    cursorRing.style.backgroundColor = 'transparent';
+                });
+            });
+        }
+
+        // --- 2. HEADLESS DATA INGESTION ---
+        let globalData = [];
+
+        async function bootMatrix() {
             try {
-                // Fetch JSON with Cache Buster
-                const response = await fetch('matrix_data.json?t=' + new Date().getTime());
-                if (!response.ok) throw new Error("Database offline.");
+                // CDN/Edge level cache busting simulation
+                const response = await fetch('matrix_data.json?t=' + Date.now());
+                if (!response.ok) throw new Error("Uplink Severed.");
                 
                 globalData = await response.json();
-                globalData.reverse(); // Newest first
+                globalData.reverse(); 
                 
-                extractAndRenderCategories();
-                renderCards(globalData, "All Operations");
-
+                buildTaxonomy();
+                renderMasonry(globalData);
             } catch (error) {
-                document.getElementById('matrix-grid').innerHTML = `<p style="color: #ef4444; font-size: 1.2rem;">CRITICAL ERROR: Failed to sync with the Matrix.</p>`;
+                document.getElementById('matrix-grid').innerHTML = `<h2 style="color: #ff3333; font-family: 'Syncopate';">FATAL: DATASTREAM CORRUPTED.</h2>`;
             }
         }
 
-        function extractAndRenderCategories() {
+        // --- 3. FACETED SEARCH & FILTERING ---
+        function buildTaxonomy() {
             const menu = document.getElementById('category-menu');
+            let html = `<li><button class="magnetic-btn active" onclick="filterCategory('All', this)">All Operations</button></li>`;
             
-            // 1. Always add "All" button
-            let html = `<li><button class="category-btn active" onclick="filterCategory('All')">All Operations</button></li>`;
-            
-            // 2. Extract unique tags
             const uniqueTags = new Set();
             globalData.forEach(entry => {
-                const tags = entry.category_tags || [];
-                tags.forEach(tag => {
-                    // Clean tag text (remove brackets if they exist like "[ TAG ]")
-                    let cleanTag = tag.replace(/\[|\]/g, '').trim();
-                    if(cleanTag) uniqueTags.add(cleanTag);
-                });
+                (entry.category_tags || []).forEach(tag => uniqueTags.add(tag.replace(/\[|\]/g, '').trim()));
             });
 
-            // 3. Render tag buttons
             uniqueTags.forEach(tag => {
-                html += `<li><button class="category-btn" onclick="filterCategory('${tag}')">${tag}</button></li>`;
+                if(tag) html += `<li><button class="magnetic-btn" onclick="filterCategory('${tag}', this)">${tag}</button></li>`;
             });
-            
             menu.innerHTML = html;
+            initCursorInteractions(); // Re-bind custom cursor to new buttons
         }
 
-        window.filterCategory = function(selectedCategory) {
-            // Update Title
-            document.getElementById('current-category-title').innerText = selectedCategory === 'All' ? 'All Operations' : selectedCategory;
+        window.filterCategory = function(tag, btnElement) {
+            document.querySelectorAll('.magnetic-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
             
-            // Update Active Menu Styling
-            const buttons = document.querySelectorAll('.category-btn');
-            buttons.forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.innerText.includes(selectedCategory)) btn.classList.add('active');
-            });
+            document.getElementById('page-heading').innerText = tag === 'All' ? 'Global Telemetry' : tag;
+            document.getElementById('bread-current').innerText = tag.toUpperCase();
+            document.getElementById('searchInput').value = ''; // Reset search
 
-            // Filter Data
-            if (selectedCategory === 'All') {
-                renderCards(globalData);
-            } else {
-                const filteredData = globalData.filter(entry => {
-                    const tags = entry.category_tags || [];
-                    return tags.some(t => t.includes(selectedCategory));
-                });
-                renderCards(filteredData);
-            }
-        };
+            const filtered = tag === 'All' ? globalData : globalData.filter(e => (e.category_tags || []).some(t => t.includes(tag)));
+            renderMasonry(filtered);
+        }
 
-        function renderCards(dataToRender) {
+        window.filterBySearch = function() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            document.querySelectorAll('.magnetic-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('page-heading').innerText = query ? `Search: ${query}` : 'Global Telemetry';
+            
+            const filtered = globalData.filter(e => 
+                e.title.toLowerCase().includes(query) || e.content.toLowerCase().includes(query)
+            );
+            renderMasonry(filtered);
+        }
+
+        // --- 4. HIGH-FIDELITY RENDERING ---
+        function renderMasonry(dataBlock) {
             const grid = document.getElementById('matrix-grid');
-            grid.innerHTML = ''; // Clear current grid
+            grid.innerHTML = ''; 
 
-            if(dataToRender.length === 0) {
-                grid.innerHTML = `<p style="color: var(--text-secondary);">No intel found in this category.</p>`;
+            if(dataBlock.length === 0) {
+                grid.innerHTML = `<p style="color: var(--text-muted); font-family: 'Syncopate';">NO INTEL MATCHES DIRECTIVE.</p>`;
                 return;
             }
 
-            dataToRender.forEach(entry => {
+            dataBlock.forEach((entry, index) => {
                 const card = document.createElement('article');
-                card.className = 'intel-card';
-                
-                // Format Tags
-                const tagsHtml = (entry.category_tags || []).map(tag => {
-                    let cleanTag = tag.replace(/\[|\]/g, '').trim();
-                    return `<span class="tag">${cleanTag}</span>`;
-                }).join('');
-                
-                // Format Markdown Bold (**text** to highlight)
-                let formattedContent = entry.content.replace(/\*\*(.*?)\*\*/g, '<span class="highlight">$1</span>');
+                card.className = 'pro-card';
+                card.style.animationDelay = `${index * 0.1}s`; // Staggered App-like entry
 
+                const tagsHtml = (entry.category_tags || []).map(tag => `<span class="pro-tag">${tag.replace(/\[|\]/g, '').trim()}</span>`).join('');
+                
+                // Typography Engine: Convert Markdown to Elite HTML
+                let formattedContent = entry.content.replace(/\*\*(.*?)\*\*/g, '<span class="highlight">$1</span>');
+                
+                // Cinematic Lazy Loading Asset
                 const fallbackImg = "https://images.unsplash.com/photo-1618331835717-801e976710b2?q=80&w=1920&auto=format&fit=crop";
 
                 card.innerHTML = `
-                    <div class="card-img-wrapper">
-                        <img src="${entry.image_url}" class="card-img" alt="Intel Asset" 
-                             onerror="this.onerror=null; this.src='${fallbackImg}';" loading="lazy" />
+                    <div class="card-visual">
+                        <img src="${entry.image_url}" alt="Classified Asset" loading="lazy"
+                             onerror="this.onerror=null; this.src='${fallbackImg}';" />
                     </div>
-                    <div class="card-body">
-                        <div class="card-meta">
-                            <span>ID: ${entry.id.substring(0,8)}</span>
-                            <span>TS: ${entry.timestamp.substring(0, 10)}</span>
-                        </div>
-                        <h2 class="card-title">${entry.title}</h2>
-                        <div class="card-content">${formattedContent}</div>
+                    <div class="card-data">
+                        <div class="card-id-badge">ID: ${entry.id.substring(0,8)}</div>
+                        <h2 class="card-heading">${entry.title}</h2>
+                        <div class="card-text">${formattedContent}</div>
                         <div class="card-tags">${tagsHtml}</div>
                     </div>
                 `;
                 grid.appendChild(card);
             });
+            initCursorInteractions(); // Re-bind custom cursor to new cards
         }
 
-        // Initialize Engine on load
-        document.addEventListener('DOMContentLoaded', initDashboard);
+        // Initialize
+        document.addEventListener('DOMContentLoaded', bootMatrix);
     </script>
 </body>
 </html>
