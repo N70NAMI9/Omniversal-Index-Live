@@ -3,595 +3,302 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>N7 Matrix // Operation Kalyug</title>
+    <title>N7 MATRIX // EXTREME CINEMATIC ENGINE</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syncopate:wght@700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* === ARCHITECTURAL COLOR MATRIX & VARIABLES === */
         :root {
-            --void-black: #050608;
-            --tactical-charcoal: #111216;
-            --crt-gray: #2c2f38;
-            --neon-tritium: #03d5ff;
-            --neon-tritium-glow: rgba(3, 213, 255, 0.4);
-            --phase-white: #e0e0e3;
-            
-            /* Glassmorphism 3.0 Substrate */
-            --glass-bg: rgba(17, 18, 22, 0.65);
-            
-            /* Typographic Hierarchy */
-            --font-head: 'Syncopate', sans-serif;
-            --font-sub: 'Rajdhani', sans-serif;
-            --font-body: 'Inter', sans-serif;
-            
-            /* Masonry Grid Mathematics */
-            --grid-gap: 24px;
-            --grid-row-height: 10px;
+            --bg-base: #050505;
+            --bg-surface: rgba(15, 15, 15, 0.6);
+            --bg-surface-hover: rgba(25, 25, 25, 0.8);
+            --accent: #00f0ff;
+            --accent-glow: rgba(0, 240, 255, 0.15);
+            --text-main: #ffffff;
+            --text-muted: #e5e7eb; /* [FIXED] Brightened for public readability */
+            --border-subtle: rgba(255, 255, 255, 0.05);
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* === STRUCTURAL RESET & FOUNDATION === */
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-            cursor: none; /* Disables OS cursor for custom physics engine */
-        }
+        /* [FIXED] Removed cursor: none; to restore standard mouse */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
+        html { scroll-behavior: smooth; }
+
         body {
-            background-color: var(--void-black);
-            /* Procedural dot grid for extreme depth */
-            background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 24px 24px;
-            color: var(--phase-white);
-            font-family: var(--font-body);
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            overscroll-behavior-y: none;
+            background-color: var(--bg-base); color: var(--text-main);
+            font-family: 'Manrope', sans-serif; display: flex; min-height: 100vh;
+            overflow-x: hidden; position: relative;
         }
 
-        /* === PROCEDURAL FILM GRAIN & CRT OPTICS === */
-      .noise-overlay {
-            position: fixed;
-            inset: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 9998;
-            opacity: 0.25;
-            mix-blend-mode: overlay;
-        }
-        
-      .crt-scanlines {
-            position: fixed;
-            inset: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 9997;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
-            background-size: 100% 3px;
+        body::after {
+            content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03; pointer-events: none; z-index: 9999;
         }
 
-        /* === KINEMATIC MAGNETIC CURSOR === */
-      .custom-cursor {
-            position: fixed;
-            top: 0; left: 0;
-            width: 16px; height: 16px;
-            border-radius: 50%;
-            background: var(--neon-tritium);
-            box-shadow: 0 0 15px var(--neon-tritium-glow);
-            mix-blend-mode: screen;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            transition: width 0.4s cubic-bezier(0.19, 1, 0.22, 1), 
-                        height 0.4s cubic-bezier(0.19, 1, 0.22, 1), 
-                        background-color 0.3s;
-            will-change: transform;
-        }
-      .custom-cursor.active {
-            width: 50px; height: 50px;
-            background: transparent;
-            border: 1px solid var(--neon-tritium);
-            box-shadow: none;
-            mix-blend-mode: normal;
+        .sidebar {
+            width: 300px; height: 100vh; position: sticky; top: 0;
+            background: rgba(5, 5, 5, 0.8); backdrop-filter: blur(20px);
+            border-right: 1px solid var(--border-subtle);
+            padding: 2.5rem 2rem; display: flex; flex-direction: column; z-index: 100;
         }
 
-        /* === SPA LAYOUT ARCHITECTURE === */
-      .app-container {
-            display: flex;
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden;
+        .brand-logo {
+            font-family: 'Syncopate', sans-serif; font-size: 1.5rem; font-weight: 700;
+            letter-spacing: -1px; text-transform: uppercase; margin-bottom: 0.5rem;
         }
+        .brand-logo span { color: var(--accent); }
+        .brand-sub { font-size: 0.7rem; color: #9ca3af; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 2.5rem; }
 
-        /* === TAXONOMY SIDEBAR === */
-      .sidebar {
-            width: 300px;
-            height: 100vh;
-            flex-shrink: 0;
-            padding: 50px 40px;
-            border-right: 1px solid rgba(255, 255, 255, 0.05);
-            display: flex;
-            flex-direction: column;
-            z-index: 100;
-            background: rgba(5, 6, 8, 0.85);
-            backdrop-filter: blur(24px);
-            transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+        .search-box {
+            width: 100%; padding: 1rem; background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-subtle); border-radius: 8px;
+            color: var(--text-main); font-family: 'Manrope'; font-size: 0.85rem;
+            margin-bottom: 2rem; outline: none; transition: var(--transition-smooth);
         }
+        .search-box:focus { border-color: var(--accent); background: rgba(0, 240, 255, 0.05); }
 
-      .brand-header {
-            font-family: var(--font-head);
-            font-size: 0.8rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            margin-bottom: 70px;
-            color: #fff;
-            line-height: 1.8;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 20px;
+        .nav-label { font-size: 0.7rem; font-family: 'Syncopate'; color: #9ca3af; margin-bottom: 1rem; letter-spacing: 1px; }
+
+        .category-list { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; overflow-y: auto; }
+        .category-list::-webkit-scrollbar { display: none; }
+
+        .magnetic-btn {
+            background: transparent; border: none; color: #9ca3af;
+            font-family: 'Manrope'; font-size: 0.9rem; text-align: left;
+            padding: 0.8rem 1rem; border-radius: 8px; transition: var(--transition-smooth);
+            display: flex; align-items: center; position: relative; overflow: hidden; cursor: pointer;
         }
-        
-      .brand-header span { color: var(--neon-tritium); }
-
-      .taxonomy-title {
-            font-family: var(--font-sub);
-            font-size: 0.75rem;
-            letter-spacing: 3px;
-            color: #666;
-            margin-bottom: 24px;
-            text-transform: uppercase;
+        .magnetic-btn::before {
+            content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 3px;
+            background: var(--accent); transform: scaleY(0); transition: transform 0.3s ease;
         }
+        .magnetic-btn:hover { color: var(--text-main); background: rgba(255,255,255,0.02); }
+        .magnetic-btn.active { color: var(--accent); background: var(--accent-glow); }
+        .magnetic-btn.active::before { transform: scaleY(1); }
 
-      .filter-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
+        .main-wrapper { flex-grow: 1; padding: 3rem 4rem; width: calc(100% - 300px); }
 
-      .filter-item {
-            font-family: var(--font-sub);
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #999;
-            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            display: inline-block;
-            transform-origin: left center;
-        }
+        .breadcrumbs { font-size: 0.8rem; color: #9ca3af; margin-bottom: 1.5rem; letter-spacing: 1px; }
+        .breadcrumbs span { color: var(--accent); }
 
-      .filter-item.active,.filter-item:hover {
-            color: var(--neon-tritium);
-            transform: translateX(8px);
-            text-shadow: 0 0 10px var(--neon-tritium-glow);
-        }
+        .page-title { font-family: 'Syncopate', sans-serif; font-size: 2.5rem; text-transform: uppercase; margin-bottom: 3rem; font-weight: 700; letter-spacing: -1px; }
 
-        /* === MASONRY CONTENT AREA === */
-      .scroll-wrapper {
-            flex-grow: 1;
-            height: 100vh;
-            overflow-y: scroll;
-            position: relative;
-        }
-
-      .scroll-wrapper::-webkit-scrollbar { width: 0px; background: transparent; }
-
-      .content-area {
-            padding: 50px;
-            width: 100%;
-            will-change: transform;
-        }
-
-      .grid-masonry {
+        .masonry-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            grid-auto-rows: var(--grid-row-height);
-            gap: var(--grid-gap);
-            width: 100%;
-            align-items: start;
+            grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+            gap: 2.5rem; align-items: start;
         }
 
-        /* === VOLUMETRIC DATA CARDS (GLASSMORPHISM 3.0) === */
-      .data-card {
-            background: var(--glass-bg);
-            border-radius: 6px;
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-            
-            /* Optical Refraction & 3D Stack */
-            backdrop-filter: blur(20px) saturate(120%);
-            -webkit-backdrop-filter: blur(20px) saturate(120%);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            
-            box-shadow: 
-                0 20px 40px rgba(0,0,0,0.6), 
-                inset 1px 1px 0px rgba(255, 255, 255, 0.05),
-                inset -1px -1px 0px rgba(0, 0, 0, 0.4);
-                
-            /* Entrance Kinematics */
-            opacity: 0;
-            transform: translateY(40px);
-            animation: cardFadeUp 0.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+        .pro-card {
+            background: var(--bg-surface); border: 1px solid var(--border-subtle);
+            border-radius: 12px; overflow: hidden; position: relative;
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            transition: var(--transition-smooth);
+            opacity: 0; transform: translateY(20px);
+            animation: fadeUpIn 0.6s ease forwards;
         }
 
-        @keyframes cardFadeUp {
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes fadeUpIn { to { opacity: 1; transform: translateY(0); } }
+
+        .pro-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            border-color: rgba(0, 240, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 20px var(--accent-glow);
         }
 
-      .card-image-wrapper {
-            width: 100%;
-            padding-top: 66.66%; /* Enforces strict 3:2 aspect ratio preventing layout collapse */
-            position: relative;
-            background: #0a0b0e;
-            border-radius: 4px;
-            overflow: hidden;
-            margin-bottom: 24px;
-            border: 1px solid rgba(255,255,255,0.02);
+        .card-visual { width: 100%; height: 300px; position: relative; overflow: hidden; background: #000; }
+        .card-visual img {
+            width: 100%; height: 100%; object-fit: cover;
+            filter: grayscale(80%) contrast(1.1);
+            transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s ease;
+        }
+        .pro-card:hover .card-visual img { transform: scale(1.05); filter: grayscale(0%) contrast(1.05); }
+
+        .card-data { padding: 2rem; }
+        
+        .card-id-badge {
+            display: inline-block; font-family: 'Syncopate'; font-size: 0.65rem;
+            color: var(--bg-base); background: var(--accent); padding: 0.3rem 0.6rem;
+            border-radius: 4px; font-weight: 700; margin-bottom: 1.5rem; letter-spacing: 1px;
         }
 
-      .card-image {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%;
-            height: 100%;
-            display: block;
-            object-fit: cover;
-            filter: grayscale(100%) contrast(110%) brightness(0.8);
-            transition: filter 0.6s cubic-bezier(0.19, 1, 0.22, 1), transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+        .card-heading {
+            font-family: 'Syncopate', sans-serif; font-size: 1.2rem; font-weight: 700;
+            line-height: 1.4; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: -0.5px;
         }
 
-      .data-card:hover.card-image {
-            filter: grayscale(0%) contrast(100%) brightness(1);
-            transform: scale(1.05);
+        /* [FIXED] Enhanced Readability: Brighter color, larger font, more breathable line-height */
+        .card-text {
+            font-size: 1.05rem; 
+            line-height: 1.8; 
+            color: var(--text-muted); 
+            white-space: pre-wrap; 
+            font-weight: 400; 
+            margin-bottom: 2rem;
+        }
+        
+        .highlight { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.2); }
+
+        .card-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+        .pro-tag {
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle);
+            color: #9ca3af; padding: 0.4rem 0.8rem; border-radius: 6px;
+            font-size: 0.7rem; font-family: 'Syncopate'; text-transform: uppercase; letter-spacing: 1px;
         }
 
-      .card-meta {
-            font-family: var(--font-sub);
-            font-size: 0.75rem;
-            color: var(--neon-tritium);
-            margin-bottom: 12px;
-            letter-spacing: 2px;
-            display: flex;
-            justify-content: space-between;
-            text-transform: uppercase;
-        }
+        .mobile-menu-btn { display: none; position: fixed; top: 1.5rem; right: 1.5rem; z-index: 1000; background: var(--bg-surface); border: 1px solid var(--border-subtle); padding: 0.8rem; border-radius: 8px; color: var(--accent); font-family: 'Syncopate'; font-size: 0.8rem; cursor: pointer;}
 
-      .card-title {
-            font-family: var(--font-head);
-            font-size: 0.95rem;
-            margin-bottom: 16px;
-            line-height: 1.4;
-            letter-spacing: 1px;
-            color: #fff;
-        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-base); }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
-      .card-content {
-            font-size: 0.85rem;
-            line-height: 1.7;
-            color: #888;
-        }
-
-        /* Lexical Markdown Highlight Class */
-      .neon-glow {
-            color: #fff;
-            text-shadow: 0 0 8px var(--neon-tritium);
-            font-weight: 600;
-        }
-
-      .card-tags {
-            margin-top: 24px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-      .tag {
-            font-family: var(--font-sub);
-            font-size: 0.65rem;
-            padding: 4px 10px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 2px;
-            color: #777;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-        }
-
-        /* === RESPONSIVE FLUID ARCHITECTURE === */
-      .mobile-nav-trigger {
-            display: none;
-            position: fixed;
-            top: 20px; right: 20px;
-            z-index: 1000;
-            color: var(--neon-tritium);
-            font-family: var(--font-sub);
-            font-size: 0.9rem;
-            letter-spacing: 2px;
-            background: rgba(5,6,8,0.9);
-            padding: 12px 24px;
-            border: 1px solid rgba(3, 213, 255, 0.3);
-            border-radius: 4px;
-            backdrop-filter: blur(10px);
-        }
-
-        @media (max-width: 1024px) {
-          .mobile-nav-trigger { display: block; }
-          .sidebar {
-                position: fixed;
-                left: 0; top: 0;
-                transform: translateX(-100%);
-            }
-          .sidebar.nav-open { transform: translateX(0); }
-          .grid-masonry { grid-template-columns: 1fr; }
-          .content-area { padding: 80px 20px 20px 20px; }
+        @media (max-width: 1024px) { .masonry-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .mobile-menu-btn { display: block; }
+            .sidebar { position: fixed; left: -100%; transition: left 0.4s ease; width: 100%; border-right: none; border-bottom: 1px solid var(--border-subtle); background: var(--bg-base); }
+            .sidebar.open { left: 0; }
+            .main-wrapper { width: 100%; padding: 5rem 1.5rem 2rem 1.5rem; }
+            .page-title { font-size: 1.8rem; }
         }
     </style>
 </head>
 <body>
 
-    <svg style="display: none">
-        <filter id="film-grain">
-            <feTurbulence type="fractalNoise" baseFrequency="0.80" numOctaves="3" stitchTiles="stitch" />
-            <feColorMatrix type="matrix" values="1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 0.4 0" />
-        </filter>
-    </svg>
+    <button class="mobile-menu-btn" onclick="document.querySelector('.sidebar').classList.toggle('open')">MENU</button>
 
-    <div class="noise-overlay" style="filter: url(#film-grain)"></div>
-    <div class="crt-scanlines"></div>
-    <div class="custom-cursor" id="cursor"></div>
+    <aside class="sidebar">
+        <div class="brand-logo">N7<span>MATRIX</span></div>
+        <div class="brand-sub">Hyper-Realism Engine</div>
 
-    <button class="mobile-nav-trigger interactive" id="mobileTrigger">MENU</button>
+        <input type="text" id="searchInput" class="search-box" placeholder="Faceted Search Intel..." onkeyup="filterBySearch()">
 
-    <div class="app-container">
-        <aside class="sidebar" id="sidebar">
-            <div class="brand-header">
-                N7 Matrix <br> <span>// Op Kalyug</span>
-            </div>
-            <div class="taxonomy-title">Classified Taxonomy</div>
-            <ul class="filter-list" id="filterList">
-                </ul>
-        </aside>
+        <div class="nav-label">Tactical Taxonomy</div>
+        <ul class="category-list" id="category-menu"></ul>
+    </aside>
 
-        <main class="scroll-wrapper" id="scrollWrapper">
-            <div class="content-area" id="contentArea">
-                <div class="grid-masonry" id="gridContainer">
-                    </div>
-            </div>
-        </main>
-    </div>
+    <main class="main-wrapper" id="scrollWrapper">
+        <div class="content-area" id="contentArea">
+            <div class="breadcrumbs">INDEX / <span id="bread-current">ALL OPERATIONS</span></div>
+            <h1 class="page-title" id="page-heading">Global Telemetry</h1>
+
+            <section class="masonry-grid" id="matrix-grid"></section>
+        </div>
+    </main>
 
     <script>
-        const ArchitectureEngine = (function() {
-            
-            // Core State Memory
-            let rawData =;
-            let activeFilter = 'ALL';
-            
-            // DOM Pointer Cache
-            const gridContainer = document.getElementById('gridContainer');
-            const filterList = document.getElementById('filterList');
-            const cursor = document.getElementById('cursor');
-            const scrollWrapper = document.getElementById('scrollWrapper');
-            const contentArea = document.getElementById('contentArea');
-            
-            // Kinematic Physics State Registers
-            let targetScrollY = 0;
-            let currentRenderedY = 0;
-            let cursorVectorX = window.innerWidth / 2;
-            let cursorVectorY = window.innerHeight / 2;
-            let hardwareCursorX = cursorVectorX;
-            let hardwareCursorY = cursorVectorY;
+        let globalData = [];
+        let targetScrollY = 0;
+        let currentRenderedY = 0;
 
-            /* =====================================================================
-               PHASE 1: ASYNCHRONOUS DATA INGESTION PIPELINE
-               ===================================================================== */
-            
-            const fetchMatrixData = async () => {
-                try {
-                    const response = await fetch('matrix_data.json');
-                    if (!response.ok) throw new Error('Local payload missing. Initializing fallback.');
-                    return await response.json();
-                } catch (error) {
-                    console.warn(error.message);
-                    // Fixed, syntactically perfect fallback payload
-                    return 
-                        },
-                        { 
-                            id: "OPK-02", timestamp: "0530H", title: "Asset Securing", 
-                            content: "Primary winch attached to mammalian asset. Structural tension critical. Awaiting final **clearance from command** before initiating the mechanical hoist sequence.", 
-                            image_url: "https://images.unsplash.com/photo-1588602058372-df7598687f8b?q=80&w=800", 
-                            category_tags: ["Operation", "Heavy Machinery"] 
-                        },
-                        { 
-                            id: "OPK-03", timestamp: "0615H", title: "Aerial Overwatch", 
-                            content: "Thermal scans indicate massive displacement in the surrounding terrain. Ground saturation reaching critical mass.", 
-                            image_url: "https://images.unsplash.com/photo-1611082531011-845a76e7b165?q=80&w=800", 
-                            category_tags: 
-                        },
-                        { 
-                            id: "OPK-04", timestamp: "0745H", title: "Extraction Initiated", 
-                            content: "Hoist engaged. Tension meters reading optimal resistance. The mud vacuum effect is causing significant drag. **Deploying secondary stabilizer cables**.", 
-                            image_url: "https://images.unsplash.com/photo-1549480017-d76466a4b8e8?q=80&w=800", 
-                            category_tags: ["Extraction", "Heavy Machinery"] 
-                        }
-                    ];
-                }
-            };
-
-            const parseLexicalMarkdown = (text) => {
-                return text.replace(/\*\*(.*?)\*\*/g, '<span class="neon-glow">$1</span>');
-            };
-
-            /* =====================================================================
-               PHASE 2: MATHEMATICAL MASONRY POLYFILL & DOM RENDERING
-               ===================================================================== */
-
-            const calculateAsymmetricalMasonry = () => {
-                const items = gridContainer.querySelectorAll('.data-card');
-                const computedStyle = window.getComputedStyle(gridContainer);
-                const gap = parseInt(computedStyle.getPropertyValue('--grid-gap'));
-                const rowHeight = parseInt(computedStyle.getPropertyValue('--grid-row-height'));
+        async function bootMatrix() {
+            try {
+                const response = await fetch('matrix_data.json?t=' + Date.now());
+                if (!response.ok) throw new Error("Uplink Severed.");
                 
-                items.forEach(item => {
-                    item.style.gridRowEnd = 'auto';
-                    const rect = item.getBoundingClientRect();
-                    const rowSpan = Math.ceil((rect.height + gap) / (rowHeight + gap));
-                    item.style.gridRowEnd = `span ${rowSpan}`;
-                });
-            };
-
-            const executeDOMInjection = (data) => {
-                gridContainer.innerHTML = '';
+                globalData = await response.json();
+                globalData.reverse(); 
                 
-                data.forEach((item, index) => {
-                    const cardNode = document.createElement('div');
-                    cardNode.className = 'data-card interactive'; 
-                    cardNode.style.animationDelay = `${index * 0.08}s`; 
-                    
-                    const taxonomyHtml = item.category_tags.map(tag => `<span class="tag">${tag}</span>`).join('');
-                    
-                    // Bulletproof Image Fallback using a Base64 placeholder pattern if Unsplash fails
-                    const fallbackImg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'%3E%3Crect width='800' height='600' fill='%23111216'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-size='14px' fill='%23333'%3E%3C/text%3E%3C/svg%3E";
-
-                    cardNode.innerHTML = `
-                        <div class="card-image-wrapper">
-                            <img src="${item.image_url}" alt="${item.title}" class="card-image" 
-                                 onerror="this.onerror=null; this.src='${fallbackImg}';">
-                        </div>
-                        <div class="card-meta">
-                            <span>ID: ${item.id}</span>
-                            <span>${item.timestamp}</span>
-                        </div>
-                        <h2 class="card-title">${item.title}</h2>
-                        <div class="card-content">${parseLexicalMarkdown(item.content)}</div>
-                        <div class="card-tags">${taxonomyHtml}</div>
-                    `;
-                    
-                    gridContainer.appendChild(cardNode);
-                    
-                    const injectedImg = cardNode.querySelector('img');
-                    injectedImg.addEventListener('load', calculateAsymmetricalMasonry);
-                });
-                
-                requestAnimationFrame(() => setTimeout(calculateAsymmetricalMasonry, 50));
-            };
-
-            /* =====================================================================
-               PHASE 3: DYNAMIC FACETED TAXONOMY
-               ===================================================================== */
-
-            const initializeTaxonomyEngine = (data) => {
-                const uniqueTags = new Set();
-                data.forEach(item => item.category_tags.forEach(tag => uniqueTags.add(tag)));
-                
-                const taxonomyArray =;
-                filterList.innerHTML = '';
-                
-                taxonomyArray.forEach(tag => {
-                    const filterNode = document.createElement('li');
-                    filterNode.className = `filter-item interactive ${tag === activeFilter? 'active' : ''}`;
-                    filterNode.innerText = tag;
-                    
-                    filterNode.addEventListener('click', (e) => {
-                        document.querySelectorAll('.filter-item').forEach(el => el.classList.remove('active'));
-                        e.target.classList.add('active');
-                        activeFilter = tag;
-                        
-                        const filteredDataset = tag === 'ALL' 
-                           ? rawData 
-                            : rawData.filter(item => item.category_tags.includes(tag));
-                        
-                        executeDOMInjection(filteredDataset);
-                    });
-                    
-                    filterList.appendChild(filterNode);
-                });
-            };
-
-            /* =====================================================================
-               PHASE 4: KINEMATIC PHYSICS ENGINE (LERP & SPRINGS)
-               ===================================================================== */
-
-            const engageLinearInterpolationScroll = () => {
-                scrollWrapper.addEventListener('scroll', () => {
-                    targetScrollY = scrollWrapper.scrollTop;
-                }, { passive: true });
-
-                const executeLERPLoop = () => {
-                    currentRenderedY += (targetScrollY - currentRenderedY) * 0.08;
-                    contentArea.style.transform = `translate3d(0, -${currentRenderedY}px, 0)`;
-                    requestAnimationFrame(executeLERPLoop);
-                };
-                executeLERPLoop();
-            };
-
-            const engageMagneticSpringPhysics = () => {
-                window.addEventListener('mousemove', (e) => {
-                    hardwareCursorX = e.clientX;
-                    hardwareCursorY = e.clientY;
-                });
-
-                const executeCursorLERP = () => {
-                    cursorVectorX += (hardwareCursorX - cursorVectorX) * 0.25;
-                    cursorVectorY += (hardwareCursorY - cursorVectorY) * 0.25;
-                    cursor.style.transform = `translate(${cursorVectorX}px, ${cursorVectorY}px) translate(-50%, -50%)`;
-                    requestAnimationFrame(executeCursorLERP);
-                };
-                executeCursorLERP();
-
-                document.body.addEventListener('mousemove', (e) => {
-                    const targetNode = e.target.closest('.interactive');
-                    
-                    if (targetNode) {
-                        cursor.classList.add('active');
-                        const rect = targetNode.getBoundingClientRect();
-                        const centerX = rect.left + rect.width / 2;
-                        const centerY = rect.top + rect.height / 2;
-                        
-                        const vectorDistanceX = (e.clientX - centerX) * 0.15; 
-                        const vectorDistanceY = (e.clientY - centerY) * 0.15;
-                        
-                        targetNode.style.transform = `translate3d(${vectorDistanceX}px, ${vectorDistanceY}px, 0)`;
-                    } else {
-                        cursor.classList.remove('active');
-                        document.querySelectorAll('.interactive').forEach(el => {
-                            el.style.transform = `translate3d(0,0,0)`;
-                        });
-                    }
-                });
-            };
-
-            /* =====================================================================
-               PHASE 5: SYSTEM BOOTSTRAP
-               ===================================================================== */
-            
-            const bootSequence = async () => {
-                rawData = await fetchMatrixData();
-                initializeTaxonomyEngine(rawData);
-                executeDOMInjection(rawData);
+                buildTaxonomy();
+                renderMasonry(globalData);
                 engageLinearInterpolationScroll();
-                engageMagneticSpringPhysics();
-                
-                window.addEventListener('resize', calculateAsymmetricalMasonry);
-                
-                document.getElementById('mobileTrigger').addEventListener('click', () => {
-                    document.getElementById('sidebar').classList.toggle('nav-open');
-                });
+            } catch (error) {
+                document.getElementById('matrix-grid').innerHTML = `<h2 style="color: #ff3333; font-family: 'Syncopate';">FATAL: DATASTREAM CORRUPTED.</h2>`;
+            }
+        }
+
+        function buildTaxonomy() {
+            const menu = document.getElementById('category-menu');
+            let html = `<li><button class="magnetic-btn active" onclick="filterCategory('All', this)">All Operations</button></li>`;
+            
+            const uniqueTags = new Set();
+            globalData.forEach(entry => {
+                (entry.category_tags || []).forEach(tag => uniqueTags.add(tag.replace(/\[|\]/g, '').trim()));
+            });
+
+            uniqueTags.forEach(tag => {
+                if(tag) html += `<li><button class="magnetic-btn" onclick="filterCategory('${tag}', this)">${tag}</button></li>`;
+            });
+            menu.innerHTML = html;
+        }
+
+        window.filterCategory = function(tag, btnElement) {
+            document.querySelectorAll('.magnetic-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            
+            document.getElementById('page-heading').innerText = tag === 'All' ? 'Global Telemetry' : tag;
+            document.getElementById('bread-current').innerText = tag.toUpperCase();
+            document.getElementById('searchInput').value = ''; 
+
+            const filtered = tag === 'All' ? globalData : globalData.filter(e => (e.category_tags || []).some(t => t.includes(tag)));
+            renderMasonry(filtered);
+        }
+
+        window.filterBySearch = function() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            document.querySelectorAll('.magnetic-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('page-heading').innerText = query ? `Search: ${query}` : 'Global Telemetry';
+            
+            const filtered = globalData.filter(e => 
+                e.title.toLowerCase().includes(query) || e.content.toLowerCase().includes(query)
+            );
+            renderMasonry(filtered);
+        }
+
+        function renderMasonry(dataBlock) {
+            const grid = document.getElementById('matrix-grid');
+            grid.innerHTML = ''; 
+
+            if(dataBlock.length === 0) {
+                grid.innerHTML = `<p style="color: #9ca3af; font-family: 'Syncopate';">NO INTEL MATCHES DIRECTIVE.</p>`;
+                return;
+            }
+
+            dataBlock.forEach((entry, index) => {
+                const card = document.createElement('article');
+                card.className = 'pro-card';
+                card.style.animationDelay = `${index * 0.1}s`; 
+
+                const tagsHtml = (entry.category_tags || []).map(tag => `<span class="pro-tag">${tag.replace(/\[|\]/g, '').trim()}</span>`).join('');
+                let formattedContent = entry.content.replace(/\*\*(.*?)\*\*/g, '<span class="highlight">$1</span>');
+                const fallbackImg = "https://images.unsplash.com/photo-1618331835717-801e976710b2?q=80&w=1920&auto=format&fit=crop";
+
+                card.innerHTML = `
+                    <div class="card-visual">
+                        <img src="${entry.image_url}" alt="Classified Asset" loading="lazy"
+                             onerror="this.onerror=null; this.src='${fallbackImg}';" />
+                    </div>
+                    <div class="card-data">
+                        <div class="card-id-badge">ID: ${entry.id.substring(0,8)}</div>
+                        <h2 class="card-heading">${entry.title}</h2>
+                        <div class="card-text">${formattedContent}</div>
+                        <div class="card-tags">${tagsHtml}</div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        const engageLinearInterpolationScroll = () => {
+            window.addEventListener('scroll', () => {
+                targetScrollY = window.scrollY;
+            }, { passive: true });
+
+            const executeLERPLoop = () => {
+                currentRenderedY += (targetScrollY - currentRenderedY) * 0.08;
+                document.body.style.transform = `translate3d(0, -${currentRenderedY}px, 0)`;
+                requestAnimationFrame(executeLERPLoop);
             };
+            // Note: If LERP causes issues on full body, simply removing the call to executeLERPLoop() restores native scrolling.
+            // executeLERPLoop(); 
+        };
 
-            return { boot: bootSequence };
-        })();
-
-        document.addEventListener('DOMContentLoaded', ArchitectureEngine.boot);
+        document.addEventListener('DOMContentLoaded', bootMatrix);
     </script>
 </body>
 </html>
