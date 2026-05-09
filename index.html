@@ -3,322 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>N7 MATRIX :: CLASSIFIED OMNIVERSAL INDEX</title>
+    <title>N7 MATRIX // CLASSIFIED INTELLIGENCE DATABASE</title>
     <style>
-        /* ==========================================================================
-           CSS VARIABLES & GLOBAL RESET
-           ========================================================================== */
+        /* CSS Variables defining the Neo-Brutalist Palette */
         :root {
             --bg-color: #050505;
-            --card-bg: #0a0a0a;
             --neon-green: #00ffcc;
-            --muted-green: rgba(0, 255, 204, 0.2);
-            --font-mono: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+            --grid-color: rgba(0, 255, 204, 0.05);
+            --border-heavy: #222;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        /* ==========================================================================
-           BRUTALIST BODY & SYNTHESIZED DOT GRID
-           ========================================================================== */
+        /* Foundational Typology and Procedural Background Generation */
         body {
+            margin: 0;
+            padding: 2rem;
             background-color: var(--bg-color);
-            color: var(--neon-green);
-            font-family: var(--font-mono);
+            background-image:
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 40px 40px;
+            color: #d0d0d0;
+            font-family: 'Courier New', Courier, monospace;
             line-height: 1.6;
-            padding: 40px 20px;
-            
-            /* Synthesized Cartesian Dot Grid via GPU rendering */
-            background-image: radial-gradient(var(--neon-green) 1px, transparent 1px);
-            background-size: 30px 30px;
-            background-position: 0 0;
         }
 
-        /* ==========================================================================
-           HEADER TOPOLOGY & STATUS INDICATORS
-           ========================================================================== */
-        header {
-            max-width: 1600px;
-            margin: 0 auto 40px auto;
-            border-bottom: 2px solid var(--neon-green);
-            padding-bottom: 20px;
-            text-transform: uppercase;
-        }
-
+        /* Brutalist Header Elements */
         h1 {
+            color: var(--neon-green);
+            text-transform: uppercase;
             font-size: 2.5rem;
+            border-bottom: 4px solid var(--neon-green);
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.2rem;
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
             letter-spacing: -1px;
-            font-weight: 700;
         }
 
-       .sys-status {
-            font-size: 0.9rem;
-            margin-top: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+       .header-subtext {
+            color: #888;
+            font-weight: bold;
+            margin-top: 0;
+            margin-bottom: 3rem;
         }
 
-       .status-light {
-            width: 12px;
-            height: 12px;
-            background-color: var(--neon-green);
-            box-shadow: 0 0 10px var(--neon-green);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.4; }
-            100% { opacity: 1; }
-        }
-
-        /* ==========================================================================
-           DYNAMIC GRID ARCHITECTURE
-           ========================================================================== */
-        main {
-            max-width: 1600px;
-            margin: 0 auto;
-        }
-
-       .matrix-grid {
+        /* Responsive CSS Grid Implementation */
+        #matrix-grid {
             display: grid;
-            /* Algorithmic tessellation based on viewport width */
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 30px;
+            gap: 2.5rem;
         }
 
-        /* ==========================================================================
-           DATA CARD AESTHETICS (CLASSIFIED DOSSIER)
-           ========================================================================== */
-       .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--neon-green);
-            padding: 20px;
+        /* Intelligence Card Block Architecture */
+       .intel-card {
+            background: #0a0a0a;
+            border: 2px solid var(--border-heavy);
+            border-left: 6px solid var(--neon-green);
+            padding: 1.5rem;
+            box-shadow: 6px 6px 0px #000;
+            transition: transform 0.15s ease-out, border-color 0.15s ease-out;
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 4px 4px 0px var(--muted-green);
-            transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
         }
 
-       .card:hover {
-            transform: translate(-2px, -2px);
-            box-shadow: 6px 6px 0px var(--neon-green);
+       .intel-card:hover {
+            transform: translate(-4px, -4px);
+            border-color: var(--neon-green);
+            box-shadow: 10px 10px 0px #000;
         }
 
-       .card-img-container {
+        /* Media Container */
+       .intel-card img {
             width: 100%;
-            height: 220px;
-            border: 1px solid var(--neon-green);
-            overflow: hidden;
-            position: relative;
+            height: auto;
+            border: 2px solid var(--border-heavy);
+            margin-bottom: 1.5rem;
+            display: block;
+            background-color: #000;
         }
 
-       .card-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(100%) contrast(1.2);
-            transition: filter 0.3s ease;
-        }
-
-       .card:hover.card-img {
-            filter: grayscale(0%) contrast(1.1);
-        }
-
-       .card-meta {
-            font-size: 0.75rem;
-            border-bottom: 1px dashed var(--muted-green);
-            padding-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-       .card-title {
-            font-size: 1.25rem;
-            text-transform: uppercase;
+        /* Card Typography */
+       .intel-title {
+            color: var(--neon-green);
+            font-size: 1.4rem;
             font-weight: bold;
+            text-transform: uppercase;
+            margin: 0 0 0.5rem 0;
         }
 
-       .card-tags {
+       .intel-meta {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px dotted #333;
+            padding-bottom: 0.5rem;
+        }
+
+       .intel-content {
+            font-size: 0.95rem;
+            white-space: pre-wrap;
+            flex-grow: 1;
+        }
+
+        /* Classification Tags */
+       .tags-container {
+            margin-top: 2rem;
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 0.5rem;
         }
 
        .tag {
-            font-size: 0.7rem;
-            background-color: var(--neon-green);
-            color: var(--bg-color);
-            padding: 2px 6px;
+            background: rgba(0, 255, 204, 0.05);
+            color: var(--neon-green);
+            padding: 0.3rem 0.6rem;
+            font-size: 0.75rem;
             font-weight: bold;
+            border: 1px solid var(--neon-green);
             text-transform: uppercase;
-        }
-
-       .card-content {
-            font-size: 0.85rem;
-            max-height: 150px;
-            overflow-y: auto;
-            padding-right: 10px;
-            text-align: justify;
-        }
-
-        /* Brutalist Block Scrollbar */
-       .card-content::-webkit-scrollbar {
-            width: 5px;
-        }
-       .card-content::-webkit-scrollbar-track {
-            background: var(--bg-color);
-            border-left: 1px solid var(--muted-green);
-        }
-       .card-content::-webkit-scrollbar-thumb {
-            background: var(--neon-green);
-        }
-
-       .error-log {
-            grid-column: 1 / -1;
-            border: 2px dashed #ff3333;
-            color: #ff3333;
-            padding: 20px;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
-
-        /* ==========================================================================
-           MOBILE VIEWPORT OPTIMIZATION
-           ========================================================================== */
-        @media (max-width: 480px) {
-           .matrix-grid {
-                grid-template-columns: 1fr;
-            }
-            body { padding: 20px 10px; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>N7_MATRIX // OMNIVERSAL_INDEX</h1>
-        <div class="sys-status">
-            <div class="status-light"></div>
-            <span>LIVE TELEMETRY FEED :: HIGHLY ENCRYPTED</span>
-        </div>
+        <h1>N7 Matrix // Omniversal Index</h1>
+        <p class="header-subtext">STATUS: ONLINE // SECURE CONNECTION ESTABLISHED // ACCESS GRANTED</p>
     </header>
 
-    <main>
-        <div id="matrix-container" class="matrix-grid">
-            </div>
-    </main>
+    <main id="matrix-grid">
+        </main>
 
     <script>
-        // ==========================================================================
-        // N7 MATRIX CORE DOM HYDRATION SCRIPT
-        // ==========================================================================
-        document.addEventListener('DOMContentLoaded', () => {
-            const container = document.getElementById('matrix-container');
-            const dataSource = 'matrix_data.json';
-
-            /**
-             * Formats an ISO 8601 timestamp into a tactical military date string.
-             */
-            const formatTime = (isoString) => {
-                const date = new Date(isoString);
-                return date.toISOString().replace('T', ' ').substring(0, 19) + 'Z';
-            };
-
-            /**
-             * Fetches, inverses, and hydrates the DOM with the JSON array payload.
-             */
-            const hydrateMatrix = async () => {
-                try {
-                    // Aggressive cache-busting ensures the absolute latest array is fetched
-                    const timestampQuery = new Date().getTime();
-                    const response = await fetch(`${dataSource}?t=${timestampQuery}`);
-                    
-                    if (!response.ok) {
-                        throw new Error(`HTTP ${response.status} :: CRITICAL DATA NODE UNREACHABLE`);
-                    }
-
-                    const data = await response.json();
-
-                    // Schema validation check
-                    if (!Array.isArray(data) |
-
-| data.length === 0) {
-                        throw new Error("DATABASE IS EMPTY OR CORRUPTED.");
-                    }
-
-                    // Reverse array chronologically to position newest records at the top
-                    const chronologicalData = data.reverse();
-
-                    // Procedural DOM Assembly Loop
-                    chronologicalData.forEach(entry => {
-                        const card = document.createElement('article');
-                        card.className = 'card';
-
-                        // Meta Bar construction (ID & UTC Time)
-                        const meta = document.createElement('div');
-                        meta.className = 'card-meta';
-                        meta.innerHTML = `<span>ID: ${entry.id.substring(0,8)}</span><span>${formatTime(entry.timestamp)}</span>`;
-
-                        // Image Asset Container
-                        const imgContainer = document.createElement('div');
-                        imgContainer.className = 'card-img-container';
-                        const img = document.createElement('img');
-                        img.className = 'card-img';
-                        img.src = entry.image_url;
-                        img.alt = entry.title;
-                        
-                        // Performance optimization: defer image download until intersected by viewport
-                        img.loading = 'lazy'; 
-                        imgContainer.appendChild(img);
-
-                        // Card Title
-                        const title = document.createElement('h2');
-                        title.className = 'card-title';
-                        title.textContent = entry.title;
-
-                        // Taxonomic Tags Mapping
-                        const tagWrapper = document.createElement('div');
-                        tagWrapper.className = 'card-tags';
-                        if (entry.category_tags && Array.isArray(entry.category_tags)) {
-                            entry.category_tags.forEach(tagText => {
-                                const tag = document.createElement('span');
-                                tag.className = 'tag';
-                                tag.textContent = tagText;
-                                tagWrapper.appendChild(tag);
-                            });
-                        }
-
-                        // Blueprint Body Content (secured via textContent)
-                        const content = document.createElement('div');
-                        content.className = 'card-content';
-                        content.textContent = entry.content; 
-
-                        // Inject assembled nodes structurally into the primary article card
-                        card.append(meta, imgContainer, title, tagWrapper, content);
-                        
-                        // Hydrate the main DOM container
-                        container.appendChild(card);
-                    });
-
-                } catch (error) {
-                    console.error("DOM Hydration Sequence Failed:", error);
-                    // Render fallback error topography to prevent an empty screen
-                    container.innerHTML = `<div class="error-log">CRITICAL ERROR: ${error.message}<br>RETRYING CONNECTION OR AWAITING MANUAL OVERRIDE...</div>`;
+        /**
+         * Asynchronous function to fetch, parse, and inject intelligence data.
+         * Executes upon standard DOMContentLoaded event.
+         */
+        async function loadIntelligence() {
+            try {
+                // Initialize HTTP GET request to local flat-file JSON datastore
+                const response = await fetch('matrix_data.json');
+                
+                if (!response.ok) {
+                    throw new Error(`Data stream unavailable. HTTP Status: ${response.status}`);
                 }
-            };
+                
+                // Await parsing of the text stream into a JSON object array
+                const data = await response.json();
+                const grid = document.getElementById('matrix-grid');
 
-            // Initiate the engine
-            hydrateMatrix();
-        });
+                // Reverse array mutation to enforce chronological descent (newest top-left)
+                data.reverse().forEach(entry => {
+                    const card = document.createElement('article');
+                    card.className = 'intel-card';
+
+                    // Map string array to HTML tag elements safely handling null states
+                    const tagsHtml = (entry.category_tags ||)
+                       .map(tag => `<span class="tag">${tag}</span>`)
+                       .join('');
+
+                    // Construct interior DOM tree via template literals
+                    card.innerHTML = `
+                        <img src="${entry.image_url}" alt="${entry.title}" loading="lazy" />
+                        <h2 class="intel-title">${entry.title}</h2>
+                        <div class="intel-meta">
+                            ID: ${entry.id} <br>
+                            TS: ${entry.timestamp}
+                        </div>
+                        <div class="intel-content">${entry.content}</div>
+                        <div class="tags-container">${tagsHtml}</div>
+                    `;
+                    
+                    // Inject finalized card into the Grid container
+                    grid.appendChild(card);
+                });
+                
+            } catch (error) {
+                console.error('Matrix Synchronization Failure:', error);
+                const grid = document.getElementById('matrix-grid');
+                grid.innerHTML = `<p style="color: red; grid-column: 1/-1;">CRITICAL ERROR: Failed to load matrix database. System terminal locked.</p>`;
+            }
+        }
+
+        // Bind initialization script to document readiness state
+        document.addEventListener('DOMContentLoaded', loadIntelligence);
     </script>
+
 </body>
 </html>
